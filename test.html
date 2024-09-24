@@ -1,0 +1,1493 @@
+<html>
+<head>
+<title>OptiProjects</title>
+<meta property="og:title" content="OptiProjects">
+<meta property="og:description" content="Página oficial de OptiJuegos. Acá están todos mis proyectos, desde OptiCraft hasta sistemas operativos optimizados.">
+<meta name="description" content="Página oficial de OptiJuegos. Acá están todos mis proyectos, desde OptiCraft hasta sistemas operativos optimizados.">
+<meta property="og:url" content="https://optijuegos.github.io">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAAXNSR0IArs4c6QAAAGBQTFRFR3BM////////////////////////////////////////////////////////////////////////9fr65fLy1+vqx+Thud7brdjVn9PPj83Id8XAWb63PbmxEbSsALOr5GfTXQAAAB10Uk5TAAEJFSg1RFNeaHaJm6/A0eDt9fb3+Pn6+/z8/f48zzY/AAABWUlEQVR42o1Ti46DIBAsPvpQHjKgWMDy/395FYpI7pLeJCbCzi4zu3D5N0j3oIxzzsZHT/6I3wQKxPVXOgW0sc5776zRAG1qAoWyIeH1/p4KvD3HWygfzvAa/FzjiiXU2DTGk4I7zGf/uSzGxRoKXWFkglPYse7/BrQQBqyfOLvfBgm7F1Oy6GRwcQsDifX0Tl8wnExEc2BJkoh8B350MZnQuOYToySF7JTGQz0m8pkK5p0wI3dcYHuv18M5kSrEjSFL0DmhyrDZaI+5HBnBk8osOml8YSq2C6H08SshKJnjRMBnDVUbuqMvunLRQVfT6SbY2taELY2C9eTSDjJV9JClk3mYkBKAecUC5cr0UFu8LqsG9OJCGqYo46aYt1DDYDrdqEZA+yq+QvYlTkjLoUwp4mbI+u2QZgQwr9Y5+1w0IHJ+QUclMsQjG6zQ9ANljI639ts7rx73D92BMwla3uW4AAAAAElFTkSuQmCC">
+<meta property="theme-color" content="#00BAB3">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body id="body">
+<div class="box loading" id="loading" style="display: flex;">Ejecutando JavaScript...</div>
+<div id="header" style="display: none;">
+<img class="logo" draggable=false src="data:image/png;base64,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">
+<div id="tabContainer"></div>
+<div id="socialContainer">
+<a class="socialButton" href="https://www.youtube.com/@OptiJogos" style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMjMiIHZpZXdCb3g9IjAgMCAzMiAyMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IllvdVR1YmVfcGxheV9idXR0b21fZGFya19pY29uXygyMDEzLTIwMTcpIDEiPgo8ZyBpZD0iTG96ZW5nZSI+CjxnIGlkPSJHcm91cCI+CjxwYXRoIGlkPSJWZWN0b3IiIGQ9Ik0zMS41NDg2IDQuODM3MDNDMzEuNTQ4NiA0LjgzNzAzIDMxLjIzNjcgMi42NDAwOCAzMC4yODIgMS42NzI2N0MyOS4wNzE0IDAuNDAyNTY1IDI3LjcxMTEgMC4zOTYzMjUgMjcuMDkwMyAwLjMyMTQyOUMyMi42Mjg3IDAgMTUuOTM5NiAwIDE1LjkzOTYgMEgxNS45MjcyQzE1LjkyNzIgMCA5LjIzODA4IDAgNC43NzY2IDAuMzIxNDI5QzQuMTU1NzMgMC4zOTYzMjUgMi43OTU0NSAwLjQwMjU2NSAxLjU4NDkyIDEuNjcyNjdDMC42MzAyMjQgMi42NDAwOCAwLjMxODIzMSA0LjgzNzAzIDAuMzE4MjMxIDQuODM3MDNDMC4zMTgyMzEgNC44MzcwMyAwIDcuNDE0NyAwIDkuOTk1NDhWMTIuNDE0QzAgMTQuOTk0OCAwLjMxODIzMSAxNy41NzI1IDAuMzE4MjMxIDE3LjU3MjVDMC4zMTgyMzEgMTcuNTcyNSAwLjYzMDIyNCAxOS43Njk0IDEuNTg0OTIgMjAuNzM2OEMyLjc5ODU3IDIyLjAwNjkgNC4zODk3MyAyMS45NjYzIDUuMDk3OTYgMjIuMTAwNkM3LjY0NjkzIDIyLjM0NCAxNS45MzM1IDIyLjQyMTkgMTUuOTMzNSAyMi40MjE5QzE1LjkzMzUgMjIuNDIxOSAyMi42Mjg3IDIyLjQxMjYgMjcuMDkwMyAyMi4wODhDMjcuNzE0MyAyMi4wMTMxIDI5LjA3MTQgMjIuMDA2OSAzMC4yODIgMjAuNzM2OEMzMS4yMzY3IDE5Ljc2OTQgMzEuNTQ4NiAxNy41NzI1IDMxLjU0ODYgMTcuNTcyNUMzMS41NDg2IDE3LjU3MjUgMzEuODY2OCAxNC45OTE2IDMxLjg2NjggMTIuNDE0VjkuOTk1NDhDMzEuODY2OCA3LjQxNDcgMzEuNTQ4NiA0LjgzNzAzIDMxLjU0ODYgNC44MzcwM1pNMTIuNjQxOSAxNS4zNDQyVjYuMzg4TDIxLjI1MjkgMTAuODgxOEwxMi42NDE5IDE1LjM0NDJaIiBmaWxsPSJ3aGl0ZSIvPgo8L2c+CjwvZz4KPC9nPgo8L3N2Zz4K)" draggable=false></a>
+<a class="socialButton" href="https://discord.gg/QMa4Yw5mRB" style="background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9ImRpc2NvcmQgMSIgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwXzE1XzEyNikiPgo8ZyBpZD0iZGlzY29yZC1pY29uLXN2Z3JlcG8tY29tIDEiPgo8ZyBpZD0iR3JvdXAiPgo8cGF0aCBpZD0iVmVjdG9yIiBkPSJNMjcuMTA3MSA1LjYzNzA3QzI1LjAzNTcgNC42Njc5MSAyMi44MjA4IDMuOTYzNTYgMjAuNTA1MSAzLjU2MjVDMjAuMjIwOCA0LjA3NjY1IDE5Ljg4ODYgNC43NjgxOCAxOS42NTk1IDUuMzE4MzFDMTcuMTk3OSA0Ljk0ODEyIDE0Ljc1OTEgNC45NDgxMiAxMi4zNDI5IDUuMzE4MzFDMTIuMTEzOCA0Ljc2ODE4IDExLjc3NDEgNC4wNzY2NSAxMS40ODcyIDMuNTYyNUM5LjE2OTA4IDMuOTYzNTYgNi45NTE2NyA0LjY3MDUgNC44ODAyNSA1LjY0MjJDMC43MDIxOTEgMTEuOTU1OCAtMC40MzA0MTUgMTguMTEyNiAwLjEzNTg4OSAyNC4xODE5QzIuOTA3MDEgMjYuMjUxMyA1LjU5MjU1IDI3LjUwODUgOC4yMzI3NyAyOC4zMzExQzguODg0NjUgMjcuNDMzOSA5LjQ2NjA1IDI2LjQ4MDEgOS45NjY5IDI1LjQ3NTFDOS4wMTMwMSAyNS4xMTI2IDguMDk5MzcgMjQuNjY1MyA3LjIzNjEgMjQuMTQ1OUM3LjQ2NTEyIDIzLjk3NjMgNy42ODkxNCAyMy43OTkgNy45MDU1OCAyMy42MTY1QzEzLjE3MSAyNi4wNzkyIDE4Ljg5MTkgMjYuMDc5MiAyNC4wOTQzIDIzLjYxNjVDMjQuMzEzMyAyMy43OTkgMjQuNTM3MyAyMy45NzYzIDI0Ljc2MzggMjQuMTQ1OUMyMy44OTc5IDI0LjY2NzggMjIuOTgxOCAyNS4xMTUxIDIyLjAyNzkgMjUuNDc3NkMyMi41Mjg4IDI2LjQ4MDEgMjMuMTA3NyAyNy40MzY1IDIzLjc2MjEgMjguMzMzNkMyNi40MDQ4IDI3LjUxMSAyOS4wOTI5IDI2LjI1MzkgMzEuODY0IDI0LjE4MTlDMzIuNTI4NSAxNy4xNDYxIDMwLjcyODkgMTEuMDQ1OCAyNy4xMDcxIDUuNjM3MDdaTTEwLjY4NDIgMjAuNDQ5NEM5LjEwMzYzIDIwLjQ0OTQgNy44MDc0MSAxOC45NzM3IDcuODA3NDEgMTcuMTc2OUM3LjgwNzQxIDE1LjM4IDkuMDc1OTUgMTMuOTAxOCAxMC42ODQyIDEzLjkwMThDMTIuMjkyNiAxMy45MDE4IDEzLjU4ODggMTUuMzc3NCAxMy41NjEgMTcuMTc2OUMxMy41NjM1IDE4Ljk3MzcgMTIuMjkyNiAyMC40NDk0IDEwLjY4NDIgMjAuNDQ5NFpNMjEuMzE1NyAyMC40NDk0QzE5LjczNTEgMjAuNDQ5NCAxOC40Mzg5IDE4Ljk3MzcgMTguNDM4OSAxNy4xNzY5QzE4LjQzODkgMTUuMzggMTkuNzA3MyAxMy45MDE4IDIxLjMxNTcgMTMuOTAxOEMyMi45MjM5IDEzLjkwMTggMjQuMjIwMSAxNS4zNzc0IDI0LjE5MjUgMTcuMTc2OUMyNC4xOTI1IDE4Ljk3MzcgMjIuOTIzOSAyMC40NDk0IDIxLjMxNTcgMjAuNDQ5NFoiIGZpbGw9IndoaXRlIi8+CjwvZz4KPC9nPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwXzE1XzEyNiI+CjxyZWN0IHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K)" draggable=false></a>
+<a class="socialButton" href="https://www.twitch.tv/optijuegos" style="background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCA1MTIuMDAwMDAwIDUxMi4wMDAwMDAiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0Ij4KCjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLDUxMi4wMDAwMDApIHNjYWxlKDAuMTAwMDAwLC0wLjEwMDAwMCkiCmZpbGw9IndoaXRlIiBzdHJva2U9Im5vbmUiPgo8cGF0aCBkPSJNNjY1IDQyNzggYy0zMDkgLTMzMiAtNTM2IC03ODcgLTYxOSAtMTI0MiAtMTMzIC03MjEgMzUgLTE0MzggNDczCi0yMDE5IDcwIC05NCAyMTcgLTI1NyAyMzAgLTI1NyA0IDAgNTMgNDUgMTA5IDEwMSBsMTAxIDEwMSAtNzggODggYy00MjggNDg1Ci02MjggMTA4OSAtNTcwIDE3MjAgNDMgNDc5IDIzOSA5MjUgNTcxIDEzMDIgbDgwIDkwIC05OCA5OSBjLTU0IDU0IC0xMDQgOTkKLTExMCA5OSAtNyAwIC00NyAtMzcgLTg5IC04MnoiLz4KPHBhdGggZD0iTTQyNTYgNDI2MSBsLTk5IC05OSA3MCAtNzkgYzE2MyAtMTgzIDI1NSAtMzE5IDM1NyAtNTI1IDMxMyAtNjI2CjMxMyAtMTM3MCAwIC0xOTk2IC0xMDIgLTIwNiAtMTk0IC0zNDIgLTM1NiAtNTIzIGwtNjggLTc3IDEwMiAtMTAxIGM1NiAtNTYKMTA1IC0xMDEgMTA5IC0xMDEgMTMgMCAxNTkgMTYzIDIzMSAyNTggNjM5IDg0NyA2OTEgMjAwNCAxMjkgMjg5NyAtMTExIDE3NgotMzMxIDQ0NSAtMzY1IDQ0NSAtNiAwIC01NiAtNDUgLTExMCAtOTl6Ii8+CjxwYXRoIGQ9Ik0xMTQ0IDM4NDggYy0xNzMgLTE4MiAtMzE3IC00MjcgLTQwMiAtNjgzIC0yMDQgLTYxMyAtODggLTEyNzkgMzEzCi0xNzkwIDM1IC00NCA4MyAtOTkgMTA3IC0xMjMgbDQ0IC00MiAxMDAgMTAwIGM1NCA1NSAxMDEgMTAyIDEwMiAxMDQgMiAzIC0yOAo0MiAtNjggODcgLTUyOSA2MTMgLTUzMCAxNTA1IC0xIDIxMTcgMzkgNDUgNzEgODUgNzEgODkgMCA5IC0xOTIgMjAzIC0yMDEKMjAzIC0zIDAgLTMzIC0yOCAtNjUgLTYyeiIvPgo8cGF0aCBkPSJNMzgwNyAzODEyIGMtNTMgLTUzIC05NyAtMTAxIC05NyAtMTA1IDAgLTQgMzIgLTQ0IDcxIC05MCA1MjggLTYxMAo1MjggLTE1MDQgLTEgLTIxMTUgLTM5IC00NiAtNzAgLTg1IC02OCAtODggMSAtMiA0OCAtNDkgMTAzIC0xMDQgbDk5IC0xMDAgNDkKNDcgYzEwOSAxMDYgMjYzIDMzNiAzNDIgNTA4IDEyOSAyODMgMTkyIDYzMyAxNjYgOTMyIC0zNCAzOTUgLTE2MCA3MjYgLTM4OQoxMDI4IC00OSA2NCAtMTYxIDE4NSAtMTcxIDE4NSAtNCAwIC01MCAtNDQgLTEwNCAtOTh6Ii8+CjxwYXRoIGQ9Ik0xNTk2IDMzOTMgYy0yMDcgLTI0NiAtMzA2IC01MTUgLTMwNiAtODMzIDAgLTMyMCAxMDAgLTU4OSAzMTEgLTgzOApsNTMgLTYzIDEwNyAxMDcgMTA4IDEwOCAtMzcgNDAgYy05MiA5OSAtMTcyIDI0NyAtMjE0IDM5MiAtMjAgNjkgLTIzIDEwMSAtMjMKMjU0IDAgMTUzIDMgMTg1IDIzIDI1NCA0MiAxNDcgMTIyIDI5MyAyMTYgMzk0IGw0MCA0MyAtMTA1IDEwNSBjLTU3IDU3IC0xMDYKMTA0IC0xMTAgMTA0IC0zIDAgLTMyIC0zMCAtNjMgLTY3eiIvPgo8cGF0aCBkPSJNMzM1MSAzMzU2IGwtMTA1IC0xMDUgNDAgLTQzIGM5NCAtMTAxIDE3NCAtMjQ3IDIxNiAtMzk0IDIwIC02OSAyMwotMTAxIDIzIC0yNTQgMCAtMTUzIC0zIC0xODUgLTIzIC0yNTQgLTQyIC0xNDYgLTEyMiAtMjkzIC0yMTQgLTM5MiBsLTM4IC00MgoxMDcgLTEwNiAxMDggLTEwNyA0MiA0OCBjMjQgMjYgNzIgOTEgMTA4IDE0NCAxNDggMjE5IDIxNSA0MzkgMjE1IDcwOSAwIDI2MQotNjUgNDgyIC0yMDMgNjkyIC01MyA4MiAtMTU0IDIwOCAtMTY2IDIwOCAtNCAwIC01MyAtNDcgLTExMCAtMTA0eiIvPgo8cGF0aCBkPSJNMjQ1MCAzMTg0IGMtMjMxIC00NSAtNDE3IC0yMTEgLTQ5NiAtNDQ0IC0yNyAtNzggLTI3IC0yODIgMCAtMzYwCjc1IC0yMjIgMjM2IC0zNzUgNDU0IC00MzEgMjA5IC01MyA0MzkgOSA1OTEgMTYxIDExOCAxMTcgMTc5IDI1MiAxODggNDE2IDE3CjI4NyAtMTU0IDUzNiAtNDM0IDYzNSAtNTcgMjEgLTI0MyAzNCAtMzAzIDIzeiBtMjI3IC0zMTUgYzEyMyAtNDYgMjEzIC0xNzYKMjEzIC0zMDkgMCAtMTc5IC0xNTEgLTMzMCAtMzMwIC0zMzAgLTE3OSAwIC0zMzAgMTUxIC0zMzAgMzMwIDAgMjI5IDIzMSAzODgKNDQ3IDMwOXoiLz4KPC9nPgo8L3N2Zz4K)" draggable=false></a>
+</div>
+</div>
+
+<div id="mainContainer" style="display: none;">
+<div class="box" id="mainBox">
+<img id="listIcon" class="icon" draggable=false src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkZyYW1lIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTggNkgyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yIiBkPSJNOCAxMkgyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zIiBkPSJNOCAxOEgyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl80IiBkPSJNMyA2SDMuMDEiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGlkPSJWZWN0b3JfNSIgZD0iTTMgMTJIMy4wMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl82IiBkPSJNMyAxOEgzLjAxIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L2c+Cjwvc3ZnPgo=">
+<span class="boxLabel" id="tabSubtitle"></span>
+<div class="box listBox" id="listBox">
+<div class="entryContainer textContainer" id="textContainer"></div>
+<div class="entryContainer" id="entryContainer"></div>
+</div>
+</div>
+
+<script src="https://polyfill.io/v3/polyfill.min.js"></script>
+
+<div class="box downloadBox">
+<img class="icon" draggable=false src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkZyYW1lIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTEyIDVWMTkiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTE5IDEyTDEyIDE5TDUgMTIiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjwvZz4KPC9zdmc+Cg==">
+<span class="boxLabel">Descargar</span>
+<a class="downloadButton info" draggable="false" id="info"></a>
+<a class="downloadButton download2" draggable=false id="download2" href=""></a>
+<a class="downloadButton download1" draggable=false id="download1" href=""></a>
+</div>
+</div>
+
+ <img src="https://hits.sh/github.com/OptiJuegos/optijuegos.github.io.svg" style="position: absolute; top: -32px;opacity: 0;">
+
+<div class="box" id="serverInfo">
+<div id="serverText" style="padding: 13px 0px 13px; height: calc(100% - 26px); width: calc(100% + 64px)">
+<a style="font-size: 22px"><b>Servidores oficiales:</b></a>
+<br><br>
+<b>Java (1.8-1.20)</b>
+<br>
+- <b>IP:</b> 181.45.143.102
+<br><br>
+<b>Bedrock (1.7 - 1.12):</b>
+<br><br>
+- <b>IP:</b> 181.45.143.102<br>
+&nbsp;&nbsp;- <b>PUERTO:</b> 19132<br>
+<br>
+
+<a style="font-size: 22px"><b>Servidores externos:</b></a>
+<br><br>
+<b>Bedrock (1.7 - 1.12):</b>
+<br><br>
+- <b>IP:</b> bmpe.pw<br>
+&nbsp;&nbsp;- <b>PUERTO:</b> 19132<br>
+<br>
+- <b>IP:</b> nexland.fun<br>
+&nbsp;&nbsp;- <b>PUERTO:</b> 19135<br>
+<br>
+- <b>IP:</b> gamepe.ru<br>
+&nbsp;&nbsp;- <b>PUERTO:</b> 19132
+</div>
+</div>
+
+<script id="chatBroEmbedCode">/* Chatbro Widget Embed Code Start */function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}/* Chatbro Widget Embed Code End */ChatbroLoader({encodedChatId: '78zQt'});</script>
+
+<style>
+
+:root {
+--tabWidth: 180px;
+--tabRotate: -1deg;
+}
+
+body {
+background-color: #000;
+background-image: url(data:image/webp;base64,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);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+height: 100vh;
+margin: 0;
+font-family: Inter;
+font-weight: 500;
+line-height: normal;
+user-select: none;
+overflow: hidden;
+}
+
+
+
+/* ------------------------ Header ------------------------ */
+
+#header {
+background-color: #14141480;
+width: 296px;
+height: 100%;
+top: 0px;
+position: absolute;
+display: flex;
+border-bottom: none;
+border-right: 2px solid #00000040;
+box-shadow: 0px 0px 16px 4px #00000033;
+}
+
+.logo {
+width: 270px;
+height: 45px;
+top: 14px;
+left: 13px;
+position: absolute;
+}
+
+#tabContainer {
+height: 38px;
+margin-top: 96px;
+position: absolute;
+left: 59px;
+transform: none;
+display: block;
+width: 140 + "px";
+margin-top: "96px"
+}
+.tabButton {
+background-color: #00000000;
+color: #FFF;
+width: var(--tabWidth);
+height: 100%;
+margin: 0px 2.5px 8px 2.5px;
+border-radius: 4px;
+font-size: 18px;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: background-color 0.08s ease-out, box-shadow 0.08s ease-out, transform 0.08s ease-out;
+}
+.tabButton:hover {
+box-shadow: inset 0 0 0 3px #FFFFFF12;
+}
+
+#socialContainer {
+width: 168px;
+height: 32px;
+top: auto;
+right: auto;
+bottom: 20px;
+left: 64px;
+position: absolute;
+display: flex;
+}
+.socialButton {
+background-repeat: no-repeat;
+background-position: center;
+width: 50%;
+height: 100%;
+transition: 0.1s ease-out;
+}
+.socialButton:hover {
+filter: brightness(80%);
+transform: rotate(-7deg) translateY(0.5px);
+}
+.socialButton:active {
+filter: brightness(70%);
+}
+
+
+
+/* ------------------------ Main window ------------------------ */
+
+#mainContainer {
+width: 440px;
+height: 575px;
+top: 50%;
+left: calc(50% + 149px);
+position: absolute;
+transform: translateY(-50%) translateX(-50%);
+}
+
+.box {
+background-color: #14141480;
+width: 440px;
+position: absolute;
+border-radius: 8px;
+box-shadow: inset 0 0 0 2px #00000040;
+}
+.icon {
+padding-top: 16px;
+padding-left: 16px;
+}
+.boxLabel {
+color: #FFF;
+text-align: center;
+padding-top: 17.5px;
+padding-left: 10px;
+font-size: 17px;
+position: absolute;
+display: inline-block;
+}
+
+#mainBox {
+height: 451px;
+box-shadow: inset 0 0 0 2px #00000040, 0px 0px 16px 4px #00000033;
+}
+
+.listBox {
+width: 408px;
+height: 381px;
+margin: 16px;
+margin-top: 10px;
+}
+/* This is separated so that the styles don't get overrided by the transparent scrollbar */
+.entryContainer {
+width: 99%;
+height: calc(100% - 15px);
+margin-top: 2px;
+padding-top: 2px;
+padding-bottom: 9px;
+overflow-x: hidden;
+overflow-y: auto;
+scrollbar-width: thin;
+scrollbar-color: transparent transparent;
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+.entryContainer {
+scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+scrollbar-width: var(--scrollbar-width);
+}
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+.entryContainer::-webkit-scrollbar-thumb {
+background-color: #888;
+}
+.entryContainer::-webkit-scrollbar-thumb:hover {
+background-color: #555;
+}
+.entryContainer::-webkit-scrollbar {
+width: 7px;
+}
+}
+
+.textContainer {
+display: none;
+width: 95%;
+color: #FFF;
+padding-left: 12px;
+padding-top: 5px;
+user-select: text;
+padding-bottom: 6px;
+}
+a[link] {
+text-decoration: underline;
+color: #00847DC9;
+}
+a[link]:hover {
+color: #00847E;
+}
+
+
+.listEntry {
+background-color: #00000000;
+width: 379px;
+height: 24px;
+margin: 7px 0px 0px 11px;
+padding-top: 4px;
+padding-left: 7px;
+border-radius: 4px;
+color: #FFF;
+font-size: 16px;
+display: block;
+outline: 0px solid #FFFFFF2B;
+}
+.listEntry:hover {
+background-color: #45454520;
+}
+.listEntry:active {
+animation: outlineAnimation 0.15s forwards;
+}
+@keyframes outlineAnimation {
+0% {
+outline: 0px solid #FFFFFF2B;
+}
+75% {
+outline: 0px solid #FFFFFF2B;
+}
+100% {
+outline: 2px solid #FFFFFF2B;
+}
+}
+
+.downloadBox {
+height: 108px;
+bottom: 0px;
+box-shadow: inset 0 0 0 2px #00000040, 0px 0px 16px 4px #00000033;
+}
+
+.downloadButton {
+color: #FFF;
+bottom: 0px;
+width: 196px;
+height: 36px;
+margin: 16px;
+position: absolute;
+border-radius: 4px;
+cursor: pointer;
+font-family: Inter;
+font-weight: 500;
+font-size: 17px;
+text-decoration: none;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: width 0.1s ease, background-color 0.05s ease, opacity 0.2s ease, outline 0.05s ease;
+}
+
+.download1 {
+background-color: #00847E;
+right: 0px;
+outline: 0px solid #00847E;
+}
+.download1:hover {
+background-color: #00847E90;
+}
+.download1:active {
+background-color: #00847E50;
+outline: 3px solid #00847E;
+}
+
+.download2 {
+background-color: #2F4342;
+left: 52px;
+outline: 0px solid #2F4342;
+}
+.download2:hover {
+background-color: #2F434290;
+}
+.download2:active {
+background-color: #2F434250;
+outline: 3px solid #2F4342;
+}
+
+.info {
+background-color: #FFFFFF0D;
+background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkZyYW1lIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTEzLjYzNSAxMy41QzEzLjk4NzcgMTIuNDk3NSAxNC42ODM3IDExLjY1MjIgMTUuNTk5OSAxMS4xMTM3QzE2LjUxNjEgMTAuNTc1MiAxNy41OTM0IDEwLjM3ODQgMTguNjQwOCAxMC41NTgxQzE5LjY4ODIgMTAuNzM3NyAyMC42MzgyIDExLjI4MjMgMjEuMzIyNiAxMi4wOTUzQzIyLjAwNyAxMi45MDgzIDIyLjM4MTYgMTMuOTM3MyAyMi4zOCAxNUMyMi4zOCAxOCAxNy44OCAxOS41IDE3Ljg4IDE5LjUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMi4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTE4IDI1LjVIMTguMDE1IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L2c+Cjwvc3ZnPgo=);
+background-repeat: no-repeat;
+background-position: center;
+width: 36px;
+left: 0px;
+outline: 0px solid #FFFFFF0D;
+transition: 0.2s ease, outline 0.05s ease;
+}
+.info:hover {
+background-color: #FFFFFF13;
+}
+.info:active {
+background-color: #FFFFFF1A;
+outline: 3px solid #FFFFFF0D;
+}
+
+
+
+.loading {
+color: #FFF;
+width: auto;
+height: auto;
+padding: 17px;
+padding-top: 13px;
+padding-bottom: 11px;
+bottom: 16px;
+right: 16px;
+position: absolute;
+font-size: 17px;
+font-weight: 500;
+line-height: 1.75;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: inset 0 0 0 2px #00000040, 0px 0px 16px 4px #00000033;
+transition: 1s ease;
+}
+
+#serverInfo {
+display: none;
+color: #FFF;
+position: absolute;
+user-select: text;
+bottom: 68px;
+left: 13px;
+overflow-x: hidden;
+overflow-y: auto;
+padding: 2px 16px;
+width: 240px;
+height: 160px;
+box-shadow: inset 0 0 0 2px #00000040, 0px 0px 16px 4px #00000033;
+justify-content: center;
+font-size: 16px;
+scrollbar-width: thin;
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+#serverInfo {
+scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+scrollbar-width: var(--scrollbar-width);
+}
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+#serverInfo::-webkit-scrollbar-thumb {
+background-color: #888;
+}
+#serverInfo::-webkit-scrollbar-thumb:hover {
+background-color: #555;
+}
+#serverInfo::-webkit-scrollbar {
+width: 7px;
+}
+}
+
+hr {
+margin: 6px 0px 0px;
+}
+</style>
+<script>
+
+var esFirefox = typeof InstallTrigger !== 'undefined';
+
+if (esFirefox) {
+ document.getElementById("entryContainer").style.scrollbarColor = "#555 rgb(0, 0, 0)";
+  document.getElementById("entryContainer").style.scrollbarWidth = "thin";
+  document.getElementById("entryContainer").style.overflowX = "hidden";
+  document.getElementById("serverInfo").style.scrollbarColor = "#555 rgb(0, 0, 0)";
+  document.getElementById("serverInfo").style.scrollbarWidth = "thin";
+  document.getElementById("serverInfo").style.overflowX = "hidden";
+} else {
+  document.getElementById("entryContainer").style.overflowX = "hidden";
+  document.getElementById("entryContainer").style.overflowY = "auto";
+  document.getElementById("serverInfo").style.overflowY = "auto";
+  document.getElementById("serverInfo").style.overflowX = "hidden";
+}
+
+var elementsData = {
+"t2": {
+"title": "Celulares",
+"subtitle": "Proyectos Android",
+"e1": {
+"name": "Minecraft D4V 1.6.0",
+"l1": "https://www.mediafire.com/file/h11pnox3cm2qva6"
+},
+"e2": {
+"name": "OptiCraft PE 1.9",
+"l1": "https://www.mediafire.com/file/wmj066ndz4xrqw1"
+},
+"e3": {
+"name": "OptiCraft PE 1.12",
+"l1": "https://www.mediafire.com/file/99cxy53owgnpe7s/"
+},
+"e4": {
+"name": "OptiCraft PE 1.14",
+"l1": "https://www.mediafire.com/file/26y5yb0w7lo3pmp"
+},
+"e5": {
+"name": "OptiCraft PE 1.20",
+"l1": "https://www.mediafire.com/file/wwzp91l1bdy3qoo/"
+},
+"e6": {
+"name": "Drive Ahead",
+"l1": "https://onedrive.live.com/download?resid=F2D2F14C248922B2%21899&authkey=!AOpIHiJzmHuUuNU"
+}, 
+"e7": {
+"name": "Geometry Dash",
+"l1": "https://www.mediafire.com/file/jvwenlsx6ntufkz/"
+}
+},
+"t1": {
+"title": "Emuladores",
+"subtitle": "Emuladores optimizados",
+"e1": {
+"name": "Citra",
+"l1": "https://www.mediafire.com/file/u03w1u1rxgya2jt"
+},
+"e2": {
+"name": "Dolphin",
+"l1": "https://lozanoalberto228gmailcom-my.sharepoint.com/:u:/g/personal/dea_lozanoalberto228gmailcom_onmicrosoft_com/EVRVpGsFlvxJti6h-4mpo-wBP667dyeiHlsCD5zy1raxew?download=1"
+},
+"e3": {
+"name": "DeSmuME",
+"l1": "https://www.mediafire.com/file/ops98l93qtpu9js/"
+},
+"e4": {
+"name": "OptiDroid",
+"l1": "https://www.mediafire.com/file/le2mlf2rtq0qksd/",
+"l2": "https://www.mediafire.com/file/ebus0codydv7a01/",
+"b1": "v1.2",
+"b2": "v1.1"
+},
+"e5": {
+"name": "OptiNox",
+"l1": "https://www.mediafire.com/file/jeajc4wmbpmfi8d/"
+},
+"e6": {
+"name": "OptiMemu",
+"l1": "https://www.mediafire.com/file/rwfjkya21jxii3x"
+},
+"e7": {
+"name": "PCSX2",
+"l1": "https://www.mediafire.com/file/xz6iz1k4twpkptt/"
+},
+"e8": {
+"name": "PPSSPP",
+"l1": "https://www.mediafire.com/file/emchc7qm469i33h/"
+},
+"e9": {
+"name": "pSXFIN",
+"l1": "https://www.mediafire.com/file/6lp6uyf4ipp2kjl/pSXFIN_V1.1.7z/file"
+},
+"e10": {
+"name": "Project64",
+"l1": "https://www.mediafire.com/file/8kk9gmx2u351101/"
+}
+},
+"t3": {
+"title": "Juegos",
+"subtitle": "Juegos optimizados",
+"e1": {
+"name": "Angry Birds",
+"l1": "https://www.mediafire.com/file/xbc8s3840ubro7n/"
+},
+"e2": {
+"name": "Age of War",
+"l1": "https://www.mediafire.com/file/a5hwhkby2rsgr2e"
+},
+"e3": {
+"name": "Bad Piggies",
+"l1": "https://www.mediafire.com/file/fv1mo841b26k7dl/Bad_Piggies.7z/file"
+},
+"e4": {
+"name": "Bully 1",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/OptiBully.7z?download=true"
+},
+"e5": {
+"name": "Cat Mario 3D",
+"l1": "https://www.mediafire.com/file/q73d6mgmhi7nmmr",
+"l2": "https://cdn.discordapp.com/attachments/1065489877497548861/1190840395458936842/Cat_Mario.exe?ex=6608c70b&is=65f6520b&hm=dd6f8b5912a2005bf57388fb20960648a43b024349248e81b4d39eec0f697b8b&",
+"b1": "3D",
+"b2": "Flash"
+},
+"e6": {
+"name": "Call of Duty",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Call%20Of%20Duty%201%20Optimized.7z?download=true",
+"l2": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Call%20of%20Duty%202%20Optimized.7z?download=true",
+"b1": "1 - 2003",
+"b2": "2 - 2005"
+},
+"e7": {
+"name": "Call of Duty Black Ops 1",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Call%20Of%20Duty%20Black%20Ops%201%20Optimized.7z?download=true"
+}, 
+"e8": {
+"name": "Call of Duty Modern Warfare 4",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Call%20of%20Duty%204%20Modern%20Warfare%20Optimized.7z?download=true"
+}, 
+"e9": {
+"name": "Counter Strike 1.6",
+"l1": "https://www.mediafire.com/file/ag28b7eumf10go2",
+"l2": "https://drive.google.com/file/d/1IqSd8aLYWLPzoONOkgibyd1yT8KKYtEm/view?usp=share_link",
+"b1": "OptiClient",
+"b2": "Xash3D"
+},
+"e10": {
+"name": "Counter Strike 2",
+"l1": "https://drive.google.com/file/d/1pmDJWXwDQ3-mVwVlYCiD08XE3rte0lbg/view?usp=share_link"
+},
+"e11": {
+"name": "Counter Strike: Global Offensive",
+"l1": "https://drive.google.com/file/d/1BBQ3gUfy2KfRUn21P5uUe5_Qbher0DbO/view",
+"l2": "https://drive.google.com/file/d/1BvhlN4H1ND87_HlpCjSrwZlDz8NlQctQ/view",
+"b1": "Alpha",
+"b2": "Beta"
+},
+"e12": {
+"name": "Counter Strike Source",
+"l1": "https://www.mediafire.com/file/t3fgd0iaf9p0ylw/",
+"l2": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Source%20Collection%20Optimized.7z?download=true",
+"b1": "100 MB",
+"b2": "Source Collection" 
+},
+"e13": {
+"name": "Craftsman",
+"l1": "https://www.mediafire.com/file/a59ipp77m5wggmu"
+},
+"e14": {
+"name": "Cuphead",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Cuphead%20LITE.7z?download=true"
+},
+"e15": {
+"name": "Dark Souls 1",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Dark%20Souls%201%20LITE.7z?download=true"
+}, 
+"e16": {
+"name": "Doom",
+"l1": "https://www.mediafire.com/file/gfft03kkztb6nqp/Doom_1.7z/file"
+}, 
+"e17": {
+"name": "ERROR 422 Portable",
+"l1": "https://www.mediafire.com/file/dpto1teqdgbffvx"
+},
+"e18": {
+"name": "Fallout 3",
+"l1": "https://lozanoalberto228gmailcom-my.sharepoint.com/:u:/g/personal/dea_lozanoalberto228gmailcom_onmicrosoft_com/ERciO9sKNoZPpZctWwTgQbYB9wICk3qw-s2-0PzJugQp9w"
+},
+"e19": {
+"name": "Far Cry 1",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Far%20Cry%201.7z?download=true"
+},
+"e20": {
+"name": "Fernanfloo Saw Game",
+"l1": "https://www.mediafire.com/file/lojofnacpt27sus"
+},
+"e21": {
+"name": "Five Nights At Freedy's",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Five%20Nights%20At%20Freddy's.7z?download=true"
+},
+"e22": {
+"name": "Friday Night Funkin",
+"l1": "https://www.mediafire.com/file/x4sgki3gplx8zx5/"
+},
+"e23": {
+"name": "Fortnite",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/OPTIMIZAR%20FORTNITE.zip?download=true"
+},
+"e24": {
+"name": "Garry's Mod",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Garry's%20Mod%20Optimized.7z?download=true"
+},  
+"e25": {
+"name": "Goat Simulator",
+"l1": "https://www.mediafire.com/file/ci2ajydbyxekrlh/"
+},  
+"e26": {
+"name": "Geometry Dash 2.2 Optimizado",
+"l1": "https://www.mediafire.com/file/wfqrbq1zlsekbh0/Geometry+Dash+2.2+Optimizado.7z/file",
+"l2": "https://www.mediafire.com/file/2djbri6spnkutef/Geometry+Dash+2.2+9MB.7z/file",
+"b1": "Optimizado",
+"b2": "9 MB MOD" 
+},
+"e27": {
+"name": "GTA: III",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/GTA%203%20REPACK%20OPTIJUEGOS.zip?download=true"
+},
+"e28": {
+"name": "GTA: Vice City",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Grand%20Theft%20Auto%20Vice%20City.7z?download=true"
+},
+"e29": {
+"name": "GTA: San Andreas",
+"l1": "https://lozanoalberto228gmailcom-my.sharepoint.com/:u:/g/personal/dea_lozanoalberto228gmailcom_onmicrosoft_com/Eavcbh2kQ6BMuYrrETTz_Q8BQJN6FkOk1hPPCCnhTrhTqA",
+"l2": "https://www.mediafire.com/file/5zx4z41hqwmb5aw",
+"b1": "Repack",
+"b2": "Canaima MOD *RIP*"
+},
+"e30": {
+"name": "GTA: IV",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/GTA%204%20LITE%20By%20OptiJuegos.7z?download=true"
+ },
+"e30": {
+"name": "GTA: V",
+"l1": "https://lozanoalberto228gmailcom-my.sharepoint.com/:u:/g/personal/dea_lozanoalberto228gmailcom_onmicrosoft_com/EWDAX7CzKFlFh7A-2qWOlFAByg2Lt2fcR64EmX5qJPfQ8A"
+},
+"e31": {
+"name": "Getting Over It",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Getting%20Over%20It.7z?download=true"
+},
+"e32": {
+"name": "Half Life 1",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Source%20Collection%20Optimized.7z?download=true",
+"l2": "https://www.mediafire.com/file/grzfhk1bkod0egn/",
+"b1": "Source Collection",
+"b2": "Xash3D" 
+},
+"e33": {
+"name": "Half Life 2",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Source%20Collection%20Optimized.7z?download=true",
+"b1": "Source Collection"
+},
+"e34": {
+"name": "Happy Wheels",
+"l1": "https://www.mediafire.com/file/lqymeiy6y1a8ikl/Happy_Wheels.exe/file"
+},
+"e35": {
+"name": "Hello Neighbor",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Hello%20Neighbor%20Optimizado%20Y%20Portable%20V2.7z?download=true"
+},
+"e36": {
+"name": "Hollow Knight",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Hollow%20Knight%20Optimizado.7z?download=true"
+},
+"e37": {
+"name": "Hotline Miami",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Hotline%20Miami.7z?download=true"
+},
+"e38": {
+"name": "Inspector Blindson",
+"l1": "https://www.mediafire.com/file/2g50letaag64wae/"
+}, 
+"e39": {
+"name": "Left 4 Dead",
+"l1": "https://www.mediafire.com/file/sc2p8zytkbh49jh"
+},
+"e40": {
+"name": "Left 4 Dead 2",
+"l1": "https://www.mediafire.com/file/2mjvbdz0illke17/"
+},
+"e41": {
+"name": "Limbo",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Limbo.7z?download=true"
+},
+"e42": {
+"name": "Minecraft: Beta 1.7.3",
+"l1": "https://www.mediafire.com/file/qhxkx9l0oi6uv13/Minecraft_Beta_1.7.3.7z/file"
+},
+"e43": {
+"name": "Minecraft: Legacy Edition",
+"l1": "https://www.mediafire.com/file/fs7bpb5l5zyv5ro"
+},
+"e44": {
+"name": "Need for Speed Most Wanted *RIP*",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Need%20for%20Speed%20Most%20Wanted%20Opti.7z?download=true"
+},
+"e45": {
+"name": "Outlast",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Outlast.7z?download=true"
+},
+"e46": {
+"name": "Papa's Pizzeria Collection",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Papas%20Games.7z?download=true"
+},
+"e47": {
+"name": "Pizza Tower *BETA*",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Pizza%20Tower%20Opti.7z?download=true"
+},
+"e48": {
+"name": "PAPU 1",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/PAPU%20OPTIMIZADO.7z?download=true"
+},
+"e49": {
+"name": "PES 6",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/PES%206%20Portable%20Y%20Optimizado.7z?download=true"
+},
+"e50": {
+"name": "PES 13",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Pro%20Evolution%20Soccer%202013.7z?download=true"
+},
+"e51": {
+"name": "Pepsiman Remastered",
+"l1": "https://www.mediafire.com/file/t8po4mzanx9hwol"
+},
+"e52": {
+"name": "Plants vs Zombies",
+"l1": "https://www.mediafire.com/file/m5p2stbr4ig6anz/Plants_vs_Zombies.7z/file",
+"l2": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Plants_VS_Zombies_PLUS_Hard_Mode.7z?download=true",
+"b1": "Original",
+"b2": "Hard Mode"
+},
+"e53": {
+"name": "Poly Bridge",
+"l1": "https://www.mediafire.com/file/7vjv1m3cyt1iwvl/"
+},
+"e54": {
+"name": "Portal",
+"l1": "https://www.mediafire.com/file/v7gzqg5mlm6cml5"
+},
+"e55": {
+"name": "Project Zomboid",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/OptiZomboid.7z?download=true"
+},
+"e56": {
+"name": "Ratatouille",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Ratatouille%20English.7z?download=true"
+},
+"e57": {
+"name": "Rayman Legends",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Rayman%20Legends%20Opti.7z?download=true"
+},
+"e58": {
+"name": "Red Ball *FULL*",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Red%20Ball%20Full.7z?download=true"
+},
+"e59": {
+"name": "Resident Evil 4 *BETA*",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Resident%20Evil%204%20Opti%20BETA.7z?download=true"
+},
+"e60": {
+"name": "Roblox",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/OPTIMIZAR%20ROBLOX.zip?download=true"
+},
+"e61": {
+"name": "Rocket League",
+"l1": "https://www.mediafire.com/file/pfubpldirnms93k"
+},
+"e62": {
+"name": "Silent Hill 2",
+"l1": "https://www.mediafire.com/file/koaefevoh82pxrp"
+},
+"e63": {
+"name": "Solitario",
+"l1": "https://web.archive.org/web/20240325004216/https://cdn.discordapp.com/attachments/1069748073955348550/1215448179567231027/Solitario.7z?ex=660603d3&is=65f38ed3&hm=e89f7c26644ace39b2b78fa688424e8cee21915f13f1a604bf96866978de3778&"
+},
+"e64": {
+"name": "Sonic 1",
+"l1": "https://www.mediafire.com/file/li3ftumyprfpcfy"
+},
+"e65": {
+"name": "Sonic Mania",
+"l1": "https://www.mediafire.com/file/eu1vbg95ewfqx2c/"
+},
+"e66": {
+"name": "Subway Surfers",
+"l1": "https://www.mediafire.com/file/22iryej7fwvh5y0/Subway_Surfers.7z/file"
+},
+"e67": {
+"name": "Super Mario 64",
+"l1": "https://www.mediafire.com/file/mh9rjphgronqk0b/Super_Mario_64.zip/file"
+},
+"e68": {
+"name": "Super Mario 64 Coop",
+"l1": "https://www.mediafire.com/file/2f5ujmmw4r1yqof/sm64ex-coop.7z/file"
+},
+"e69": {
+"name": "Super Mario Flash",
+"l1": "https://www.mediafire.com/file/szak633hm3jveyu/Super_Mario_Flash.exe/file"
+},
+"e70": {
+"name": "Syobon Action",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Syobon%20Action.7z?download=true"
+}, 
+"e71": {
+"name": "Terraria",
+"l1": "https://www.mediafire.com/file/umcmdzestj6bthp"
+},
+"e72": {
+"name": "Tetris GameBoy",
+"l1": "https://www.mediafire.com/file/13ecvfve8z32yb0/Tetris_GameBoy.exe/file"
+},
+"e73": {
+"name": "The Forest Lite",
+"l1": "https://www.mediafire.com/file/rl3d7c02hzzkj2q/"
+},   
+"e74": {
+"name": "The Impossible Game",
+"l1": "https://www.mediafire.com/file/c6hjwm0jkqbmm2o/Impossible_Game_Canaima_MOD.7z/file"
+},  
+"e75": {
+"name": "The Simpsons Hit & Run",
+"l1": "https://www.mediafire.com/file/vcqkjafdytglgz6/"
+},
+"e76": {
+"name": "Touhou 6",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Touhou%206.7z?download=true"
+},
+"e77": {
+"name": "Undertale",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Undertale%20Compressed.7z?download=true"
+}, 
+"e78": {
+"name": "Unturned",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Unturned_3.9.9.5.7z?download=true"
+}, 
+"e79": {
+"name": "World's Hardest Game",
+"l1": "https://www.mediafire.com/file/76ff84p7904jygq"
+},
+"e80": {
+"name": "Youtuber's Life Simulator",
+"l1": "https://www.mediafire.com/file/2gae0so6pp3lmu0" 
+}
+},
+"t4": {
+"title": "OptiCraft",
+"subtitle": "Versiones",
+"e1": {
+"name": "OptiCraft 1.5",
+"l1": "https://www.mediafire.com/file/k11ii3cgsf3st8p"
+}, 
+"e2": {
+"name": "OptiCraft 1.7",
+"l1": "https://www.mediafire.com/file/wuot9zxm5u35saa/OptiCraft_1.7.3.1_By_OptiJuegos.7z/file",
+"l2": "https://www.mediafire.com/file/fr7o960s1c792an/OptiCraft+1.7.10.7z/file",
+"b1": "Bedrock",
+"b2": "Java"
+},
+"e3": {
+"name": "OptiCraft 1.8",
+"l1": "https://www.mediafire.com/file/4x7fqpb6h7g6bi5/OptiCraft_JAVA_CLIENTS_1.8.9.7z/file",
+"b1": "Java"
+},
+"e4": {
+"name": "OptiCraft 1.9",
+"l1": "https://www.mediafire.com/file/8iu191nzq2obe9q/OptiCraft+1.9.1.0+By+OptiJuegos.7z/file",
+"b1": "Bedrock"
+},
+"e5": {
+"name": "OptiCraft 1.12",
+"l1": "https://www.mediafire.com/file/zijx9jtni7rf9pf/OptiCraft+1.12.0+By+OptiJuegos.7z/file",
+"l2": "https://www.mediafire.com/file/gc4eon4umkcoqzo/OptiCraft_JAVA_1.12.2_FORGE.7z/file",
+"b1": "Bedrock",
+"b2": "Java"
+},
+"e6": {
+"name": "OptiCraft 1.14",
+"l1": "https://www.mediafire.com/file/lhucputck9z8vst/OptiCraft_1.14.31_By_OptiJuegos.7z/file",
+"l2": "https://www.mediafire.com/file/x8v7f7fbjw8sfub/",
+"b1": "Bedrock",
+"b2": "Java (Sin soporte)"
+},
+"e7": {
+"name": "OptiCraft 1.16",
+"l1": "https://www.mediafire.com/file/y9cq2460i7ta155/OptiCraft_1.16.12_By_OptiJuegos_OpenGL_4.1.7z/file",
+"l2": "https://www.mediafire.com/file/xlfoayglwoinlgy/OptiCraft+Java+1.16.5.7z/file",
+"b1": "Bedrock",
+"b2": "Java"
+},
+"e8": {
+"name": "OptiCraft 1.17",
+"l1": "https://www.mediafire.com/file/4eb3vj1duts6jqb/OptiCraft+1.17.30+By+OptiJuegos.7z/file",
+"b1": "Bedrock"
+},
+"e9": {
+"name": "OptiCraft 1.18",
+"l1": "https://www.mediafire.com/file/snrlqprwhucgwzm/OptiCraft_1.18.31_By_OptiJuegos.7z/file",
+"b1": "Bedrock"
+},
+"e10": {
+"name": "OptiCraft 1.19",
+"l1": "https://www.mediafire.com/file/r2hiodz1ki74ohr/OptiCraft+1.19.60+64+BITS.7z/file",
+"b1": "Bedrock"
+},
+"e11": {
+"name": "OptiCraft 1.20 *JAVA UPDATE 1.20.4*",
+"l1": "https://www.mediafire.com/file/if7vo48hlkun1rd/OptiCraft+1.20.10+By+OptiJuegos.7z/file",
+"l2": "https://www.mediafire.com/file/ifoghefh0ytur21",
+"b1": "Bedrock",
+"b2": "Java"
+},
+"e12": {
+"name": "OptiCraft Server Creator",
+"l1": "https://www.mediafire.com/file/nyqz3rrf2o7vzwl"
+},
+"e13": {
+"name": "OptiCraft Skywars Server Creator 1.9",
+"l1": "https://www.mediafire.com/file/kcd2pgeljrkteaw/OptiCraft_Skywars_Creator_1.9.7z/file"
+},
+"e14": {
+"name": "Extra",
+"l1": "https://archive.org/details/Opti-Archive",
+"l2": "https://docs.google.com/document/d/1Y6lxI8F0LJETPAxr1wkHbSrlqphIHVQOF_cGZFwJLD8/",
+"b1": "Videos",
+"b2": "Lore"
+}
+},
+"t5": {
+"title": "Programas",
+"subtitle": "Programas optimizados",
+"e1": {
+"name": "7-Zip *DESCOMPRIMIR PROYECTOS*",
+"l1": "https://www.7-zip.org/a/7z2404.exe",
+"l2": "https://www.7-zip.org/a/7z2404-x64.exe",
+"b1": "32 Bits",
+"b2": "64 Bits"
+},
+"e2": {
+"name": "Activador Windows",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Activar_OptiOS_LTSC.7z?download=true"
+},
+"e3": {
+"name": "Bandicam Portable",
+"l1": "https://www.mediafire.com/file/eu3gfmfvtfardzj/"
+},
+"e4": {
+"name": "Camtasia Studio 8",
+"l1": "https://www.mediafire.com/file/4xebnacfmdxjzpb"
+},
+"e5": {
+"name": "Cheat Engine 6.3",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Cheat%20Engine%206.3.7z?download=true"
+},
+"e6": {
+"name": "Chrome con Flash",
+"l1": "https://www.mediafire.com/file/l1fub61m4ltwx5u/",
+"l2": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Chrome%2049%20Flash%2034%20Portable.7z?download=true",
+"b1": "V87 7+",
+"b2": "V49 XP"
+}, 
+"e7": {
+"name": "Daemon Tools Lite Portable",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Daemon_Tools_Lite_Portable.7z?download=true"
+},
+"e8": {
+"name": "Driver Booster Portable",
+"l1": "https://www.mediafire.com/file/o547i07igt8wcy1/DriverBooster.7z/file"
+},
+"e9": {
+"name": "DXCPL",
+"l1": "https://www.mediafire.com/file/e3vledpaz0pxrzl"
+}, 
+"e10": {
+"name": "Filmora 10 Optimizado",
+"l1": "https://drive.google.com/file/d/1YOx6MzIH8A4v3xY5VcgKXQ29uzxNIoEF/view?usp=sharing"
+},
+"e11": {
+"name": "FFSplit",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/FFsplit.7z?download=true"
+},
+"e12": {
+"name": "Game Booster",
+"l1": "https://www.mediafire.com/file/h4pr0q0kri8krbq/Game_Booster.zip/file"
+},
+"e13": {
+"name": "Instalador Visual C++ - DirectX",
+"l1": "https://www.mediafire.com/file/2bjxzf59duumsr5/"
+},
+"e14": {
+"name": "IOBit Unlocker",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/IObit_Unlocker.7z?download=true"
+},
+"e15": {
+"name": "Java OpenGL Mesa",
+"l1": "https://www.mediafire.com/file/cws46wp4n5fmiw4"			
+},
+"e16": {
+"name": "LighterOBS",
+"l1": "https://www.mediafire.com/file/6nokvoua4w4vmyt/LighterOBS_No_Browser_By_OptiJuegos.7z/file"			
+},
+"e17": {
+"name": "Lightshot",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/Lightshot.exe?download=true"			
+},
+"e18": {
+"name": "Limpiar Espacio",
+"l1": "https://www.mediafire.com/file/h8w0ismnrpwm8oe"			
+},
+"e19": {
+"name": "Joystick Windows 7",
+"l1": "https://www.mediafire.com/file/on6ewwmt6vcfgsd/"
+}, 
+"e20": {
+"name": "MSI Afterburner Portable",
+"l1": "https://www.mediafire.com/file/k8eqyj99bwlao4o"
+},
+"e21": {
+"name": "OBS Classic",
+"l1": "https://www.mediafire.com/file/ytkdzq4gv1soh00"
+}, 
+"e22": {
+"name": "OptiChromium",
+"l1": "https://www.mediafire.com/file/tefl9904n0gnx4l"
+},
+"e23": {
+"name": "OptiPanas Video Compressor",
+"l1": "https://www.mediafire.com/file/zro0mrnpr94dkef/OptiPanas_Video_Compressor_V3.7z/file"
+},
+"e24": {
+"name": "Optimizar PC",
+"l1": "https://www.mediafire.com/file/lozvr7n1czkjum3/Optimizar_PC_V5.4.zip/file"
+},
+"e25": {
+"name": "Photoshop CS6",
+"l1": "https://www.mediafire.com/file/wpysvclp68cq6p3/"
+},
+"e26": {
+"name": "PotPlayer",
+"l1": "https://www.mediafire.com/file/y0jdr3s05i9s1z0"
+},
+"e27": {
+"name": "RobLauncher",
+"l1": "https://github.com/OptiJuegos/RobLauncher/releases/"
+},
+"e28": {
+"name": "Sherry 1.4b *GMA 945*",
+"l1": "https://www.mediafire.com/file/zz474whd89ezx8n"
+},
+"e29": {
+"name": "Sony Vegas 11",
+"l1": "https://www.mediafire.com/file/n5p7o0vjcokwsza"
+},
+"e30": {
+"name": "Sony Vegas 17",
+"l1": "https://www.mediafire.com/file/1ewl0pdyo84iy52"
+},
+"e31": {
+"name": "Steam No Browser",
+"l1": "https://cdn.discordapp.com/attachments/1069748073955348550/1166094665871802489/Steam_Optimizado.bat"
+},
+"e32": {
+"name": "Steam Windows 7",
+"l1": "https://www.mediafire.com/file/e3qlcca8bbgbgmm/Steam+Windows+7.exe"
+}, 
+"e33": {
+"name": "Uninstall Tool",
+"l1": "https://huggingface.co/spaces/lozanogamer/lozanogamers/resolve/main/UninstallTool.7z?download=true"
+},
+"e34": {
+"name": "YouTube LITE",
+"l1": "https://www.mediafire.com/file/vmr3udh4xyonqak"
+},
+"e35": {
+"name": "XPChrome",
+"l1": "https://www.mediafire.com/file/fb3hpx4dtix3q39"
+}
+},
+"t6": {
+"title": "Sistemas",
+"subtitle": "Sistemas optimizados",
+"e1": {
+"name": "OptiOS 7 X86 (Windows 7)",
+"l1": "https://www.mediafire.com/file/addcfxkfoqonj4b/"
+},
+"e2": {
+"name": "OptiOS 7.1 X64 (Windows 8.0)",
+"l1": "https://drive.google.com/file/d/1l8g3eR2KeT4dS_0xHjrLfg5jxYoSLvqg/view?usp=drive_link"
+},
+"e3": {
+"name": "OptiOS 10 LTSB X64 (Windows 10)",
+"l1": "https://www.mediafire.com/file/h4l56fs4yxepqq1/OptiOS+10+LTSB+x64.iso/file"
+},
+"e4": {
+"name": "OptiOS 10 LTSC X64 (Windows 10)",
+"l1": "https://www.mediafire.com/file/bcfzdsivjs0uu0a"
+}, 
+"e5": {
+"name": "OptiOS PE 5.1 (Android X86)",
+"l1": "https://drive.google.com/file/d/16yKeexXDmqE74vxo4AjeH5GBw4KC0j89/view"
+},
+"e6": {
+"name": "OptiOS PE 7.1 (Android X86)",
+"l1": "https://www.mediafire.com/file/yxpq2c2sqh4autm"
+},
+"e7": {
+"name": "TomexOS V2 LTSC (Windows 10)",
+"l1": "https://www.mediafire.com/file/2ne9gn67l6kgto8/"
+}
+}
+}
+
+document.getElementById("header").style.display = "block";
+document.getElementById("mainContainer").style.display = "block";
+main();
+
+// This is the only way I found to make it so the code wouldn't execute until the JSON file was loaded
+// I don't know if it's efficient, but it's definitely easy and doesn't make the code any more complex
+function main() {
+// ----------------- Downloading further info ----------------- //
+document.getElementById("loading").innerHTML = "Ejecutando JavaScript...<br>Cargando elements...<br>Cargando information...";
+  
+informationData = {
+"t1": {
+"e1": ""
+}
+};
+
+setTimeout(function() {
+document.getElementById("loading").style.opacity = "0";
+}, 
+3000);
+  
+setTimeout(function() {
+document.getElementById("loading").style.display = "none";
+updateButtons();
+}, 
+0);
+}
+
+function updateButtons() {
+
+// ------------------------ Defaults ------------------------ //
+
+tab = {}
+tab.selected = "t4"
+entry = {}
+infoMenuOpen = false
+
+document.getElementById("entryContainer").scrollTo({top: 0})
+
+
+// ------------------------ Tabs ------------------------ //
+
+tab.amount = Object.keys(elementsData).length
+
+// Creates the tabs themselves with the info of the JSON
+for (let i = 1; i <= tab.amount; i++) {
+let newElement = document.createElement("a")
+newElement.id = "t" + i
+newElement.className = "tabButton"
+newElement.innerHTML = elementsData["t" + i].title
+document.getElementById("tabContainer").appendChild(newElement)
+}
+
+// Expands the tab container width depending how many tabs there are
+document.getElementById("tabContainer").style.width = tab.amount * 140 + "px"
+
+// Event listeners to change tabs
+document.getElementById("tabContainer").addEventListener("mousedown", function(event) {
+if (event.button === 0 && event.target.getAttribute("id") !== "tabContainer") {
+changeTab(event.target.getAttribute("id"))
+}
+})
+
+changeTab(tab.selected)
+
+
+// ------------------------ Entries ------------------------ //
+
+// Event listeners to change entry selection
+document.getElementById("entryContainer").addEventListener("mousedown", function(event) {
+if (event.button === 0 && event.target.getAttribute("id") !== "entryContainer") {
+selectEntry(event.target.getAttribute("id"))
+}
+})
+
+// Event listeners to show the information of the selected entry
+document.getElementById("info").addEventListener("mousedown", function(event) {
+if (event.button === 0) {
+infoMenu()
+}
+})
+
+selectEntry(entry.selected)
+
+
+
+// ------------------------ Keyboard navigation ------------------------ //
+document.addEventListener("keydown", function(event) {
+if (event.ctrlKey) {
+switch (event.code) {
+case "ArrowUp":
+if (entry.selectedInt > 1) {
+entry.selectedInt -= 1
+selectEntry("e" + entry.selectedInt, true)
+}
+break;
+case "ArrowDown":
+if (entry.selectedInt < entry.amount) {
+entry.selectedInt += 1
+selectEntry("e" + entry.selectedInt, true)
+}
+break;
+case "ArrowRight":
+if (tab.selectedInt < tab.amount) {
+tab.selectedInt += 1
+changeTab("t" + tab.selectedInt)
+}
+break;
+case "ArrowLeft":
+if (tab.selectedInt > 1) {
+tab.selectedInt -= 1
+changeTab("t" + tab.selectedInt)
+}
+break;
+}
+}
+if (event.altKey) {
+switch (event.code) {
+case "ArrowUp":
+if (tab.selectedInt > 1) {
+tab.selectedInt -= 1
+changeTab("t" + tab.selectedInt)
+}
+break;
+case "ArrowDown":
+if (tab.selectedInt < tab.amount) {
+tab.selectedInt += 1
+changeTab("t" + tab.selectedInt)
+}
+break;
+}
+}
+
+if (event.code === "Backspace") {
+if (document.getElementById("info").style.opacity !== "0") {
+infoMenu()
+}
+}
+})
+
+// Change tab
+function changeTab(id) {
+// Scrolls back to top
+if (tab.selected !== id) {
+document.getElementById("entryContainer").scrollTo({top: 0})
+}
+
+// Styling of the tab buttons
+document.getElementById(tab.selected).style.backgroundColor = null
+document.getElementById(tab.selected).style.boxShadow = null
+document.getElementById(tab.selected).style.cursor = null
+tab.selected = id
+document.getElementById(tab.selected).style.backgroundColor = "#FFFFFF12"
+document.getElementById(tab.selected).style.boxShadow = "inset 0 0 0 3px #FFFFFF12"
+document.getElementById(tab.selected).style.cursor = "default"
+
+// This is used for keyboard navigation
+tab.selectedInt = parseInt(tab.selected.slice(1))
+
+// Label/Subtitle of tab
+document.getElementById("tabSubtitle").innerHTML = elementsData[tab.selected].subtitle
+
+// Hide/Unhide server list
+if (tab.selected === "t4") {
+document.getElementById("serverInfo").style.display = "block"
+} else {
+document.getElementById("serverInfo").style.display = "none"
+}
+
+infoMenuOpen = true
+infoMenu()
+
+updateEntries()
+entry.selected = "e1"
+selectEntry("e1")
+}
+
+
+// Update entries
+function updateEntries() {
+// Deletes old entries
+document.getElementById("entryContainer").textContent = ""
+
+// Creates the new ones
+entry.amount = Object.keys(elementsData[tab.selected]).length - 2
+
+for (let i = 1; i <= entry.amount; i++) {
+let newElement = document.createElement("span")
+newElement.id = "e" + i
+newElement.className = "listEntry"
+newElement.innerHTML = elementsData[tab.selected]["e" + i].name
+document.getElementById("entryContainer").appendChild(newElement)
+}
+}
+
+
+// Change selected entry
+function selectEntry(id, keyboardNavigation) {
+document.getElementById(entry.selected).style = null
+entry.selected = id
+document.getElementById(entry.selected).style.backgroundColor = "#FFFFFF17"
+
+// This is used for keyboard navigation
+entry.selectedInt = parseInt(entry.selected.slice(1))
+
+if (keyboardNavigation) {
+if (entry.selectedInt > 1) {
+document.getElementById(entry.selected).scrollIntoView({block: "center", behavior: "smooth"})
+} else {
+document.getElementById("entryContainer").scrollTo({top: 0, behavior: "smooth"})
+}
+}
+
+updateButtons()
+}
+
+
+
+// Update buttons label and links
+function updateButtons() {
+// Change button links
+document.getElementById("download1").setAttribute("href", elementsData[tab.selected][entry.selected].l1)
+document.getElementById("download1").innerHTML = elementsData[tab.selected][entry.selected].b1
+
+// Checks if the first button has specified text in the JSON, and if not, sets a generic "Descargar" label
+if (elementsData[tab.selected][entry.selected].b1 === undefined) {
+document.getElementById("download1").innerHTML = "Descargar"
+} else {
+document.getElementById("download1").innerHTML = elementsData[tab.selected][entry.selected].b1
+}
+
+// Checks if there is extra information from information.json, and if so, it enables the information button
+if (informationData[tab.selected] === undefined) {
+document.getElementById("info").style.opacity = "0"
+fullButtonWidth = "408px"
+splitButtonWidth = "196px"
+document.getElementById("download2").style.left = "0px"
+} else if (informationData[tab.selected][entry.selected] === undefined) {
+document.getElementById("info").style.opacity = "0"
+fullButtonWidth = "408px"
+splitButtonWidth = "196px"
+document.getElementById("download2").style.left = "0px"
+} else {
+document.getElementById("info").style.opacity = null
+fullButtonWidth = "356px"
+splitButtonWidth = "170px"
+document.getElementById("download2").style.left = "52px"
+}
+
+// Checks if there is a second link, and if so, it enables the second button
+if (elementsData[tab.selected][entry.selected].l2 === undefined) {
+document.getElementById("download1").style.width = fullButtonWidth
+document.getElementById("download2").removeAttribute("href")
+document.getElementById("download2").style.opacity = "0"
+} else {
+document.getElementById("download2").style.display = null
+document.getElementById("download1").style.width = splitButtonWidth
+document.getElementById("download2").style.width = splitButtonWidth
+document.getElementById("download2").setAttribute("href", elementsData[tab.selected][entry.selected].l2)
+document.getElementById("download2").innerHTML = elementsData[tab.selected][entry.selected].b2
+document.getElementById("download2").style.opacity = null
+}
+}
+
+
+// Open Information/Help menu
+function infoMenu() {
+if (infoMenuOpen) {
+infoMenuOpen = false
+document.getElementById("entryContainer").style.display = null
+document.getElementById("textContainer").style.display = null
+document.getElementById("info").style.backgroundImage = null
+document.getElementById("listIcon").src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkZyYW1lIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTggNkgyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl8yIiBkPSJNOCAxMkgyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl8zIiBkPSJNOCAxOEgyMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl80IiBkPSJNMyA2SDMuMDEiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGlkPSJWZWN0b3JfNSIgZD0iTTMgMTJIMy4wMSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggaWQ9IlZlY3Rvcl82IiBkPSJNMyAxOEgzLjAxIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L2c+Cjwvc3ZnPgo="
+document.getElementById("tabSubtitle").innerHTML = elementsData[tab.selected].subtitle
+} else {
+infoMenuOpen = true
+document.getElementById("entryContainer").style.display = "none"
+document.getElementById("textContainer").style.display = "block"
+document.getElementById("listIcon").src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10ZXh0Ij48cGF0aCBkPSJNMTcgNi4xSDMiLz48cGF0aCBkPSJNMjEgMTIuMUgzIi8+PHBhdGggZD0iTTE1LjEgMThIMyIvPjwvc3ZnPg=="
+document.getElementById("info").style.backgroundImage = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyOCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaGV2cm9uLWxlZnQiPjxwYXRoIGQ9Im0xNSAxOC02LTYgNi02Ii8+PC9zdmc++"
+document.getElementById("tabSubtitle").innerHTML = "Información: " + elementsData[tab.selected][entry.selected].name
+document.getElementById("textContainer").innerHTML = informationData[tab.selected][entry.selected]
+}
+}
+
+
+
+// Enable/disable compact mode
+function compactMode() {
+if (window.innerHeight < 721 || window.innerWidth - 580 < tab.amount * 140) {
+document.getElementById("header").style.borderBottom = "none"
+document.getElementById("header").style.borderRight = "2px solid #00000040"
+document.getElementById("header").style.width = "296px"
+document.getElementById("header").style.height = "100%"
+document.getElementById("tabContainer").style.display = "block"
+document.getElementById("tabContainer").style.left = "59px"
+document.getElementById("tabContainer").style.transform = "none"
+document.getElementById("tabContainer").style.marginTop = "96px"
+document.getElementById("mainContainer").style.left = "calc(50% + 149px)"
+document.getElementById("socialContainer").style.right = "auto"
+document.getElementById("socialContainer").style.top = "auto"
+document.getElementById("socialContainer").style.bottom = "20px"
+document.getElementById("socialContainer").style.left = "64px"
+
+// This changes a CSS variable which is used for the tab buttons
+document.documentElement.style.setProperty("--tabWidth", "180px")
+} else {
+document.getElementById("header").style = null
+document.getElementById("tabContainer").style = null
+document.getElementById("tabContainer").style.width = tab.amount * 140 + "px"
+document.getElementById("mainContainer").style.left = null
+document.getElementById("socialContainer").style = null
+document.documentElement.style.setProperty("--tabWidth", "180px")
+}
+
+if (window.innerHeight < 575) {
+document.getElementById("mainContainer").style.height = window.innerHeight + "px"
+document.getElementById("serverInfo").style.height = window.innerHeight - 450 + "px"
+document.getElementById("mainBox").style.height = window.innerHeight - 124 + "px"
+document.getElementById("listBox").style.height = window.innerHeight - 194 + "px"
+} else {
+document.getElementById("mainContainer").style.height = null
+document.getElementById("mainBox").style.height = null
+document.getElementById("listBox").style.height = null
+}
+}
+
+// FALTA AÑADIR EN MAINCHAT CROTER!!! (proximamente)
+compactMode()
+}
+</script>
+</body>
+</html>
