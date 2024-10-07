@@ -1,0 +1,558 @@
+<html><head><base href="edwardvelasquezantonio.github.io" /><title>YouTube Simulator (BETA)</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+  }
+  #game-container, #youtube-homepage {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  h1, h2 {
+    color: #FF0000;
+    text-align: center;
+  }
+  #stats, #shop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .stat {
+    text-align: center;
+  }
+  button {
+    background-color: #FF0000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto;
+  }
+  button:hover {
+    background-color: #CC0000;
+  }
+  button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+  }
+  #video-list, #creator-list {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  .video-item, .creator-item {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+  }
+  #message {
+    text-align: center;
+    color: #FF0000;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .viral {
+    color: #00AA00;
+    font-weight: bold;
+  }
+  .super-viral {
+    color: #0000FF;
+    font-weight: bold;
+  }
+  #profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  #profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: #fff;
+    text-transform: uppercase;
+    overflow: hidden;
+  }
+  #profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  #channel-name {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  #name-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  #viral-chance-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  #viral-chance-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  #viral-chance-progress {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0%;
+    transition: width 0.5s ease-in-out;
+  }
+  #back-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #4CAF50;
+  }
+  #collaborate-button {
+    background-color: #4CAF50;
+  }
+  #best-video {
+    background-color: #FFA500;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  #best-video h3 {
+    margin-top: 0;
+  }
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+<button id="back-button">Volver a la página de inicio de YouTube</button>
+<div id="game-container">
+  <h1>YouTube Simulator</h1>
+  <div id="profile">
+    <div id="profile-pic"></div>
+    <div id="channel-name">Canal sin nombre</div>
+  </div>
+  <input type="text" id="name-input" placeholder="Ingresa el nombre de tu canal">
+  <button id="update-name">Actualizar el nombre del canal</button>
+  <div id="stats">
+    <div class="stat">
+      <h3>Suscriptores</h3>
+      <p id="subscribers">0</p>
+    </div>
+    <div class="stat">
+      <h3>Vistas</h3>
+      <p id="views">0</p>
+    </div>
+    <div class="stat">
+      <h3>Dinero</h3>
+      <p id="money">$10.00</p>
+    </div>
+  </div>
+  <button id="post-video">Publicar vídeo (GRATUITO)</button>
+  <button id="show-best-video">Mostrar el vídeo de mejor rendimiento</button>
+  <div id="best-video" class="hidden">
+    <h3>Mejor vídeo</h3>
+    <p id="best-video-details"></p>
+    <button id="hide-best-video">Hide</button>
+  </div>
+  <div id="message"></div>
+  <h2>Tienda</h2>
+  <div id="viral-chance-container">
+    <h3>Oportunidad viral: <span id="viral-chance-value">1%</span></h3>
+    <div id="viral-chance-bar">
+      <div id="viral-chance-progress"></div>
+    </div>
+  </div>
+  <button id="upgrade-viral">Aumentar la probabilidad viral ($100.00)</button>
+  <div id="video-list"></div>
+</div>
+
+<div id="youtube-homepage" style="display: none;">
+  <h1>Página de YouTube</h1>
+  <h2>Creadores de contenidos</h2>
+  <div id="creator-list"></div>
+  <button id="collaborate-button">Colaborar ($1000.00)</button>
+</div>
+
+<script>
+  let subscribers = 0;
+  let totalViews = 0;
+  let money = 50;
+  let videoCost = 0;
+  let videoCount = 0;
+  let videos = [];
+  let channelPopularity = 1;
+  let viralChance = 1;
+  let viralUpgradeCost = 100;
+  let viewMultiplier = 1;
+  let channelName = "Canal sin nombre";
+  let collaborationCost = 1000;
+  let extraViewsFromSubscribers = 0;
+
+  const subscribersElement = document.getElementById('subscribers');
+  const viewsElement = document.getElementById('views');
+  const moneyElement = document.getElementById('money');
+  const postVideoButton = document.getElementById('post-video');
+  const upgradeViralButton = document.getElementById('upgrade-viral');
+  const videoList = document.getElementById('video-list');
+  const messageElement = document.getElementById('message');
+  const profilePic = document.getElementById('profile-pic');
+  const channelNameDisplay = document.getElementById('channel-name');
+  const nameInput = document.getElementById('name-input');
+  const updateNameButton = document.getElementById('update-name');
+  const viralChanceValue = document.getElementById('viral-chance-value');
+  const viralChanceProgress = document.getElementById('viral-chance-progress');
+  const backButton = document.getElementById('back-button');
+  const gameContainer = document.getElementById('game-container');
+  const youtubeHomepage = document.getElementById('youtube-homepage');
+  const creatorList = document.getElementById('creator-list');
+  const collaborateButton = document.getElementById('collaborate-button');
+  const showBestVideoButton = document.getElementById('show-best-video');
+  const bestVideoSection = document.getElementById('best-video');
+  const bestVideoDetails = document.getElementById('best-video-details');
+  const hideBestVideoButton = document.getElementById('hide-best-video');
+
+  const adjectives = ['Hilarious', 'Epic', 'Crazy', 'Unexpected', 'Shocking', 'Cute', 'Awesome'];
+  const objects = ['Gato', 'Perro', 'Fracasar', 'Ganar', 'Broma', 'Comida', 'Juego'];
+  const places = ['Nueva York', 'Tokio', 'París', 'Londres', 'Los Ángeles', 'Sídney', 'Dubái'];
+  const persons = ['un multimillonario', 'un jugador', 'un chef', 'un artista', 'un científico', 'un músico', 'un deportista'];
+  const things = ['Smartphones', 'Redes Sociales', 'Antiguo Egipto', 'Exploración Espacial', 'IA', 'Física Cuántica', 'Memes'];
+  const videoGames = ['Minecraft', 'Fortnite', 'Among Us', 'The Legend of Zelda', 'Call of Duty', 'Animal Crossing', 'Cyberpunk 2077'];
+  const challenges = ['comer sólo comida azul', 'hablar con rimas', 'no usar tecnología', 'vivir en una casa en un árbol', 'llevar la ropa al revés', 'comunicarse sólo a través de la danza interpretativa', 'aprender un nuevo idioma'];
+
+  const usernameFormats = [
+    'Xx{object}slayerxX',
+    '{object}Lover6969',
+    '{object}VR',
+    '{object}GT',
+    'TheUltimate{object}69420',
+    '{object}Master420',
+    'Pro{object}Player',
+    '{object}Ninja',
+    'The{object}Whisperer',
+    'Captain{object}',
+    '{object}Lord9000',
+    'Epic{object}Gamer',
+    '{object}Explorer',
+    'Legendary{object}',
+    '{object}Enthusiast',
+    'The{object}Guru',
+    '{object}Wizard',
+    'Mega{object}Fan',
+    '{object}Champion',
+    'Ultimate{object}Boss'
+  ];
+
+  const topics = ['Gaming', 'Belleza', 'Tecnología', 'Comida', 'Viaje', 'Fitness', 'Música', 'DIY', 'Ciencia', 'Comedia'];
+
+  function generateUsername() {
+    const format = usernameFormats[Math.floor(Math.random() * usernameFormats.length)];
+    const object = objects[Math.floor(Math.random() * objects.length)];
+    return format.replace('{object}', object);
+  }
+
+  function generateCreators(count) {
+    const creators = [];
+    for (let i = 0; i < count; i++) {
+      const username = generateUsername();
+      const topic = topics[Math.floor(Math.random() * topics.length)];
+      const subscriberCount = Math.floor(Math.random() * 10000000) + 1000;
+      creators.push({ name: username, topic: topic, subscribers: subscriberCount });
+    }
+    return creators;
+  }
+
+  const creators = generateCreators(20);
+
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  function generateVideoTitle() {
+    const titleTypes = [
+      `${getRandomElement(adjectives)} recopilación de memes`,
+      `${getRandomElement(objects)} reacción`,
+      `${getRandomElement(places)} vlog!`,
+      `A day in the life of ${getRandomElement(persons)}`,
+      `Cosas que no sabía ${getRandomElement(things)}`,
+      `${getRandomElement(videoGames)} ¡A jugar!`,
+      `${subscribers.toLocaleString()} especial suscriptores!`,
+      `I tried to ${getRandomElement(challenges)} ¡durante 24 horas!`
+    ];
+    return getRandomElement(titleTypes);
+  }
+
+  function updateStats() {
+    subscribersElement.textContent = subscribers.toLocaleString();
+    viewsElement.textContent = totalViews.toLocaleString();
+    moneyElement.textContent = '$' + money.toFixed(2);
+    postVideoButton.textContent = videoCount === 0 ? 'Publicar vídeo (GRATUITO)' : `Publicar vídeo ($${videoCost.toFixed(2)})`;
+    postVideoButton.disabled = videoCount > 0 && money < videoCost;
+    upgradeViralButton.textContent = `Aumentar la probabilidad viral ($${viralUpgradeCost.toFixed(2)})`;
+    upgradeViralButton.disabled = money < viralUpgradeCost;
+    viralChanceValue.textContent = `${viralChance.toFixed(1)}%`;
+    viralChanceProgress.style.width = `${(viralChance / 50) * 100}%`;
+    collaborateButton.textContent = `Colaborar ($${collaborationCost.toFixed(2)})`;
+    collaborateButton.disabled = money < collaborationCost;
+  }
+
+  function getTargetViews() {
+    const baseViews = Math.floor(Math.random() * 1000) + 1000;
+    const multiplier = Math.log(subscribers + 1) / Math.log(10) + 1;
+    return Math.floor(baseViews * multiplier * channelPopularity * viewMultiplier);
+  }
+
+  function createVideo() {
+    const targetViews = getTargetViews();
+    const isViral = Math.random() * 100 < viralChance;
+    return {
+      id: videoCount,
+      title: generateVideoTitle(),
+      views: 0,
+      targetViews: isViral ? targetViews * 3 : targetViews,
+      element: null,
+      earnings: 0,
+      startTime: Date.now(),
+      slowed: false,
+      isViral: isViral,
+      isSuperViral: false,
+      superViralChecked: false
+    };
+  }
+
+  function updateVideo(video) {
+    const currentTime = Date.now();
+    const timeSinceStart = (currentTime - video.startTime) / 1000;
+
+    if (!video.superViralChecked && timeSinceStart > 30) {
+      video.superViralChecked = true;
+      if (Math.random() < 0.05) {
+        video.isSuperViral = true;
+        video.targetViews *= 2;
+        if (video.element) {
+          video.element.classList.add('super-viral');
+        }
+      }
+    }
+
+    let viewIncrement;
+    if (timeSinceStart <= 20) {
+      viewIncrement = Math.floor(Math.random() * 10 * channelPopularity * viewMultiplier) + 1;
+    } else if (!video.slowed) {
+      video.slowed = true;
+      viewIncrement = Math.floor(Math.random() * 3 * channelPopularity * viewMultiplier) + 1;
+    } else {
+      viewIncrement = Math.floor(Math.random() * 2 * channelPopularity * viewMultiplier) + 1;
+    }
+
+    if (video.isViral) {
+      viewIncrement *= 3;
+    }
+
+    if (video.isSuperViral) {
+      viewIncrement *= 2;
+    }
+
+    // Add extra views from subscribers
+    viewIncrement += extraViewsFromSubscribers;
+
+    const newViews = Math.min(video.views + viewIncrement, Math.ceil(video.targetViews * 1.1));
+    const incrementedViews = newViews - video.views;
+    
+    video.views = newViews;
+    totalViews += incrementedViews;
+    
+    const newSubscribers = Math.floor(incrementedViews / 10);
+    subscribers += newSubscribers;
+    
+    // Update extra views from subscribers
+    extraViewsFromSubscribers = Math.floor(subscribers / 10);
+    
+    const newEarnings = incrementedViews * 0.1;
+    video.earnings += newEarnings;
+    money += newEarnings;
+    
+    if (video.element) {
+      video.element.textContent = `${video.title} - ${video.views.toLocaleString()} vistas, $${video.earnings.toFixed(2)} ganado${video.isViral || video.isSuperViral ? ' (VIRAL!)' : ''}`;
+      if (video.isViral || video.isSuperViral) {
+        video.element.classList.add('viral');
+      }
+    }
+    
+    updateStats();
+    
+    if (video.views < Math.ceil(video.targetViews * 1.1)) {
+      setTimeout(() => updateVideo(video), video.slowed ? 2000 : 1000);
+    }
+  }
+
+  function postVideo() {
+    if (videoCount === 0 || money >= videoCost) {
+      if (videoCount > 0) {
+        money -= videoCost;
+      }
+      videoCount++;
+      
+      const video = createVideo();
+      videos.push(video);
+      
+      const videoItem = document.createElement('div');
+      videoItem.className = 'video-item';
+      videoItem.textContent = `${video.title} - 0 views, $0.00 earned${video.isViral ? ' (VIRAL!)' : ''}`;
+      if (video.isViral) {
+        videoItem.classList.add('viral');
+      }
+      video.element = videoItem;
+      
+      videoList.insertBefore(videoItem, videoList.firstChild);
+
+      if (videoCount === 1) {
+        videoCost = 15;
+      } else {
+        videoCost *= 1.5;
+      }
+      channelPopularity *= 1.05;
+      viewMultiplier *= 1.25;
+      messageElement.textContent = `Video "${video.title}" posted successfully!${video.isViral ? ' Se hizo viral.' : ''}`;
+      updateStats();
+      
+      setTimeout(() => updateVideo(video), 1000);
+    } else {
+      messageElement.textContent = "¡No tienes suficiente dinero para publicar un vídeo!";
+    }
+  }
+
+  function upgradeViral() {
+    if (money >= viralUpgradeCost) {
+      money -= viralUpgradeCost;
+      viralChance = Math.min(viralChance + 0.5, 50);
+      viralUpgradeCost *= 1.5;
+      messageElement.textContent = `Viral chance upgraded to ${viralChance.toFixed(1)}%!`;
+      updateStats();
+    } else {
+      messageElement.textContent = "¡No tienes suficiente dinero para mejorar la oportunidad viral!";
+    }
+  }
+
+  function updateChannelName() {
+    const newName = nameInput.value.trim();
+    if (newName) {
+      channelName = newName;
+      channelNameDisplay.textContent = channelName;
+      updateProfilePic();
+      nameInput.value = '';
+      messageElement.textContent = "El nombre del canal se ha actualizado correctamente.";
+    } else {
+      messageElement.textContent = "Introduzca un nombre de canal válido.";
+    }
+  }
+
+  function updateProfilePic() {
+    const imageUrl = `https://source.unsplash.com/100x100/?${encodeURIComponent(channelName)}`;
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = `${channelName} profile picture`;
+    profilePic.innerHTML = '';
+    profilePic.appendChild(img);
+    messageElement.textContent = "Generar foto de perfil...";
+    img.onload = () => {
+      messageElement.textContent = "Foto de perfil actualizada";
+    };
+    img.onerror = () => {
+      const initials = channelName.split(' ').map(word => word[0]).join('').slice(0, 2);
+      profilePic.textContent = initials;
+      const hue = Math.abs(channelName.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 360);
+      profilePic.style.backgroundColor = `hsl(${hue}, 70%, 50%)`;
+      messageElement.textContent = "No se ha podido generar la imagen. Usando iniciales en su lugar.";
+    };
+  }
+
+  function toggleHomepage() {
+    if (gameContainer.style.display === 'none') {
+      gameContainer.style.display = 'block';
+      youtubeHomepage.style.display = 'none';
+      backButton.textContent = 'Volver a la página de inicio de YouTube';
+    } else {
+      gameContainer.style.display = 'none';
+      youtubeHomepage.style.display = 'block';
+      backButton.textContent = 'Volver al canal';
+      updateCreatorList();
+    }
+  }
+
+  function updateCreatorList() {
+    creatorList.innerHTML = '';
+    creators.forEach(creator => {
+      const creatorItem = document.createElement('div');
+      creatorItem.className = 'creator-item';
+      creatorItem.textContent = `${creator.name} (${creator.topic}) - ${creator.subscribers.toLocaleString()} suscriptores`;
+      if (creator.subscribers < subscribers) {
+        creatorItem.style.color = '#007700';
+      }
+      creatorList.appendChild(creatorItem);
+    });
+  }
+
+  function collaborate() {
+    if (money >= collaborationCost) {
+      money -= collaborationCost;
+      const newSubscribers = Math.floor(subscribers * 0.1);
+      subscribers += newSubscribers;
+      collaborationCost *= 1.5;
+      messageElement.textContent = `Collaboration successful! You gained ${newSubscribers.toLocaleString()} new subscribers!`;
+      updateStats();
+      updateCreatorList();
+    } else {
+      messageElement.textContent = "¡No tienes suficiente dinero para colaborar!";
+    }
+  }
+
+  function showBestVideo() {
+    const bestVideo = videos.reduce((best, current) => (current.views > best.views ? current : best), videos[0]);
+    if (bestVideo) {
+      bestVideoDetails.textContent = `"${bestVideo.title}" - ${bestVideo.views.toLocaleString()} views, $${bestVideo.earnings.toFixed(2)} earned`;
+      bestVideoSection.classList.remove('hidden');
+    } else {
+      messageElement.textContent = "Aún no has publicado ningún vídeo.";
+    }
+  }
+
+  function hideBestVideo() {
+    bestVideoSection.classList.add('hidden');
+  }
+
+  postVideoButton.addEventListener('click', postVideo);
+  upgradeViralButton.addEventListener('click', upgradeViral);
+  updateNameButton.addEventListener('click', updateChannelName);
+  backButton.addEventListener('click', toggleHomepage);
+  collaborateButton.addEventListener('click', collaborate);
+  showBestVideoButton.addEventListener('click', showBestVideo);
+  hideBestVideoButton.addEventListener('click', hideBestVideo);
+
+  updateStats();
+  updateCreatorList();
+</script>
+</body></html>
