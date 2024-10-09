@@ -1,4 +1,4 @@
-<html><head><base href="https://edwardvelasquezantonio.github.io" /><title>Simulador de YouTube</title>
+<html><head><base href="https://websim.ai" /><title>Simulador de YouTube</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -212,6 +212,19 @@
   body.dark-mode .super-viral {
     color: #45aaf2;
   }
+  .edit-video-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 10px;
+  }
+  .edit-video-button:hover {
+    background-color: #45a049;
+  }
 </style>
 </head>
 <body>
@@ -269,7 +282,7 @@
 <script>
   let subscribers = 0;
   let totalViews = 0;
-  let money = 50;
+  let money = 10;
   let videoCost = 0;
   let videoCount = 0;
   let videos = [];
@@ -310,10 +323,10 @@
 
   const adjectives = ['Divertido', 'Épico', 'Loco', 'Inesperado', 'Impactante', 'Lindo', 'Increíble'];
   const objects = ['Gato', 'Perro', 'Fracaso', 'Éxito', 'Broma', 'Comida', 'Juego'];
-  const places = ['Nueva York', 'Tokio', 'París', 'Londres', 'Los Ángeles', 'Sídney', 'Dubái', 'Caracas', 'Santiago', 'Buenos Aires', 'Berín'];
+  const places = ['Nueva York', 'Tokio', 'París', 'Londres', 'Los Ángeles', 'Sídney', 'Dubái'];
   const persons = ['un Millonario', 'un Gamer', 'un Chef', 'un Artista', 'un Científico', 'un Músico', 'un Atleta'];
   const things = ['Smartphones', 'Redes sociales', 'Antiguo Egipto', 'Exploración espacial', 'IA', 'Física cuántica', 'Memes'];
-  const videoGames = ['Minecraft', 'Fortnite', 'Among Us', 'The Legend of Zelda', 'Call of Duty', 'Animal Crossing', 'Cyberpunk 2077', 'RavenField', 'Unturned', 'Victoria 2', 'Grand Theft Auto V', 'Heart of Iron IV'];
+  const videoGames = ['Minecraft', 'Fortnite', 'Among Us', 'The Legend of Zelda', 'Call of Duty', 'Animal Crossing', 'Cyberpunk 2077'];
   const challenges = ['comer solo comida azul', 'hablar en rimas', 'no usar tecnología', 'vivir en una casa del árbol', 'usar mi ropa al revés', 'comunicarme solo a través de danza interpretativa', 'aprender un nuevo idioma'];
 
   const usernameFormats = [
@@ -416,6 +429,45 @@
     };
   }
 
+  function createVideoItem(video) {
+    const videoItem = document.createElement('div');
+    videoItem.className = 'video-item';
+    
+    const videoText = document.createElement('span');
+    videoText.textContent = `${video.title} - ${video.views.toLocaleString()} visualizaciones, $${video.earnings.toFixed(2)} ganados${video.isViral || video.isSuperViral ? ' (¡VIRAL!)' : ''}`;
+    
+    const editButton = document.createElement('button');
+    editButton.textContent = 'Editar';
+    editButton.className = 'edit-video-button';
+    editButton.onclick = () => editVideoTitle(video);
+    
+    videoItem.appendChild(videoText);
+    videoItem.appendChild(editButton);
+    
+    if (video.isViral || video.isSuperViral) {
+      videoItem.classList.add('viral');
+    }
+    video.element = videoItem;
+    
+    return videoItem;
+  }
+
+  function editVideoTitle(video) {
+    const newTitle = prompt('Ingrese el nuevo título del video:', video.title);
+    if (newTitle && newTitle.trim() !== '') {
+      video.title = newTitle.trim();
+      updateVideoDisplay(video);
+      messageElement.textContent = '¡Título del video actualizado con éxito!';
+    }
+  }
+
+  function updateVideoDisplay(video) {
+    if (video.element) {
+      const videoText = video.element.querySelector('span');
+      videoText.textContent = `${video.title} - ${video.views.toLocaleString()} visualizaciones, $${video.earnings.toFixed(2)} ganados${video.isViral || video.isSuperViral ? ' (¡VIRAL!)' : ''}`;
+    }
+  }
+
   function updateVideo(video) {
     const currentTime = Date.now();
     const timeSinceStart = (currentTime - video.startTime) / 1000;
@@ -449,7 +501,6 @@
       viewIncrement *= 2;
     }
 
-    // Add extra views from subscribers
     viewIncrement += extraViewsFromSubscribers;
 
     const newViews = Math.min(video.views + viewIncrement, Math.ceil(video.targetViews * 1.1));
@@ -461,7 +512,6 @@
     const newSubscribers = Math.floor(incrementedViews / 10);
     subscribers += newSubscribers;
     
-    // Update extra views from subscribers
     extraViewsFromSubscribers = Math.floor(subscribers / 10);
     
     const newEarnings = incrementedViews * 0.1;
@@ -469,10 +519,7 @@
     money += newEarnings;
     
     if (video.element) {
-      video.element.textContent = `${video.title} - ${video.views.toLocaleString()} visualizaciones, $${video.earnings.toFixed(2)} ganados${video.isViral || video.isSuperViral ? ' (¡VIRAL!)' : ''}`;
-      if (video.isViral || video.isSuperViral) {
-        video.element.classList.add('viral');
-      }
+      updateVideoDisplay(video);
     }
     
     updateStats();
@@ -492,14 +539,7 @@
       const video = createVideo();
       videos.push(video);
       
-      const videoItem = document.createElement('div');
-      videoItem.className = 'video-item';
-      videoItem.textContent = `${video.title} - 0 visualizaciones, $0.00 ganados${video.isViral ? ' (¡VIRAL!)' : ''}`;
-      if (video.isViral) {
-        videoItem.classList.add('viral');
-      }
-      video.element = videoItem;
-      
+      const videoItem = createVideoItem(video);
       videoList.insertBefore(videoItem, videoList.firstChild);
 
       if (videoCount === 1) {
@@ -577,7 +617,6 @@
   }
 
   function updateLanguage() {
-    // Update all text elements based on the current language
     if (isSpanish) {
       document.querySelector('h1').textContent = 'Simulador de YouTube';
       document.querySelector('#channel-name').textContent = 'Canal sin nombre';
@@ -618,7 +657,6 @@
   darkModeToggle.addEventListener('click', toggleDarkMode);
   languageToggle.addEventListener('click', toggleLanguage);
 
-  // Check for saved dark mode preference
   if (localStorage.getItem('darkMode') === 'true') {
     toggleDarkMode();
   }
