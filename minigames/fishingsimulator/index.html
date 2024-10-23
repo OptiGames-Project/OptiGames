@@ -1,0 +1,1009 @@
+<html><head><base href="http://localhost/">
+    <title>Simulador de Pesca</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Fredoka', sans-serif;
+        }
+        #titleScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(lightblue, darkblue);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        #gameTitle {
+            font-size: 64px;
+            color: white;
+            animation: scaleTitle 0.3s infinite alternate;
+            font-family: 'Fredoka', sans-serif;
+            margin: 0;
+        }
+        @keyframes scaleTitle {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.2);
+            }
+        }
+        #playButton {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 24px;
+            font-family: 'Fredoka', sans-serif;
+            cursor: pointer;
+        }
+        #gameCanvas {
+            display: block;
+            background: linear-gradient(#87CEEB 50%, #1E90FF 50%);
+            width: 100vw;
+            height: 100vh;
+        }
+        #scoreBoard {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 18px;
+            font-family: 'Fredoka', sans-serif;
+            text-shadow: 1px 1px 2px #000;
+            z-index: 1;
+        }
+        #shopButton {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: 'Fredoka', sans-serif;
+            z-index: 1;
+        }
+        #bagButton {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: 'Fredoka', sans-serif;
+            z-index: 1;
+        }
+        #skillsButton {
+            position: absolute;
+            top: 90px;
+            right: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: 'Fredoka', sans-serif;
+            z-index: 1;
+        }
+        #nightModeButton {
+            position: absolute;
+            top: 130px;
+            right: 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: 'Fredoka', sans-serif;
+            z-index: 1;
+        }
+        #shopModal, #newFishModal, #bagModal, #skillsModal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            max-height: 400px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 0 0 10px #000;
+            z-index: 2;
+        }
+        #shopModal h2, #newFishModal h2, #bagModal h2, #skillsModal h2 {
+            margin-top: 0;
+            text-align: center;
+            font-family: 'Fredoka', sans-serif;
+        }
+        #shopModal button, #newFishModal button, #bagModal .fishItem button, .skill-button {
+            margin-top: 10px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Fredoka', sans-serif;
+        }
+        #bagModal .fishItem {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 5px;
+            background: rgba(240, 240, 240, 0.8);
+        }
+        #confettiCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .skill-tree {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .skill-row {
+            display: flex;
+            justify-content: space-around;
+        }
+        .skill-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #newFishModal {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            box-shadow: 0 0 10px #000;
+            z-index: 3;
+            border-radius: 10px;
+            text-align: center;
+        }
+        #newFishModal h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        #newFishModal p {
+            margin: 10px 0;
+            color: #666;
+        }
+        #newFishModal button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        #newFishModal button:hover {
+            background-color: #45a049;
+        }
+        body.night-mode {
+            background-color: #001f3f;
+            color: #fff;
+        }
+        body.night-mode #gameCanvas {
+            background: linear-gradient(#001f3f 50%, #000033 50%);
+        }
+        body.night-mode #shopModal,
+        body.night-mode #newFishModal,
+        body.night-mode #bagModal,
+        body.night-mode #skillsModal {
+            background: rgba(0, 31, 63, 0.9);
+            color: #fff;
+        }
+        body.night-mode #bagModal .fishItem {
+            background: rgba(0, 15, 31, 0.8);
+        }
+        #commandConsole {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 300px;
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            font-family: monospace;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            transition: transform 0.3s ease-in-out;
+        }
+        #commandConsole.hidden {
+            transform: translateY(100%);
+        }
+        #toggleConsoleButton {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 101;
+            padding: 5px 10px;
+            font-family: 'Fredoka', sans-serif;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="titleScreen">
+        <h1 id="gameTitle">Simulador de Pesca</h1>
+        <button id="playButton">Jugar</button>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+    <canvas id="confettiCanvas"></canvas>
+    <div id="scoreBoard">Peces en la Bolsa: 0/6<br>Dinero: $0<br>Puntos de Habilidad: 0</div>
+    <button id="shopButton">Tienda</button>
+    <button id="bagButton">Bolsa</button>
+    <button id="skillsButton">Habilidades</button>
+    <button id="nightModeButton">Modo Noche</button>
+    <button id="toggleConsoleButton">Mostrar/Ocultar Consola</button>
+    <div id="shopModal"></div>
+    <div id="newFishModal"></div>
+    <div id="bagModal"></div>
+    <div id="skillsModal"></div>
+    <div id="commandConsole" class="hidden">
+        <div id="commandOutput"></div>
+        <input type="text" id="commandInput" placeholder="Enter command...">
+    </div>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const confettiCanvas = document.getElementById('confettiCanvas');
+        const confettiCtx = confettiCanvas.getContext('2d');
+
+        let skillPoints = 0;
+        let skills = {
+            doubleCatch: { level: 0, maxLevel: 3, cost: 1, name: "Captura Doble" },
+            fastReeling: { level: 0, maxLevel: 3, cost: 1, name: "Recogida Rápida" },
+            luckyFisher: { level: 0, maxLevel: 3, cost: 1, name: "Pescador Afortunado" },
+            masterBaiter: { level: 0, maxLevel: 3, cost: 1, name: "Maestro del Cebo" }
+        };
+
+        let isNightMode = false;
+
+        function toggleNightMode() {
+            isNightMode = !isNightMode;
+            document.body.classList.toggle('night-mode', isNightMode);
+            updateBackgroundGradient();
+        }
+
+        function updateBackgroundGradient() {
+            if (isNightMode) {
+                canvas.style.background = 'linear-gradient(#001f3f 50%, #000033 50%)';
+            } else {
+                canvas.style.background = 'linear-gradient(#87CEEB 50%, #1E90FF 50%)';
+            }
+        }
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+
+        let fishes = [];
+        let fishing = false;
+        let lineX = 0;
+        let lineY = 0;
+        let lineSpeed = 5;
+        let fishingDown = true;
+        let caughtFish = null;
+
+        let bag = [];
+        let bagCapacity = 6;
+        let money = 0;
+        let capacityUpgradeCost = 5;
+        let lineSpeedUpgradeCost = 15;
+
+        let caughtFishTypes = new Set();
+
+        const fisherman = {
+            x: canvas.width / 2,
+            y: canvas.height / 2 - 200,
+            width: 50,
+            height: 50
+        };
+
+        let mouseX = fisherman.x + fisherman.width / 2;
+        let mouseY = fisherman.y - 50;
+
+        const fishTypes = [
+            {
+                name: "Goldfish",
+                color: "gold",
+                scale: 1,
+                rarity: 1,
+                sellPrice: 3,
+                unlockCapacity: 0
+            },
+            {
+                name: "Blue Tang",
+                color: "blue",
+                scale: 1,
+                rarity: 0.7,
+                sellPrice: 5,
+                unlockCapacity: 8
+            },
+            {
+                name: "Clownfish",
+                color: "orange",
+                scale: 1,
+                rarity: 0.5,
+                sellPrice: 7,
+                unlockCapacity: 10
+            },
+            {
+                name: "Angelfish",
+                color: "purple",
+                scale: 2,
+                rarity: 0.3,
+                sellPrice: 10,
+                unlockCapacity: 12
+            },
+            {
+                name: "Shark",
+                color: "gray",
+                scale: 3,
+                rarity: 0.1,
+                sellPrice: 20,
+                unlockCapacity: 16
+            },
+            {
+                name: "Whale",
+                color: "darkblue",
+                scale: 3,
+                rarity: 0.15,
+                sellPrice: 15,
+                unlockCapacity: 18
+            },
+            {
+                name: "Pez Globo",
+                color: "yellow",
+                scale: 2,
+                rarity: 0.4,
+                sellPrice: 8,
+                unlockCapacity: 14
+            },
+            {
+                name: "Pez Espada",
+                color: "silver",
+                scale: 3,
+                rarity: 0.2,
+                sellPrice: 18,
+                unlockCapacity: 20
+            },
+            {
+                name: "Pez Payaso",
+                color: "orangered",
+                scale: 1,
+                rarity: 0.6,
+                sellPrice: 6,
+                unlockCapacity: 9
+            },
+            {
+                name: "Pez Luna",
+                color: "lightgray",
+                scale: 3,
+                rarity: 0.1,
+                sellPrice: 25,
+                unlockCapacity: 22
+            }
+        ];
+
+        let unlockedFishTypes = [];
+
+        function init() {
+            unlockFishTypes();
+            createFishes();
+            canvas.addEventListener('click', startFishing);
+            document.getElementById('shopButton').addEventListener('click', openShop);
+            document.getElementById('bagButton').addEventListener('click', openBag);
+            document.getElementById('skillsButton').addEventListener('click', openSkills);
+            document.getElementById('nightModeButton').addEventListener('click', toggleNightMode);
+            canvas.addEventListener('mousemove', function(e) {
+                const rect = canvas.getBoundingClientRect();
+                mouseX = e.clientX - rect.left;
+                mouseY = e.clientY - rect.top;
+            });
+            initCommandConsole();
+            animate();
+        }
+
+        function unlockFishTypes() {
+            unlockedFishTypes = fishTypes.filter(fishType => bagCapacity >= fishType.unlockCapacity);
+        }
+
+        function addFishes(count) {
+            for (let i = 0; i < count; i++) {
+                let fishType = getRandomFishType();
+                let fish = {
+                    x: Math.random() * canvas.width,
+                    y: canvas.height / 2 + Math.random() * (canvas.height / 2 - 50),
+                    speed: Math.random() * 2 + 1,
+                    direction: Math.random() < 0.5 ? -1 : 1,
+                    width: 30 * fishType.scale,
+                    height: 15 * fishType.scale,
+                    type: fishType
+                };
+                fishes.push(fish);
+            }
+        }
+
+        function createFishes() {
+            fishes = [];
+            addFishes(20);
+        }
+
+        function getRandomFishType() {
+            let totalRarity = unlockedFishTypes.reduce((sum, fishType) => sum + fishType.rarity, 0);
+            let random = Math.random() * totalRarity;
+
+            if (Math.random() < skills.luckyFisher.level * 0.1) {
+                random *= 0.5;
+            }
+
+            let sum = 0;
+            for (let fishType of unlockedFishTypes) {
+                sum += fishType.rarity;
+                if (random <= sum) {
+                    return fishType;
+                }
+            }
+            return unlockedFishTypes[0];
+        }
+
+        function drawFishes() {
+            fishes.forEach(fish => {
+                ctx.save();
+                ctx.translate(fish.x, fish.y);
+                if (fish.direction === -1) {
+                    ctx.scale(-1, 1);
+                }
+                ctx.fillStyle = fish.type.color;
+
+                if (isNightMode) {
+                    ctx.fillStyle = darkenColor(fish.type.color);
+                }
+
+                if (fish.type.name === "Whale") {
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, fish.width * 1.5, fish.height * 0.8, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.moveTo(-fish.width * 1.5, 0);
+                    ctx.lineTo(-fish.width * 1.5 - 15, -10 * fish.type.scale);
+                    ctx.lineTo(-fish.width * 1.5 - 15, 10 * fish.type.scale);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.moveTo(0, -fish.height * 0.8);
+                    ctx.lineTo(0, -fish.height * 0.8 - 15);
+                    ctx.lineTo(10 * fish.type.scale, -fish.height * 0.8);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(fish.width / 2, -fish.height / 4, 3 * fish.type.scale, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = 'black';
+                    ctx.beginPath();
+                    ctx.arc(fish.width / 2, -fish.height / 4, 1.5 * fish.type.scale, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, fish.width, fish.height, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.moveTo(-fish.width, 0);
+                    ctx.lineTo(-fish.width - 10, -10 * fish.type.scale);
+                    ctx.lineTo(-fish.width - 10, 10 * fish.type.scale);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.moveTo(-fish.width / 2, -fish.height);
+                    ctx.lineTo(0, -fish.height - 10 * fish.type.scale);
+                    ctx.lineTo(fish.width / 2, -fish.height);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.fillStyle = 'black';
+                    ctx.beginPath();
+                    ctx.arc(fish.width / 2, -fish.height / 4, 2 * fish.type.scale, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+
+                fish.x += fish.speed * fish.direction;
+                if (fish.x < -fish.width || fish.x > canvas.width + fish.width) {
+                    fish.direction *= -1;
+                }
+            });
+        }
+
+        function darkenColor(color) {
+            function parseColor(color) {
+                if (color.startsWith('rgb')) {
+                    return color.match(/\d+/g).map(Number);
+                }
+                if (color.startsWith('#')) {
+                    return [
+                        parseInt(color.slice(1, 3), 16),
+                        parseInt(color.slice(3, 5), 16),
+                        parseInt(color.slice(5, 7), 16)
+                    ];
+                }
+                return [0, 0, 0];
+            }
+
+            let rgb = parseColor(color);
+            return `rgb(${rgb.map(value => Math.max(0, value - 50)).join(',')})`;
+        }
+
+        function startFishing(e) {
+            if (getBagUsage() >= bagCapacity) {
+                alert("¡Tu bolsa está llena! Ve a la tienda para vender tus peces.");
+                return;
+            }
+            if (!fishing) {
+                fishing = true;
+                lineX = e.clientX;
+                lineY = fisherman.y + fisherman.height;
+                fishingDown = true;
+
+                if (Math.random() < skills.masterBaiter.level * 0.1) {
+                    lineSpeed *= 1.5;
+                    setTimeout(() => lineSpeed /= 1.5, 5000);
+                }
+            } else {
+                fishingDown = false;
+
+                if (skills.fastReeling.level > 0) {
+                    lineSpeed *= (1 + skills.fastReeling.level * 0.2);
+                    setTimeout(() => lineSpeed /= (1 + skills.fastReeling.level * 0.2), 2000);
+                }
+            }
+        }
+
+        function getBagUsage() {
+            return bag.reduce((sum, fish) => sum + fish.type.scale, 0);
+        }
+
+        function drawFishingLine() {
+            if (fishing) {
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(fisherman.x + fisherman.width / 2, fisherman.y);
+                ctx.lineTo(lineX, lineY);
+                ctx.stroke();
+
+                if (fishingDown) {
+                    lineY += lineSpeed;
+                    if (lineY >= canvas.height) {
+                        fishingDown = false;
+                    }
+                    fishes.forEach(fish => {
+                        if (
+                            lineX >= fish.x - fish.width &&
+                            lineX <= fish.x + fish.width &&
+                            lineY >= fish.y - fish.height &&
+                            lineY <= fish.y + fish.height
+                        ) {
+                            caughtFish = fish;
+                            fishingDown = false;
+                        }
+                    });
+                } else {
+                    lineY -= lineSpeed;
+                    if (caughtFish) {
+                        caughtFish.x = lineX;
+                        caughtFish.y = lineY;
+                    }
+                    if (lineY <= fisherman.y) {
+                        fishing = false;
+                        if (caughtFish) {
+                            bag.push(caughtFish);
+                            updateScoreBoard();
+                            if (!caughtFishTypes.has(caughtFish.type.name)) {
+                                caughtFishTypes.add(caughtFish.type.name);
+                                showNewFishModal(caughtFish.type);
+                            }
+                            fishes.splice(fishes.indexOf(caughtFish), 1);
+                            caughtFish = null;
+                            if (getBagUsage() >= bagCapacity) {
+                                alert("¡Tu bolsa está llena! Ve a la tienda para vender tus peces.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function drawFisherman() {
+            ctx.fillStyle = '#8B4513';
+            ctx.fillRect(0, fisherman.y + fisherman.height, canvas.width, 20);
+
+            ctx.fillStyle = '#FFDAB9';
+            ctx.fillRect(fisherman.x, fisherman.y, fisherman.width, fisherman.height);
+
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(fisherman.x + fisherman.width / 2, fisherman.y);
+
+            let dx = mouseX - (fisherman.x + fisherman.width / 2);
+            let dy = mouseY - fisherman.y;
+            let angle = Math.atan2(dy, dx);
+
+            let rodLength = 50;
+
+            ctx.lineTo(
+                fisherman.x + fisherman.width / 2 + rodLength * Math.cos(angle),
+                fisherman.y + rodLength * Math.sin(angle)
+            );
+            ctx.stroke();
+        }
+
+        function updateScoreBoard() {
+            document.getElementById('scoreBoard').innerHTML = 'Peces en la Bolsa: ' + getBagUsage() + '/' + bagCapacity + '<br>Dinero: $' + money + '<br>Puntos de Habilidad: ' + skillPoints;
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (fishes.length <= 10) {
+                addFishes(12);
+            }
+
+            drawFishes();
+            drawFishingLine();
+            drawFisherman();
+
+            if (isNightMode) {
+                ctx.globalCompositeOperation = 'multiply';
+                ctx.fillStyle = 'rgba(0, 31, 63, 0.5)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = 'source-over';
+            }
+
+            if (caughtFish && !fishingDown && Math.random() < skills.doubleCatch.level * 0.1) {
+                let extraFish = fishes.find(fish => 
+                    Math.abs(fish.x - caughtFish.x) < 50 && 
+                    Math.abs(fish.y - caughtFish.y) < 50 && 
+                    fish !== caughtFish
+                );
+                if (extraFish) {
+                    bag.push(extraFish);
+                    fishes.splice(fishes.indexOf(extraFish), 1);
+                    updateScoreBoard();
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', function () {
+            resizeCanvas();
+            fisherman.x = canvas.width / 2;
+            fisherman.y = canvas.height / 2 - 200;
+        });
+
+        function openShop() {
+            const shopModal = document.getElementById('shopModal');
+            shopModal.style.display = 'block';
+
+            shopModal.innerHTML = `
+                <h2>Tienda</h2>
+                <p>Tienes ${getBagUsage()} / ${bagCapacity} de capacidad de bolsa usada.</p>
+                <p>Tienes $${money}.</p>
+                <p>Tienes ${skillPoints} puntos de habilidad.</p>
+                <button id="sellFishButton">Vender Peces ($${calculateTotalFishValue()})</button>
+                <button id="upgradeBagButton">Aumentar Capacidad de Bolsa por 2 ($${capacityUpgradeCost})</button>
+                <button id="upgradeLineSpeedButton">Mejorar Velocidad de Línea (x1.5) ($${lineSpeedUpgradeCost})</button>
+                <button id="buySkillPointButton">Comprar 1 Punto de Habilidad ($100)</button>
+                <button id="closeShopButton">Cerrar Tienda</button>
+            `;
+
+            document.getElementById('sellFishButton').addEventListener('click', sellFish);
+            document.getElementById('upgradeBagButton').addEventListener('click', upgradeBag);
+            document.getElementById('upgradeLineSpeedButton').addEventListener('click', upgradeLineSpeed);
+            document.getElementById('buySkillPointButton').addEventListener('click', buySkillPoint);
+            document.getElementById('closeShopButton').addEventListener('click', closeShop);
+        }
+
+        function calculateTotalFishValue() {
+            return bag.reduce((total, fish) => total + fish.type.sellPrice, 0);
+        }
+
+        function openBag() {
+            const bagModal = document.getElementById('bagModal');
+            bagModal.style.display = 'block';
+            renderBagContents();
+        }
+
+        function closeBag() {
+            const bagModal = document.getElementById('bagModal');
+            bagModal.style.display = 'none';
+        }
+
+        function renderBagContents() {
+            const bagModal = document.getElementById('bagModal');
+            bagModal.innerHTML = '<h2>Tu Bolsa</h2>';
+
+            bag.forEach((fish, index) => {
+                const fishItem = document.createElement('div');
+                fishItem.className = 'fishItem';
+
+                fishItem.innerHTML = `
+                    <span>${fish.type.name} (Escala: ${fish.type.scale})</span>
+                    <button class="discardButton" data-index="${index}">Descartar</button>
+                `;
+                bagModal.appendChild(fishItem);
+            });
+
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Cerrar';
+            closeButton.addEventListener('click', closeBag);
+            bagModal.appendChild(closeButton);
+
+            const discardButtons = bagModal.querySelectorAll('.discardButton');
+            discardButtons.forEach(button => {
+                button.addEventListener('click', discardFish);
+            });
+        }
+
+        function discardFish(event) {
+            const index = event.target.getAttribute('data-index');
+            bag.splice(index, 1);
+            updateScoreBoard();
+            renderBagContents();
+        }
+
+        function sellFish() {
+            if (bag.length > 0) {
+                let earnings = calculateTotalFishValue();
+                money += earnings;
+                skillPoints += Math.floor(earnings / 10);
+                bag = [];
+                caughtFishTypes.clear();
+                updateScoreBoard();
+                alert(`¡Vendiste tus peces por $${earnings} y ganaste ${Math.floor(earnings / 10)} puntos de habilidad!`);
+                unlockFishTypes();
+                openShop();
+            } else {
+                alert("¡No tienes peces para vender!");
+            }
+        }
+
+        function upgradeBag() {
+            if (money >= capacityUpgradeCost) {
+                money -= capacityUpgradeCost;
+                bagCapacity += 2;
+                capacityUpgradeCost *= 2;
+                updateScoreBoard();
+                alert(`¡Capacidad de bolsa aumentada! La nueva capacidad es ${bagCapacity}.`);
+                unlockFishTypes();
+                createFishes();
+                openShop();
+            } else {
+                alert("¡No tienes suficiente dinero para mejorar la bolsa!");
+            }
+        }
+
+        function upgradeLineSpeed() {
+            if (money >= lineSpeedUpgradeCost) {
+                money -= lineSpeedUpgradeCost;
+                lineSpeed *= 1.5;
+                lineSpeedUpgradeCost *= 3;
+                updateScoreBoard();
+                alert(`¡Velocidad de línea aumentada! La nueva velocidad es ${lineSpeed.toFixed(2)}.`);
+                openShop();
+            } else {
+                alert("¡No tienes suficiente dinero para mejorar la velocidad de línea!");
+            }
+        }
+
+        function closeShop() {
+            const shopModal = document.getElementById('shopModal');
+            shopModal.style.display = 'none';
+        }
+
+        function openSkills() {
+            const skillsModal = document.getElementById('skillsModal');
+            skillsModal.style.display = 'block';
+            renderSkillTree();
+        }
+
+        function renderSkillTree() {
+            const skillsModal = document.getElementById('skillsModal');
+            skillsModal.innerHTML = `
+                <h2>Árbol de Habilidades</h2>
+                <p>Puntos de Habilidad Disponibles: ${skillPoints}</p>
+                <div class="skill-tree">
+                    <div class="skill-row">
+                        <button class="skill-button" onclick="upgradeSkill('doubleCatch')" ${skills.doubleCatch.level >= skills.doubleCatch.maxLevel ? 'disabled' : ''}>
+                            ${skills.doubleCatch.name} (Nivel ${skills.doubleCatch.level}/${skills.doubleCatch.maxLevel})
+                        </button>
+                        <button class="skill-button" onclick="upgradeSkill('fastReeling')" ${skills.fastReeling.level >= skills.fastReeling.maxLevel ? 'disabled' : ''}>
+                            ${skills.fastReeling.name} (Nivel ${skills.fastReeling.level}/${skills.fastReeling.maxLevel})
+                        </button>
+                    </div>
+                    <div class="skill-row">
+                        <button class="skill-button" onclick="upgradeSkill('luckyFisher')" ${skills.luckyFisher.level >= skills.luckyFisher.maxLevel ? 'disabled' : ''}>
+                            ${skills.luckyFisher.name} (Nivel ${skills.luckyFisher.level}/${skills.luckyFisher.maxLevel})
+                        </button>
+                        <button class="skill-button" onclick="upgradeSkill('masterBaiter')" ${skills.masterBaiter.level >= skills.masterBaiter.maxLevel ? 'disabled' : ''}>
+                            ${skills.masterBaiter.name} (Nivel ${skills.masterBaiter.level}/${skills.masterBaiter.maxLevel})
+                        </button>
+                    </div>
+                </div>
+                <button onclick="closeSkills()">Cerrar</button>
+            `;
+        }
+
+        function upgradeSkill(skillName) {
+            if (skillPoints > 0 && skills[skillName].level < skills[skillName].maxLevel) {
+                skillPoints--;
+                skills[skillName].level++;
+                renderSkillTree();
+                updateScoreBoard();
+            }
+        }
+
+        function closeSkills() {
+            const skillsModal = document.getElementById('skillsModal');
+            skillsModal.style.display = 'none';
+        }
+
+        function buySkillPoint() {
+            if (money >= 100) {
+                money -= 100;
+                skillPoints++;
+                updateScoreBoard();
+                alert("¡Has comprado 1 punto de habilidad!");
+                openShop();
+            } else {
+                alert("¡No tienes suficiente dinero para comprar un punto de habilidad!");
+            }
+        }
+
+        function showNewFishModal(fishType) {
+            const newFishModal = document.getElementById('newFishModal');
+            newFishModal.innerHTML = `
+                <h2>¡Nuevo Pez Descubierto!</h2>
+                <p>Has pescado un ${fishType.name} por primera vez.</p>
+                <p>Color: ${fishType.color}</p>
+                <p>Escala: ${fishType.scale}</p>
+                <p>Precio de venta: $${fishType.sellPrice}</p>
+                <button onclick="closeNewFishModal()">Cerrar</button>
+            `;
+            newFishModal.style.display = 'block';
+        }
+
+        function closeNewFishModal() {
+            document.getElementById('newFishModal').style.display = 'none';
+        }
+
+        document.getElementById('playButton').addEventListener('click', () => {
+            document.getElementById('titleScreen').style.display = 'none';
+            init();
+        });
+
+        function toggleConsole() {
+            const commandConsole = document.getElementById('commandConsole');
+            commandConsole.classList.toggle('hidden');
+            const toggleButton = document.getElementById('toggleConsoleButton');
+            toggleButton.textContent = commandConsole.classList.contains('hidden') ? 'Mostrar Consola' : 'Ocultar Consola';
+        }
+
+        function initCommandConsole() {
+            const commandInput = document.getElementById('commandInput');
+            commandInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const command = this.value.trim();
+                    executeCommand(command);
+                    this.value = '';
+                }
+            });
+            document.getElementById('toggleConsoleButton').addEventListener('click', toggleConsole);
+            toggleConsole();
+        }
+
+        function executeCommand(command) {
+            const output = document.getElementById('commandOutput');
+            output.innerHTML += `<div>> ${command}</div>`;
+
+            const [cmd, ...args] = command.split(' ');
+
+            switch (cmd.toLowerCase()) {
+                case 'help':
+                    output.innerHTML += '<div>Available commands: help, money, fish, upgrade, dinero, clearchat, /clearchat</div>';
+                    break;
+                case 'money':
+                    output.innerHTML += `<div>Current money: $${money}</div>`;
+                    break;
+                case 'fish':
+                    output.innerHTML += `<div>Fish in bag: ${getBagUsage()}/${bagCapacity}</div>`;
+                    break;
+                case 'upgrade':
+                    if (args[0] === 'bag') {
+                        upgradeBag();
+                    } else if (args[0] === 'line') {
+                        upgradeLineSpeed();
+                    } else {
+                        output.innerHTML += '<div>Usage: upgrade [bag|line]</div>';
+                    }
+                    break;
+                case 'clearchat':
+                case '/clearchat':
+                    output.innerHTML = '';
+                    output.innerHTML += '<div>Chat cleared.</div>';
+                    break;
+                case 'dinero':
+                    if (args.length > 0 && !isNaN(args[0])) {
+                        const amount = parseInt(args[0]);
+                        money += amount;
+                        updateScoreBoard();
+                        output.innerHTML += `<div>Added $${amount} to your balance. New balance: $${money}</div>`;
+                    } else {
+                        output.innerHTML += '<div>Usage: dinero [amount]</div>';
+                    }
+                    break;
+                case '/restart':
+                case 'restart':
+                    restartGame();
+                    output.innerHTML += '<div>Juego reiniciado.</div>';
+                    break;
+                default:
+                    output.innerHTML += '<div>Unknown command. Type "help" for a list of commands.</div>';
+            }
+
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function restartGame() {
+            bag = [];
+            money = 0;
+            skillPoints = 0;
+            bagCapacity = 6;
+            lineSpeed = 5;
+            capacityUpgradeCost = 5;
+            lineSpeedUpgradeCost = 15;
+            caughtFishTypes = new Set();
+
+            for (let skill in skills) {
+                skills[skill].level = 0;
+            }
+
+            createFishes();
+            updateScoreBoard();
+            unlockFishTypes();
+
+            if (isNightMode) {
+                toggleNightMode();
+            }
+
+            closeShop();
+            closeBag();
+            closeSkills();
+            closeNewFishModal();
+
+            fishing = false;
+            caughtFish = null;
+
+            resizeCanvas();
+            fisherman.x = canvas.width / 2;
+            fisherman.y = canvas.height / 2 - 200;
+
+            console.log('Game restarted');
+        }
+    </script>
+</body>
+</html>
