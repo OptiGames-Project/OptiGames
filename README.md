@@ -27,3 +27,8 @@ Las contribuciones son bienvenidas. Para contribuir:
 Este proyecto está bajo la Licencia MIT.
 
 ¡Gracias por visitar OptiGames!
+
+## Contribuciones Especiales
+
+Agradecimientos especiales a:
+- [Usuario Destacado](https://github.com/DevModders2024) por su increíble trabajo en la optimización del código de Youtube Simulator.
