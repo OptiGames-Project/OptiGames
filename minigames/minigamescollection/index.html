@@ -1,0 +1,808 @@
+<!DOCTYPE html><html><head><base href="/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Games Collection</title>
+<style>
+:root {
+  --primary: #2196f3;
+  --secondary: #ff4081;
+  --bg: #fafafa;
+  --text: #212121;
+  --card-bg: white;
+}
+
+[data-theme="dark"] {
+  --primary: #64b5f6;
+  --secondary: #ff80ab;
+  --bg: #121212;
+  --text: #ffffff;
+  --card-bg: #1e1e1e;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 20px auto;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.game-card {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+}
+
+.language-selector {
+  display: flex;
+  gap: 10px;
+}
+
+.lang-btn, .theme-toggle {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.lang-btn:hover, .theme-toggle:hover {
+  opacity: 0.9;
+}
+
+.game-container {
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.button-game {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  background: var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  color: white;
+}
+
+.snake-game {
+  border: 2px solid var(--primary);
+  background: var(--card-bg);
+}
+
+.quiz-option {
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.quiz-option:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.word-input {
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+}
+
+.tictactoe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.tictactoe-cell {
+  aspect-ratio: 1;
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="header-controls">
+  <div class="language-selector">
+    <button class="lang-btn" onclick="changeLanguage('es')">Español</button>
+    <button class="lang-btn" onclick="changeLanguage('en')">English</button>
+    <button class="lang-btn" onclick="changeLanguage('pt')">Português</button>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+</div>
+
+<div class="games-grid">
+  <!-- Game 1: Number Guessing -->
+  <div class="game-card">
+    <div class="lang es">
+      <h3>Adivina el Número</h3>
+      <div class="game-container">
+        <p>Adivina un número entre 1 y 100</p>
+        <input type="number" id="guess-es" min="1" max="100" class="word-input">
+        <button class="button-game" onclick="checkGuess('es')">Intentar</button>
+        <p id="result-es"></p>
+      </div>
+    </div>
+    <div class="lang en hidden">
+      <h3>Number Guessing</h3>
+      <div class="game-container">
+        <p>Guess a number between 1 and 100</p>
+        <input type="number" id="guess-en" min="1" max="100" class="word-input">
+        <button class="button-game" onclick="checkGuess('en')">Try</button>
+        <p id="result-en"></p>
+      </div>
+    </div>
+    <div class="lang pt hidden">
+      <h3>Adivinhe o Número</h3>
+      <div class="game-container">
+        <p>Adivinhe um número entre 1 e 100</p>
+        <input type="number" id="guess-pt" min="1" max="100" class="word-input">
+        <button class="button-game" onclick="checkGuess('pt')">Tentar</button>
+        <p id="result-pt"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game 2: Memory Game -->
+  <div class="game-card">
+    <div class="lang es">
+      <h3>Juego de Memoria</h3>
+      <div class="game-container">
+        <button class="button-game" onclick="startMemoryGame('es')">Nuevo Juego</button>
+        <div id="memory-grid-es" class="memory-grid"></div>
+      </div>
+    </div>
+    <div class="lang en hidden">
+      <h3>Memory Game</h3>
+      <div class="game-container">
+        <button class="button-game" onclick="startMemoryGame('en')">New Game</button>
+        <div id="memory-grid-en" class="memory-grid"></div>
+      </div>
+    </div>
+    <div class="lang pt hidden">
+      <h3>Jogo da Memória</h3>
+      <div class="game-container">
+        <button class="button-game" onclick="startMemoryGame('pt')">Novo Jogo</button>
+        <div id="memory-grid-pt" class="memory-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game 3: Word Scramble -->
+  <div class="game-card">
+    <div class="lang es">
+      <h3>Palabras Revueltas</h3>
+      <div class="game-container">
+        <p id="scrambled-word-es"></p>
+        <input type="text" id="word-guess-es" class="word-input">
+        <button class="button-game" onclick="checkWord('es')">Comprobar</button>
+        <p id="word-result-es"></p>
+      </div>
+    </div>
+    <div class="lang en hidden">
+      <h3>Word Scramble</h3>
+      <div class="game-container">
+        <p id="scrambled-word-en"></p>
+        <input type="text" id="word-guess-en" class="word-input">
+        <button class="button-game" onclick="checkWord('en')">Check</button>
+        <p id="word-result-en"></p>
+      </div>
+    </div>
+    <div class="lang pt hidden">
+      <h3>Palavras Embaralhadas</h3>
+      <div class="game-container">
+        <p id="scrambled-word-pt"></p>
+        <input type="text" id="word-guess-pt" class="word-input">
+        <button class="button-game" onclick="checkWord('pt')">Verificar</button>
+        <p id="word-result-pt"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game 4: Quiz -->
+  <div class="game-card">
+    <div class="lang es">
+      <h3>Trivia</h3>
+      <div class="game-container" id="quiz-container-es">
+        <button class="button-game" onclick="nextQuestion('es')">Nueva Pregunta</button>
+        <div id="quiz-question-es"></div>
+        <div id="quiz-options-es"></div>
+      </div>
+    </div>
+    <div class="lang en hidden">
+      <h3>Quiz</h3>
+      <div class="game-container" id="quiz-container-en">
+        <button class="button-game" onclick="nextQuestion('en')">New Question</button>
+        <div id="quiz-question-en"></div>
+        <div id="quiz-options-en"></div>
+      </div>
+    </div>
+    <div class="lang pt hidden">
+      <h3>Quiz</h3>
+      <div class="game-container" id="quiz-container-pt">
+        <button class="button-game" onclick="nextQuestion('pt')">Nova Pergunta</button>
+        <div id="quiz-question-pt"></div>
+        <div id="quiz-options-pt"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game 5: Snake -->
+  <div class="game-card">
+    <div class="lang es">
+      <h3>Serpiente</h3>
+      <div class="game-container">
+        <button class="button-game" onclick="startSnake('es')">Empezar</button>
+        <canvas id="snake-canvas-es" class="snake-game" width="300" height="300"></canvas>
+      </div>
+    </div>
+    <div class="lang en hidden">
+      <h3>Snake</h3>
+      <div class="game-container">
+        <button class="button-game" onclick="startSnake('en')">Start</button>
+        <canvas id="snake-canvas-en" class="snake-game" width="300" height="300"></canvas>
+      </div>
+    </div>
+    <div class="lang pt hidden">
+      <h3>Cobra</h3>
+      <div class="game-container">
+        <button class="button-game" onclick="startSnake('pt')">Começar</button>
+        <canvas id="snake-canvas-pt" class="snake-game" width="300" height="300"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game 6: Tic Tac Toe -->
+  <div class="game-card">
+    <div class="lang es">
+      <h3>Tres en Raya (con amigo)</h3>
+      <div class="game-container" id="tictactoe-es">
+        <div class="tictactoe-grid"></div>
+        <button class="button-game" onclick="resetTicTacToe('es')">Reiniciar</button>
+      </div>
+    </div>
+    <div class="lang en hidden">
+      <h3>Tic Tac Toe</h3>
+      <div class="game-container" id="tictactoe-en">
+        <div class="tictactoe-grid"></div>
+        <button class="button-game" onclick="resetTicTacToe('en')">Reset</button>
+      </div>
+    </div>
+    <div class="lang pt hidden">
+      <h3>Jogo da Velha</h3>
+      <div class="game-container" id="tictactoe-pt">
+        <div class="tictactoe-grid"></div>
+        <button class="button-game" onclick="resetTicTacToe('pt')">Reiniciar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentLanguage = 'es';
+const randomNumber = Math.floor(Math.random() * 100) + 1;
+
+const messages = {
+  es: {
+    higher: "¡Más alto!",
+    lower: "¡Más bajo!",
+    correct: "¡Correcto!",
+    wrong: "¡Incorrecto!",
+    matched: "¡Coincidencia!",
+    tryAgain: "Intenta de nuevo",
+    gameOver: "Juego Terminado",
+    score: "Puntaje"
+  },
+  en: {
+    higher: "Higher!",
+    lower: "Lower!",
+    correct: "Correct!",
+    wrong: "Wrong!",
+    matched: "Matched!",
+    tryAgain: "Try again",
+    gameOver: "Game Over",
+    score: "Score"
+  },
+  pt: {
+    higher: "Mais alto!",
+    lower: "Mais baixo!",
+    correct: "Correto!",
+    wrong: "Incorreto!",
+    matched: "Combinação!",
+    tryAgain: "Tente novamente",
+    gameOver: "Fim de Jogo",
+    score: "Pontuação"
+  }
+};
+
+function toggleTheme() {
+  const body = document.body;
+  if (body.getAttribute('data-theme') === 'dark') {
+    body.removeAttribute('data-theme');
+  } else {
+    body.setAttribute('data-theme', 'dark');
+  }
+}
+
+function changeLanguage(lang) {
+  currentLanguage = lang;
+  document.querySelectorAll('.lang').forEach(el => {
+    el.classList.add('hidden');
+  });
+  document.querySelectorAll(`.lang.${lang}`).forEach(el => {
+    el.classList.remove('hidden');
+  });
+}
+
+// Number Guessing Game
+function checkGuess(lang) {
+  const guess = parseInt(document.getElementById(`guess-${lang}`).value);
+  const resultElement = document.getElementById(`result-${lang}`);
+  
+  if (guess === randomNumber) {
+    resultElement.textContent = messages[lang].correct;
+  } else if (guess < randomNumber) {
+    resultElement.textContent = messages[lang].higher;
+  } else {
+    resultElement.textContent = messages[lang].lower;
+  }
+}
+
+// Memory Game
+let memoryCards = [];
+let flippedCards = [];
+let matchedPairs = 0;
+
+function startMemoryGame(lang) {
+  const symbols = ['🎮', '🎲', '🎯', '🎪', '🎨', '🎭', '🎪', '🎨', '🎭', '🎮', '🎲', '🎯'];
+  memoryCards = symbols.sort(() => Math.random() - 0.5);
+  matchedPairs = 0;
+  flippedCards = [];
+  
+  const grid = document.getElementById(`memory-grid-${lang}`);
+  grid.innerHTML = '';
+  
+  memoryCards.forEach((symbol, index) => {
+    const card = document.createElement('div');
+    card.className = 'memory-card';
+    card.dataset.index = index;
+    card.addEventListener('click', () => flipCard(card, symbol, lang));
+    grid.appendChild(card);
+  });
+}
+
+function flipCard(card, symbol, lang) {
+  if (flippedCards.length === 2 || flippedCards.includes(card)) return;
+  
+  card.textContent = symbol;
+  flippedCards.push(card);
+  
+  if (flippedCards.length === 2) {
+    setTimeout(() => checkMatch(lang), 500);
+  }
+}
+
+function checkMatch(lang) {
+  const [card1, card2] = flippedCards;
+  if (card1.textContent === card2.textContent) {
+    matchedPairs++;
+    if (matchedPairs === 6) {
+      alert(messages[lang].gameOver);
+    }
+  } else {
+    card1.textContent = '';
+    card2.textContent = '';
+  }
+  flippedCards = [];
+}
+
+// Word Scramble Game
+const words = {
+  es: ['JUEGO', 'MUNDO', 'FELIZ', 'TIEMPO', 'CASA', 'PERRO', 'GATO', 'LIBRO', 'PAPEL', 'SOL'],
+  en: ['GAME', 'WORLD', 'HAPPY', 'TIME', 'HOUSE', 'DOG', 'CAT', 'BOOK', 'PAPER', 'SUN'],
+  pt: ['JOGO', 'MUNDO', 'FELIZ', 'TEMPO', 'CASA', 'CÃO', 'GATO', 'LIVRO', 'PAPEL', 'SOL']
+};
+
+let currentWord = '';
+
+function scrambleWord(word) {
+  return word.split('').sort(() => Math.random() - 0.5).join('');
+}
+
+function startWordGame(lang) {
+  currentWord = words[lang][Math.floor(Math.random() * words[lang].length)];
+  document.getElementById(`scrambled-word-${lang}`).textContent = scrambleWord(currentWord);
+}
+
+function checkWord(lang) {
+  const guess = document.getElementById(`word-guess-${lang}`).value.toUpperCase();
+  const resultElement = document.getElementById(`word-result-${lang}`);
+  
+  if (guess === currentWord) {
+    resultElement.textContent = messages[lang].correct;
+    setTimeout(() => startWordGame(lang), 1000);
+  } else {
+    resultElement.textContent = messages[lang].wrong;
+  }
+}
+
+// Quiz Game
+const quiz = {
+  es: [
+    {
+      question: "¿Cuál es la capital de Francia?",
+      options: ["Londres", "Madrid", "París", "Roma"],
+      correct: 2
+    },
+    {
+      question: "¿Cuál es el planeta más grande del sistema solar?",
+      options: ["Marte", "Júpiter", "Saturno", "Venus"],
+      correct: 1
+    },
+    {
+      question: "¿Cuántos continentes hay?",
+      options: ["5", "6", "7", "8"],
+      correct: 2
+    },
+    {
+      question: "¿Quién pintó la Mona Lisa?",
+      options: ["Van Gogh", "Leonardo da Vinci", "Picasso", "Miguel Ángel"],
+      correct: 1
+    },
+    {
+      question: "¿Cuál es el océano más grande?",
+      options: ["Atlántico", "Índico", "Pacífico", "Ártico"],
+      correct: 2
+    },
+    {
+      question: "¿En qué año comenzó la Primera Guerra Mundial?",
+      options: ["1914", "1915", "1916", "1917"],
+      correct: 0
+    },
+    {
+      question: "¿Cuál es el elemento químico más abundante en la Tierra?",
+      options: ["Oxígeno", "Carbono", "Hidrógeno", "Hierro"],
+      correct: 0
+    },
+    {
+      question: "¿Quién escribió Don Quijote?",
+      options: ["Cervantes", "Lope de Vega", "García Márquez", "Borges"],
+      correct: 0
+    },
+    {
+      question: "¿Cuál es el país más grande del mundo?",
+      options: ["China", "Estados Unidos", "Canadá", "Rusia"],
+      correct: 3
+    },
+    {
+      question: "¿Cuál es el hueso más largo del cuerpo humano?",
+      options: ["Húmero", "Fémur", "Tibia", "Radio"],
+      correct: 1
+    }
+  ],
+  en: [
+    {
+      question: "What is the capital of France?",
+      options: ["London", "Madrid", "Paris", "Rome"],
+      correct: 2
+    },
+    {
+      question: "Which is the largest planet in the solar system?",
+      options: ["Mars", "Jupiter", "Saturn", "Venus"],
+      correct: 1
+    },
+    {
+      question: "How many continents are there?",
+      options: ["5", "6", "7", "8"],
+      correct: 2
+    },
+    {
+      question: "Who painted the Mona Lisa?",
+      options: ["Van Gogh", "Leonardo da Vinci", "Picasso", "Michelangelo"],
+      correct: 1
+    },
+    {
+      question: "Which is the largest ocean?",
+      options: ["Atlantic", "Indian", "Pacific", "Arctic"],
+      correct: 2
+    },
+    {
+      question: "When did World War I begin?",
+      options: ["1914", "1915", "1916", "1917"],
+      correct: 0
+    },
+    {
+      question: "What is the most abundant chemical element on Earth?",
+      options: ["Oxygen", "Carbon", "Hydrogen", "Iron"],
+      correct: 0
+    },
+    {
+      question: "Who wrote Don Quixote?",
+      options: ["Cervantes", "Lope de Vega", "Garcia Marquez", "Borges"],
+      correct: 0
+    },
+    {
+      question: "Which is the largest country in the world?",
+      options: ["China", "United States", "Canada", "Russia"],
+      correct: 3
+    },
+    {
+      question: "What is the longest bone in the human body?",
+      options: ["Humerus", "Femur", "Tibia", "Radius"],
+      correct: 1
+    }
+  ],
+  pt: [
+    {
+      question: "Qual é a capital da França?",
+      options: ["Londres", "Madrid", "Paris", "Roma"],
+      correct: 2
+    },
+    {
+      question: "Qual é o maior planeta do sistema solar?",
+      options: ["Marte", "Júpiter", "Saturno", "Vênus"],
+      correct: 1
+    },
+    {
+      question: "Quantos continentes existem?",
+      options: ["5", "6", "7", "8"],
+      correct: 2
+    },
+    {
+      question: "Quem pintou a Mona Lisa?",
+      options: ["Van Gogh", "Leonardo da Vinci", "Picasso", "Michelangelo"],
+      correct: 1
+    },
+    {
+      question: "Qual é o maior oceano?",
+      options: ["Atlântico", "Índico", "Pacífico", "Ártico"],
+      correct: 2
+    },
+    {
+      question: "Quando começou a Primeira Guerra Mundial?",
+      options: ["1914", "1915", "1916", "1917"],
+      correct: 0
+    },
+    {
+      question: "Qual é o elemento químico mais abundante na Terra?",
+      options: ["Oxigênio", "Carbono", "Hidrogênio", "Ferro"],
+      correct: 0
+    },
+    {
+      question: "Quem escreveu Dom Quixote?",
+      options: ["Cervantes", "Lope de Vega", "Garcia Márquez", "Borges"],
+      correct: 0
+    },
+    {
+      question: "Qual é o maior país do mundo?",
+      options: ["China", "Estados Unidos", "Canadá", "Rússia"],
+      correct: 3
+    },
+    {
+      question: "Qual é o osso mais longo do corpo humano?",
+      options: ["Úmero", "Fêmur", "Tíbia", "Rádio"],
+      correct: 1
+    }
+  ]
+};
+
+function nextQuestion(lang) {
+  const questionIndex = Math.floor(Math.random() * quiz[lang].length);
+  const question = quiz[lang][questionIndex];
+  
+  document.getElementById(`quiz-question-${lang}`).textContent = question.question;
+  const optionsContainer = document.getElementById(`quiz-options-${lang}`);
+  optionsContainer.innerHTML = '';
+  
+  question.options.forEach((option, index) => {
+    const button = document.createElement('div');
+    button.className = 'quiz-option';
+    button.textContent = option;
+    button.onclick = () => checkAnswer(index === question.correct, lang);
+    optionsContainer.appendChild(button);
+  });
+}
+
+function checkAnswer(correct, lang) {
+  alert(correct ? messages[lang].correct : messages[lang].wrong);
+  setTimeout(() => nextQuestion(lang), 1000);
+}
+
+// Snake Game
+let snake, food, direction, gameLoop;
+
+function startSnake(lang) {
+  const canvas = document.getElementById(`snake-canvas-${lang}`);
+  const ctx = canvas.getContext('2d');
+  
+  snake = [{x: 10, y: 10}];
+  food = {
+    x: Math.floor(Math.random() * 30),
+    y: Math.floor(Math.random() * 30)
+  };
+  direction = 'right';
+  
+  if (gameLoop) clearInterval(gameLoop);
+  
+  gameLoop = setInterval(() => {
+    updateSnake();
+    drawSnake(ctx);
+  }, 100);
+  
+  document.addEventListener('keydown', (e) => {
+    switch(e.key) {
+      case 'ArrowUp': direction = 'up'; break;
+      case 'ArrowDown': direction = 'down'; break;
+      case 'ArrowLeft': direction = 'left'; break;
+      case 'ArrowRight': direction = 'right'; break;
+    }
+  });
+}
+
+function updateSnake() {
+  const head = {...snake[0]};
+  
+  switch(direction) {
+    case 'up': head.y--; break;
+    case 'down': head.y++; break;
+    case 'left': head.x--; break;
+    case 'right': head.x++; break;
+  }
+  
+  snake.unshift(head);
+  
+  if (head.x === food.x && head.y === food.y) {
+    food = {
+      x: Math.floor(Math.random() * 30),
+      y: Math.floor(Math.random() * 30)
+    };
+  } else {
+    snake.pop();
+  }
+}
+
+function drawSnake(ctx) {
+  ctx.clearRect(0, 0, 300, 300);
+  
+  ctx.fillStyle = 'red';
+  ctx.fillRect(food.x * 10, food.y * 10, 10, 10);
+  
+  ctx.fillStyle = 'green';
+  snake.forEach(segment => {
+    ctx.fillRect(segment.x * 10, segment.y * 10, 10, 10);
+  });
+}
+
+// Tic Tac Toe Game
+let tictactoeState = {
+  currentPlayer: 'X',
+  board: Array(9).fill(''),
+  gameOver: false
+};
+
+function resetTicTacToe(lang) {
+  tictactoeState = {
+    currentPlayer: 'X',
+    board: Array(9).fill(''),
+    gameOver: false
+  };
+  renderTicTacToe(lang);
+}
+
+function renderTicTacToe(lang) {
+  const grid = document.querySelector(`#tictactoe-${lang} .tictactoe-grid`);
+  grid.innerHTML = '';
+  
+  for (let i = 0; i < 9; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'tictactoe-cell';
+    cell.textContent = tictactoeState.board[i];
+    cell.onclick = () => !tictactoeState.gameOver && makeMove(i, lang);
+    grid.appendChild(cell);
+  }
+}
+
+function makeMove(index, lang) {
+  if (tictactoeState.board[index] === '') {
+    tictactoeState.board[index] = tictactoeState.currentPlayer;
+    renderTicTacToe(lang);
+    
+    if (checkWin()) {
+      alert(`${tictactoeState.currentPlayer} ${messages[lang].correct}!`);
+      tictactoeState.gameOver = true;
+    } else if (tictactoeState.board.every(cell => cell !== '')) {
+      alert(messages[lang].gameOver);
+      tictactoeState.gameOver = true;
+    } else {
+      tictactoeState.currentPlayer = tictactoeState.currentPlayer === 'X' ? 'O' : 'X';
+    }
+  }
+}
+
+function checkWin() {
+  const winPatterns = [
+    [0,1,2], [3,4,5], [6,7,8], // rows
+    [0,3,6], [1,4,7], [2,5,8], // columns
+    [0,4,8], [2,4,6] // diagonals
+  ];
+  
+  return winPatterns.some(pattern => {
+    const [a,b,c] = pattern;
+    return tictactoeState.board[a] &&
+           tictactoeState.board[a] === tictactoeState.board[b] &&
+           tictactoeState.board[a] === tictactoeState.board[c];
+  });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize all games
+  changeLanguage('es');
+  startWordGame('es');
+  nextQuestion('es');
+  resetTicTacToe('es');
+  startMemoryGame('es');
+});
+</script>
+
+
+</body></html>
