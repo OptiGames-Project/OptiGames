@@ -225,12 +225,83 @@
   .edit-video-button:hover {
     background-color: #45a049;
   }
+  #dev-console {
+    position: fixed;
+    left: 10px;
+    top: 60px;
+    width: 300px;
+    background-color: #1e1e1e;
+    color: #00ff00;
+    border: 1px solid #333;
+    padding: 10px;
+    font-family: monospace;
+    z-index: 1000;
+    display: none;
+  }
+  #dev-console-input {
+    width: 100%;
+    background-color: #2d2d2d;
+    color: #00ff00;
+    border: 1px solid #444;
+    padding: 5px;
+    margin-top: 5px;
+    font-family: monospace;
+  }
+  #dev-console-output {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #2d2d2d;
+  }
+  #dev-console.dark-mode {
+    background-color: #333;
+    border-color: #666;
+  }
+  #dev-console-toggle {
+    position: fixed;
+    left: 10px;
+    top: 60px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 1000;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  .badge svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
+  .verified-badge {
+    color: #2196F3;
+  }
+  .gold-badge {
+    color: #FFC107;
+  }
+  .diamond-badge {
+    color: #00BCD4;
+  }
 </style>
 </head>
 <body>
 <button id="dark-mode-toggle">Modo claro</button>
+<button id="dev-console-toggle">Consola Dev</button>
 <button id="language-toggle">Español</button>
 <button id="back-button">Volver a la página de inicio de YouTube</button>
+<div id="dev-console">
+  <div id="dev-console-output"></div>
+  <input type="text" id="dev-console-input" placeholder="Ingrese comando...">
+</div>
 <div id="game-container">
   <h1>Simulador de YouTube</h1>
   <div id="profile">
@@ -260,6 +331,7 @@
     <p id="best-video-details"></p>
     <button id="hide-best-video">Ocultar</button>
   </div>
+  <div id="channel-badges"></div>
   <div id="message"></div>
   <h2>Tienda</h2>
   <div id="viral-chance-container">
@@ -280,6 +352,93 @@
 </div>
 
 <script>
+  const usernameFormats = [
+    '{object}Master',
+    'The{object}',
+    '{object}Gaming',
+    'Pro{object}',
+    '{object}Vlog',
+    'Amazing{object}',
+    '{object}Official',
+    '{object}TV',
+    'Real{object}',
+    '{object}Plus'
+  ];
+
+  const objects = [
+    'Dragon', 'Star', 'Gamer', 'Ninja', 'Phoenix', 
+    'Wolf', 'Eagle', 'Tiger', 'Shark', 'Lion',
+    'Bear', 'Hawk', 'Panda', 'Fox', 'Cat'
+  ];
+
+  const topics = [
+    'Gaming', 'Vlogs', 'Tutorials', 'Reviews', 
+    'Comedy', 'Music', 'Tech', 'Food', 'Travel',
+    'Fitness', 'Education', 'Art', 'Fashion', 'Sports'
+  ];
+
+  const adjectives = [
+    'Épica', 'Increíble', 'Divertida', 'Asombrosa', 'Genial', 
+    'Espectacular', 'Legendaria', 'Loca', 'Extraordinaria', 'Fantástica',
+    'Impresionante', 'Única', 'Misteriosa', 'Sorprendente', 'Extrema',
+    'Insólita', 'Mágica', 'Inolvidable', 'Fascinante', 'Alucinante'
+  ];
+
+  const places = [
+    'París', 'Tokyo', 'Nueva York', 'Londres', 'Roma',
+    'Barcelona', 'Dubai', 'Los Angeles', 'Sydney', 'Madrid',
+    'México', 'Río de Janeiro', 'Las Vegas', 'Miami', 'Berlín',
+    'Amsterdam', 'Singapur', 'Hong Kong', 'Toronto', 'Venecia'
+  ];
+
+  const persons = [
+    'un YouTuber', 'un Gamer', 'un Artista', 'un Chef', 'un Viajero',
+    'un Deportista', 'un Músico', 'un Profesor', 'un Comediante', 'un Influencer',
+    'un Millonario', 'un Científico', 'un Atleta', 'un Empresario', 'un Actor',
+    'un Streamer', 'un Fotógrafo', 'un Bailarín', 'un Director', 'un Inventor'
+  ];
+
+  const things = [
+    'Minecraft', 'TikTok', 'Instagram', 'Fortnite', 'Roblox',
+    'YouTube', 'Among Us', 'Pokémon', 'Videojuegos', 'Redes Sociales',
+    'Netflix', 'iPhone', 'PlayStation', 'Xbox', 'Nintendo Switch',
+    'Twitter', 'Discord', 'Twitch', 'Amazon', 'Google'
+  ];
+
+  const videoGames = [
+    'Minecraft', 'Fortnite', 'Roblox', 'Among Us', 'GTA V',
+    'Call of Duty', 'FIFA', 'Valorant', 'League of Legends', 'Fall Guys',
+    'Apex Legends', 'PUBG', 'Red Dead Redemption', 'The Sims', 'Animal Crossing',
+    'Genshin Impact', 'Counter Strike', 'Overwatch', 'Rainbow Six', 'Rocket League'
+  ];
+
+  const challenges = [
+    'comer picante', 'no dormir', 'hablar en otro idioma', 'vestirme al revés',
+    'vivir sin internet', 'cocinar con los ojos vendados', 'vivir en el bosque',
+    'hacer parkour', 'aprender un truco de magia', 'vivir como millonario',
+    'sobrevivir 24h en la naturaleza', 'usar solo un color por 24h',
+    'comer solo comida azul', 'vivir en una isla desierta', '24h bajo el agua',
+    'ser invisible por un día', 'cambiar de vida con un fan', 'vivir en el futuro',
+    'solo decir sí por 24h', 'vivir como un bebé'
+  ];
+
+  const BADGES = {
+    verified: {
+      name: 'Verificado',
+      icon: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>'
+    },
+    gold: {
+      name: 'Oro',
+      icon: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>'
+    },
+    diamond: {
+      name: 'Diamante', 
+      icon: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2L1 12l11 10 11-10L12 2z"/></svg>'
+    }
+  };
+
+  let channelBadges = new Set();
+
   let subscribers = 0;
   let totalViews = 0;
   let money = 10;
@@ -288,11 +447,13 @@
   let videos = [];
   let channelPopularity = 1;
   let viralChance = 1;
+  const MAX_VIDEO_COST = 1000000;
   let viralUpgradeCost = 100;
   let viewMultiplier = 1;
   let channelName = "Canal sin nombre";
   let collaborationCost = 1000;
   let extraViewsFromSubscribers = 0;
+  let nextVideoWillBeViral = false;
 
   const subscribersElement = document.getElementById('subscribers');
   const viewsElement = document.getElementById('views');
@@ -318,41 +479,32 @@
   const hideBestVideoButton = document.getElementById('hide-best-video');
   const darkModeToggle = document.getElementById('dark-mode-toggle');
   const languageToggle = document.getElementById('language-toggle');
+  const devConsole = document.getElementById('dev-console');
+  const devConsoleToggle = document.getElementById('dev-console-toggle');
+  const devConsoleInput = document.getElementById('dev-console-input');
+  const devConsoleOutput = document.getElementById('dev-console-output');
   let isDarkMode = false;
   let isSpanish = true;
 
-  const adjectives = ['Divertido', 'Épico', 'Loco', 'Inesperado', 'Impactante', 'Lindo', 'Increíble'];
-  const objects = ['Gato', 'Perro', 'Fracaso', 'Éxito', 'Broma', 'Comida', 'Juego'];
-  const places = ['Nueva York', 'Tokio', 'París', 'Londres', 'Los Ángeles', 'Sídney', 'Dubái'];
-  const persons = ['un Millonario', 'un Gamer', 'un Chef', 'un Artista', 'un Científico', 'un Músico', 'un Atleta'];
-  const things = ['Smartphones', 'Redes sociales', 'Antiguo Egipto', 'Exploración espacial', 'IA', 'Física cuántica', 'Memes'];
-  const videoGames = ['Minecraft', 'Fortnite', 'Among Us', 'The Legend of Zelda', 'Call of Duty', 'Animal Crossing', 'Cyberpunk 2077'];
-  const challenges = ['comer solo comida azul', 'hablar en rimas', 'no usar tecnología', 'vivir en una casa del árbol', 'usar mi ropa al revés', 'comunicarme solo a través de danza interpretativa', 'aprender un nuevo idioma'];
-
-  const usernameFormats = [
-    'Xx{object}slayerxX',
-    '{object}Lover6969',
-    '{object}VR',
-    '{object}GT',
-    'TheUltimate{object}69420',
-    '{object}Master420',
-    'Pro{object}Player',
-    '{object}Ninja',
-    'The{object}Whisperer',
-    'Captain{object}',
-    '{object}Lord9000',
-    'Epic{object}Gamer',
-    '{object}Explorer',
-    'Legendary{object}',
-    '{object}Enthusiast',
-    'The{object}Guru',
-    '{object}Wizard',
-    'Mega{object}Fan',
-    '{object}Champion',
-    'Ultimate{object}Boss'
-  ];
-
-  const topics = ['Gaming', 'Belleza', 'Tecnología', 'Comida', 'Viajes', 'Fitness', 'Música', 'DIY', 'Ciencia', 'Comedia'];
+  const devCommands = {
+    'help': 'Muestra todos los comandos disponibles',
+    'addMoney': 'Añade dinero (ejemplo: addMoney 1000)',
+    'addSubs': 'Añade suscriptores (ejemplo: addSubs 1000)',
+    'addViews': 'Añade visualizaciones (ejemplo: addViews 1000)',
+    'setViral': 'Establece probabilidad viral (ejemplo: setViral 50)',
+    'resetStats': 'Reinicia todas las estadísticas a cero',
+    'maxStats': 'Maximiza todas las estadísticas',
+    'addVideos': 'Añade cantidad de videos (ejemplo: addVideos 5)',
+    'setPopularity': 'Establece popularidad del canal (ejemplo: setPopularity 2)',
+    'clearVideos': 'Elimina todos los videos publicados',
+    'setMultiplier': 'Establece multiplicador de vistas (ejemplo: setMultiplier 2)',
+    'toggleViral': 'Hace que el próximo video sea viral',
+    'setName': 'Cambia el nombre del canal (ejemplo: setName NuevoCanal)',
+    'giveBadge': 'Otorga una insignia al canal (ejemplo: giveBadge verified)',
+    'clear': 'Limpia la consola',
+    'hide': 'Oculta/muestra elementos de la interfaz (ejemplo: hide stats)',
+    'hideconsole': 'Oculta/muestra la consola de desarrollador'
+  };
 
   function generateUsername() {
     const format = usernameFormats[Math.floor(Math.random() * usernameFormats.length)];
@@ -386,16 +538,55 @@
       `Cosas que no sabías sobre ${getRandomElement(things)}`,
       `¡Vamos a jugar ${getRandomElement(videoGames)}!`,
       `¡${subscribers.toLocaleString()} especial de suscriptores!`,
-      `¡Intenté ${getRandomElement(challenges)} durante 24 horas!`
+      `¡Intenté ${getRandomElement(challenges)} durante 24 horas!`,
+      `Top 10 momentos en ${getRandomElement(videoGames)}`,
+      `Mi primera vez en ${getRandomElement(places)}`,
+      `24 horas siendo ${getRandomElement(persons)}`,
+      `La verdad sobre ${getRandomElement(things)}`,
+      `El secreto de ${getRandomElement(persons)} revelado`,
+      `No creerás lo que encontré en ${getRandomElement(places)}`,
+      `Tutorial: Cómo ser ${getRandomElement(persons)}`,
+      `Mi colección de ${getRandomElement(things)}`,
+      `${getRandomElement(adjectives)} aventura en ${getRandomElement(places)}`,
+      `Probando ${getRandomElement(things)} por primera vez`,
+      `Rank #1 en ${getRandomElement(videoGames)}`,
+      `Mi rutina como ${getRandomElement(persons)}`,
+      `El mejor jugador de ${getRandomElement(videoGames)}`,
+      `¿Qué hay dentro de ${getRandomElement(things)}?`,
+      `${getRandomElement(adjectives)} tour por mi casa`,
+      `Reaccionando a ${getRandomElement(things)} antiguos`,
+      `Customizando mi ${getRandomElement(things)}`,
+      `La historia jamás contada de ${getRandomElement(persons)}`,
+      `Transformando ${getRandomElement(things)} en arte`,
+      `Mi última vez jugando ${getRandomElement(videoGames)}`,
+      `Speedrun de ${getRandomElement(videoGames)}`,
+      `Tutorial definitivo de ${getRandomElement(things)}`
     ];
     return getRandomElement(titleTypes);
+  }
+
+  function checkBadgeEligibility() {
+    if (subscribers >= 1000000 && totalViews >= 20000) {
+      if (!channelBadges.has('verified')) {
+        addBadge('verified');
+        messageElement.textContent = '¡Felicitaciones! ¡Tu canal ha sido verificado!';
+      }
+    }
   }
 
   function updateStats() {
     subscribersElement.textContent = subscribers.toLocaleString();
     viewsElement.textContent = totalViews.toLocaleString();
     moneyElement.textContent = '$' + money.toFixed(2);
-    postVideoButton.textContent = videoCount === 0 ? 'Publicar video (GRATIS)' : `Publicar video ($${videoCost.toFixed(2)})`;
+
+    if (videoCount === 0) {
+      postVideoButton.textContent = 'Publicar video (GRATIS)';
+    } else if (videoCost >= MAX_VIDEO_COST) {
+      postVideoButton.textContent = `Publicar video ($${MAX_VIDEO_COST.toLocaleString()})`;
+    } else {
+      postVideoButton.textContent = `Publicar video ($${videoCost.toFixed(2)})`;
+    }
+
     postVideoButton.disabled = videoCount > 0 && money < videoCost;
     upgradeViralButton.textContent = `Mejorar probabilidad viral ($${viralUpgradeCost.toFixed(2)})`;
     upgradeViralButton.disabled = money < viralUpgradeCost;
@@ -403,6 +594,8 @@
     viralChanceProgress.style.width = `${(viralChance / 50) * 100}%`;
     collaborateButton.textContent = `Colaborar ($${collaborationCost.toFixed(2)})`;
     collaborateButton.disabled = money < collaborationCost;
+
+    checkBadgeEligibility();
   }
 
   function getTargetViews() {
@@ -413,7 +606,8 @@
 
   function createVideo() {
     const targetViews = getTargetViews();
-    const isViral = Math.random() * 100 < viralChance;
+    const isViral = nextVideoWillBeViral || Math.random() * 100 < viralChance;
+    nextVideoWillBeViral = false;
     return {
       id: videoCount,
       title: generateVideoTitle(),
@@ -432,23 +626,23 @@
   function createVideoItem(video) {
     const videoItem = document.createElement('div');
     videoItem.className = 'video-item';
-    
+
     const videoText = document.createElement('span');
     videoText.textContent = `${video.title} - ${video.views.toLocaleString()} visualizaciones, $${video.earnings.toFixed(2)} ganados${video.isViral || video.isSuperViral ? ' (¡VIRAL!)' : ''}`;
-    
+
     const editButton = document.createElement('button');
     editButton.textContent = 'Editar';
     editButton.className = 'edit-video-button';
     editButton.onclick = () => editVideoTitle(video);
-    
+
     videoItem.appendChild(videoText);
     videoItem.appendChild(editButton);
-    
+
     if (video.isViral || video.isSuperViral) {
       videoItem.classList.add('viral');
     }
     video.element = videoItem;
-    
+
     return videoItem;
   }
 
@@ -505,25 +699,25 @@
 
     const newViews = Math.min(video.views + viewIncrement, Math.ceil(video.targetViews * 1.1));
     const incrementedViews = newViews - video.views;
-    
+
     video.views = newViews;
     totalViews += incrementedViews;
-    
+
     const newSubscribers = Math.floor(incrementedViews / 10);
     subscribers += newSubscribers;
-    
+
     extraViewsFromSubscribers = Math.floor(subscribers / 10);
-    
+
     const newEarnings = incrementedViews * 0.1;
     video.earnings += newEarnings;
     money += newEarnings;
-    
+
     if (video.element) {
       updateVideoDisplay(video);
     }
-    
+
     updateStats();
-    
+
     if (video.views < Math.ceil(video.targetViews * 1.1)) {
       setTimeout(() => updateVideo(video), video.slowed ? 2000 : 1000);
     }
@@ -535,23 +729,23 @@
         money -= videoCost;
       }
       videoCount++;
-      
+
       const video = createVideo();
       videos.push(video);
-      
+
       const videoItem = createVideoItem(video);
       videoList.insertBefore(videoItem, videoList.firstChild);
 
       if (videoCount === 1) {
         videoCost = 15;
       } else {
-        videoCost *= 1.5;
+        videoCost = Math.min(videoCost * 1.5, MAX_VIDEO_COST);
       }
       channelPopularity *= 1.05;
       viewMultiplier *= 1.25;
       messageElement.textContent = `Video "${video.title}" publicado con éxito!${video.isViral ? ' ¡Se volvió viral!' : ''}`;
       updateStats();
-      
+
       setTimeout(() => updateVideo(video), 1000);
     } else {
       messageElement.textContent = "¡No tienes suficiente dinero para publicar un video!";
@@ -606,6 +800,7 @@
   function toggleDarkMode() {
     isDarkMode = !isDarkMode;
     document.body.classList.toggle('dark-mode', isDarkMode);
+    devConsole.classList.toggle('dark-mode', isDarkMode);
     darkModeToggle.textContent = isDarkMode ? 'Modo claro' : 'Modo oscuro';
     localStorage.setItem('darkMode', isDarkMode);
   }
@@ -656,6 +851,167 @@
 
   darkModeToggle.addEventListener('click', toggleDarkMode);
   languageToggle.addEventListener('click', toggleLanguage);
+
+  devConsoleToggle.addEventListener('click', () => {
+    devConsole.style.display = devConsole.style.display === 'none' ? 'block' : 'none';
+  });
+
+  function logToConsole(message) {
+    const logEntry = document.createElement('div');
+    logEntry.textContent = `> ${message}`;
+    devConsoleOutput.appendChild(logEntry);
+    devConsoleOutput.scrollTop = devConsoleOutput.scrollHeight;
+  }
+
+  devConsoleInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      const command = devConsoleInput.value.trim();
+      logToConsole(command);
+
+      const [cmd, ...args] = command.split(' ');
+
+      switch(cmd.toLowerCase()) {
+        case 'help':
+          Object.entries(devCommands).forEach(([cmd, desc]) => {
+            logToConsole(`${cmd}: ${desc}`);
+          });
+          break;
+        case 'addmoney':
+          if (args[0]) {
+            money += parseFloat(args[0]);
+            logToConsole(`Añadido $${args[0]}`);
+            updateStats();
+          }
+          break;
+        case 'addsubs':
+          if (args[0]) {
+            subscribers += parseInt(args[0]);
+            logToConsole(`Añadidos ${args[0]} suscriptores`);
+            updateStats();
+          }
+          break;
+        case 'addviews':
+          if (args[0]) {
+            totalViews += parseInt(args[0]);
+            logToConsole(`Añadidas ${args[0]} visualizaciones`);
+            updateStats();
+          }
+          break;
+        case 'setviral':
+          if (args[0]) {
+            viralChance = Math.min(parseFloat(args[0]), 100);
+            logToConsole(`Probabilidad viral establecida a ${viralChance}%`);
+            updateStats();
+          }
+          break;
+        case 'resetstats':
+          subscribers = 0;
+          totalViews = 0;
+          money = 10;
+          videoCost = 0;
+          videoCount = 0;
+          logToConsole('Estadísticas reiniciadas');
+          updateStats();
+          break;
+        case 'maxstats':
+          subscribers = 1000000;
+          totalViews = 10000000;
+          money = 1000000;
+          viralChance = 50;
+          logToConsole('Estadísticas maximizadas');
+          updateStats();
+          break;
+        case 'addvideos':
+          if (args[0]) {
+            const count = parseInt(args[0]);
+            for(let i = 0; i < count; i++) {
+              postVideo();
+            }
+            logToConsole(`${count} videos añadidos`);
+          }
+          break;
+        case 'setpopularity':
+          if (args[0]) {
+            channelPopularity = parseFloat(args[0]);
+            logToConsole(`Popularidad establecida a ${args[0]}`);
+          }
+          break;
+        case 'clearvideos':
+          videos = [];
+          videoList.innerHTML = '';
+          videoCount = 0;
+          logToConsole('Videos eliminados');
+          break;
+        case 'setmultiplier':
+          if (args[0]) {
+            viewMultiplier = parseFloat(args[0]);
+            logToConsole(`Multiplicador establecido a ${args[0]}`);
+          }
+          break;
+        case 'toggleviral':
+          nextVideoWillBeViral = !nextVideoWillBeViral;
+          logToConsole(`Próximo video ${nextVideoWillBeViral ? 'será' : 'no será'} viral`);
+          break;
+        case 'setname':
+          if (args[0]) {
+            channelName = args.join(' ');
+            channelNameDisplay.textContent = channelName;
+            updateProfilePic();
+            logToConsole(`Nombre del canal cambiado a: ${channelName}`);
+          }
+          break;
+        case 'givebadge':
+          if (args[0] && BADGES[args[0]]) {
+            addBadge(args[0]);
+            logToConsole(`Insignia ${BADGES[args[0]].name} otorgada al canal`);
+          } else {
+            logToConsole('Insignias disponibles: ' + Object.keys(BADGES).join(', '));
+          }
+          break;
+        case 'hide':
+          if (args[0]) {
+            const element = args[0].toLowerCase();
+            switch(element) {
+              case 'stats':
+                document.getElementById('stats').style.display = 
+                  document.getElementById('stats').style.display === 'none' ? 'flex' : 'none';
+                logToConsole(`Elemento stats ${document.getElementById('stats').style.display === 'none' ? 'ocultado' : 'mostrado'}`);
+                break;
+              case 'videos':
+                document.getElementById('video-list').style.display = 
+                  document.getElementById('video-list').style.display === 'none' ? 'block' : 'none';
+                logToConsole(`Lista de videos ${document.getElementById('video-list').style.display === 'none' ? 'ocultada' : 'mostrada'}`);
+                break;
+              case 'shop':
+                document.getElementById('viral-chance-container').style.display = 
+                  document.getElementById('viral-chance-container').style.display === 'none' ? 'block' : 'none';
+                document.getElementById('upgrade-viral').style.display = 
+                  document.getElementById('upgrade-viral').style.display === 'none' ? 'block' : 'none';
+                logToConsole(`Tienda ${document.getElementById('viral-chance-container').style.display === 'none' ? 'ocultada' : 'mostrada'}`);
+                break;
+              case 'profile':
+                document.getElementById('profile').style.display = 
+                  document.getElementById('profile').style.display === 'none' ? 'flex' : 'none';
+                logToConsole(`Perfil ${document.getElementById('profile').style.display === 'none' ? 'ocultado' : 'mostrado'}`);
+                break;
+              default:
+                logToConsole('Elemento no válido. Opciones: stats, videos, shop, profile');
+            }
+          } else {
+            logToConsole('Uso: hide <elemento>. Elementos disponibles: stats, videos, shop, profile');
+          }
+          break;
+        case 'hideconsole':
+          devConsole.style.display = devConsole.style.display === 'none' ? 'block' : 'none';
+          logToConsole(`Consola ${devConsole.style.display === 'none' ? 'ocultada' : 'mostrada'}`);
+          break;
+        default:
+          logToConsole('Comando no reconocido. Escribe "help" para ver los comandos disponibles.');
+      }
+
+      devConsoleInput.value = '';
+    }
+  });
 
   if (localStorage.getItem('darkMode') === 'true') {
     toggleDarkMode();
@@ -726,6 +1082,34 @@
   updateStats();
   updateCreatorList();
   updateLanguage();
+
+  function addBadge(badgeType) {
+    if (BADGES[badgeType]) {
+      channelBadges.add(badgeType);
+      updateBadgeDisplay();
+    }
+  }
+
+  function updateBadgeDisplay() {
+    const badgeContainer = document.getElementById('channel-badges');
+    if (!badgeContainer) {
+      const container = document.createElement('div');
+      container.id = 'channel-badges';
+      container.style.display = 'inline-flex';
+      container.style.marginLeft = '10px';
+      channelNameDisplay.appendChild(container);
+    }
+
+    const container = document.getElementById('channel-badges');
+    container.innerHTML = '';
+
+    channelBadges.forEach(badge => {
+      const badgeEl = document.createElement('span');
+      badgeEl.className = `badge ${badge}-badge`;
+      badgeEl.innerHTML = `${BADGES[badge].icon} ${BADGES[badge].name}`;
+      container.appendChild(badgeEl);
+    });
+  }
 </script>
 <script id="chatBroEmbedCode">
     function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}
