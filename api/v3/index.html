@@ -1,0 +1,518 @@
+<html><head><base href="/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML Code Editor</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Monaco', monospace;
+  }
+
+  body {
+    background: #1e1e1e;
+    color: #fff;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .menu-bar {
+    background: #333;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .button {
+    background: #444;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .button:hover {
+    background: #555;
+  }
+
+  .editor-container {
+    display: flex;
+    flex: 1;
+  }
+
+  .code-editor {
+    flex: 1;
+    background: #1e1e1e;
+    padding: 20px;
+    resize: none;
+    color: #d4d4d4;
+    font-size: 14px;
+    line-height: 1.5;
+    border: none;
+    outline: none;
+    tab-size: 2;
+  }
+
+  .preview {
+    flex: 1;
+    background: white;
+    border-left: 2px solid #333;
+    padding: 20px;
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    background: #007acc;
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .error-marker {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-bottom: 2px wavy red;
+  }
+
+  .error-message {
+    position: absolute;
+    background: #ff4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 1000;
+  }
+
+  .error-status {
+    color: #ff4444;
+  }
+
+  .preview iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background: #333;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+  }
+
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background: #444;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .language-selector {
+    margin-left: auto;
+  }
+
+  .language-button {
+    background: #444;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .language-button:hover {
+    background: #555;
+  }
+
+  .language-icon {
+    width: 16px;
+    height: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="menu-bar">
+    <div class="dropdown">
+      <button class="button" id="fileMenu">Archivo</button>
+      <div class="dropdown-content">
+        <a href="#" onclick="newFile()" id="newFile">Nuevo</a>
+        <a href="#" onclick="openFile()" id="openFile">Abrir</a>
+        <a href="#" onclick="saveFile()" id="saveFile">Guardar</a>
+      </div>
+    </div>
+    
+    <div class="dropdown">
+      <button class="button" id="editMenu">Editar</button>
+      <div class="dropdown-content">
+        <a href="#" onclick="undo()" id="undo">Deshacer</a>
+        <a href="#" onclick="redo()" id="redo">Rehacer</a>
+        <a href="#" onclick="selectAll()" id="selectAll">Seleccionar Todo</a>
+      </div>
+    </div>
+    
+    <div class="dropdown">
+      <button class="button" id="viewMenu">Ver</button>
+      <div class="dropdown-content">
+        <a href="#" onclick="togglePreview()" id="togglePreview">Mostrar/Ocultar Preview</a>
+        <a href="#" onclick="toggleLineNumbers()" id="toggleLineNumbers">Mostrar/Ocultar Números de Línea</a>
+      </div>
+    </div>
+    
+    <button class="button" onclick="runCode()" id="runButton">Ejecutar</button>
+
+    <div class="language-selector">
+      <button class="language-button" onclick="toggleLanguage()">
+        <svg class="language-icon" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+        </svg>
+        <span id="currentLang">ES</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="editor-container">
+    <textarea id="codeEditor" class="code-editor" spellcheck="false"><!DOCTYPE html>
+<html>
+<head>
+  <title>Mi Página</title>
+</head>
+<body>
+  <h1>¡Hola Mundo!</h1>
+</body>
+</html></textarea>
+    <div id="preview" class="preview"></div>
+  </div>
+
+  <div class="status-bar">
+    Línea: <span id="lineCount">1</span>, Columna: <span id="colCount">1</span>
+  </div>
+</div>
+
+<script>
+const codeEditor = document.getElementById('codeEditor');
+const preview = document.getElementById('preview');
+const lineCount = document.getElementById('lineCount');
+const colCount = document.getElementById('colCount');
+
+let history = [];
+let historyIndex = -1;
+let updateTimeout = null;
+
+// Función mejorada para actualizar la vista previa
+function updatePreview() {
+  try {
+    // Crear un iframe temporal para la vista previa
+    const previewFrame = document.createElement('iframe');
+    preview.innerHTML = '';
+    preview.appendChild(previewFrame);
+    
+    // Escribir el contenido en el iframe
+    const previewContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
+    previewContent.open();
+    previewContent.write(codeEditor.value);
+    previewContent.close();
+    
+    // Limpiar errores previos
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+    codeEditor.classList.remove('error-marker');
+    
+    // Validar HTML
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(codeEditor.value, 'text/html');
+    const errors = doc.getElementsByTagName('parsererror');
+    
+    if (errors.length > 0) {
+      showError('Error de sintaxis HTML: ' + errors[0].textContent);
+    }
+    
+    // Validar estructura básica
+    validateHTMLStructure();
+    
+  } catch (error) {
+    showError('Error: ' + error.message);
+  }
+}
+
+// Función para actualizar la vista previa con delay
+function delayedUpdatePreview() {
+  if (updateTimeout) {
+    clearTimeout(updateTimeout);
+  }
+  updateTimeout = setTimeout(updatePreview, 1000);
+}
+
+// Añadir evento keyup para actualizar preview con delay
+codeEditor.addEventListener('input', delayedUpdatePreview);
+
+// Función para validar la estructura HTML
+function validateHTMLStructure() {
+  const code = codeEditor.value.toLowerCase();
+  const errors = [];
+  
+  if (!code.includes('<!doctype html>') && !code.includes('<!DOCTYPE html>')) {
+    errors.push('Falta la declaración DOCTYPE');
+  }
+  if (!code.includes('<html')) {
+    errors.push('Falta la etiqueta <html>');
+  }
+  if (!code.includes('<head')) {
+    errors.push('Falta la etiqueta <head>');
+  }
+  if (!code.includes('<body')) {
+    errors.push('Falta la etiqueta <body>');
+  }
+  
+  // Validar cierre de etiquetas
+  const openTags = code.match(/<[^/][^>]*>/g) || [];
+  const closeTags = code.match(/<\/[^>]+>/g) || [];
+  if (openTags.length !== closeTags.length) {
+    errors.push('Hay etiquetas sin cerrar correctamente');
+  }
+  
+  if (errors.length > 0) {
+    showError(errors.join('. '));
+  }
+}
+
+function showError(message) {
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error-message';
+  errorDiv.textContent = message;
+  
+  // Posicionar mensaje de error
+  const editorRect = codeEditor.getBoundingClientRect();
+  errorDiv.style.top = editorRect.top + 'px';
+  errorDiv.style.left = (editorRect.right + 10) + 'px';
+  
+  document.body.appendChild(errorDiv);
+  codeEditor.classList.add('error-marker');
+  
+  // Actualizar barra de estado
+  const statusBar = document.querySelector('.status-bar');
+  const errorStatus = document.createElement('span');
+  errorStatus.className = 'error-status';
+  errorStatus.textContent = message;
+  statusBar.appendChild(errorStatus);
+  
+  // Eliminar mensaje después de 5 segundos
+  setTimeout(() => {
+    errorDiv.remove();
+    errorStatus.remove();
+  }, 5000);
+}
+
+// Funciones del menú Archivo
+function newFile() {
+  if (confirm('¿Desea crear un nuevo archivo? Los cambios no guardados se perderán.')) {
+    codeEditor.value = '<!DOCTYPE html>\n<html>\n<head>\n  <title>Mi Página</title>\n</head>\n<body>\n  \n</body>\n</html>';
+    updatePreview();
+  }
+}
+
+function openFile() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.html,.htm';
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      codeEditor.value = event.target.result;
+      updatePreview();
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function saveFile() {
+  const blob = new Blob([codeEditor.value], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'index.html';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Funciones del menú Editar
+function saveToHistory() {
+  historyIndex++;
+  history = history.slice(0, historyIndex);
+  history.push(codeEditor.value);
+}
+
+function undo() {
+  if (historyIndex > 0) {
+    historyIndex--;
+    codeEditor.value = history[historyIndex];
+    updatePreview();
+  }
+}
+
+function redo() {
+  if (historyIndex < history.length - 1) {
+    historyIndex++;
+    codeEditor.value = history[historyIndex];
+    updatePreview();
+  }
+}
+
+function selectAll() {
+  codeEditor.select();
+}
+
+// Funciones del menú Ver
+function togglePreview() {
+  preview.style.display = preview.style.display === 'none' ? 'block' : 'none';
+}
+
+function toggleLineNumbers() {
+  // Implementación de números de línea
+  // Esta es una versión simplificada
+  const hasLineNumbers = codeEditor.classList.contains('with-line-numbers');
+  if (hasLineNumbers) {
+    codeEditor.classList.remove('with-line-numbers');
+  } else {
+    codeEditor.classList.add('with-line-numbers');
+  }
+}
+
+// Mejorar la función runCode
+function runCode() {
+  try {
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
+    newWindow.document.write(codeEditor.value);
+    newWindow.document.close();
+  } catch (error) {
+    showError('Error al ejecutar: ' + error.message);
+  }
+}
+
+// Actualizar contador de línea y columna
+codeEditor.addEventListener('keyup', (e) => {
+  const pos = codeEditor.selectionStart;
+  const text = codeEditor.value.substring(0, pos);
+  const lines = text.split('\n');
+  const currentLine = lines.length;
+  const currentCol = lines[lines.length - 1].length + 1;
+  
+  lineCount.textContent = currentLine;
+  colCount.textContent = currentCol;
+});
+
+// Soporte para la tecla Tab
+codeEditor.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const start = codeEditor.selectionStart;
+    const end = codeEditor.selectionEnd;
+    codeEditor.value = codeEditor.value.substring(0, start) + '  ' + codeEditor.value.substring(end);
+    codeEditor.selectionStart = codeEditor.selectionEnd = start + 2;
+  }
+});
+
+// Auto-guardado
+setInterval(() => {
+  localStorage.setItem('editorContent', codeEditor.value);
+}, 30000);
+
+// Cargar contenido guardado
+const savedContent = localStorage.getItem('editorContent');
+if (savedContent) {
+  codeEditor.value = savedContent;
+  updatePreview();
+}
+
+// Inicialización
+updatePreview();
+saveToHistory();
+
+const translations = {
+  es: {
+    fileMenu: 'Archivo',
+    newFile: 'Nuevo',
+    openFile: 'Abrir',
+    saveFile: 'Guardar',
+    editMenu: 'Editar',
+    undo: 'Deshacer',
+    redo: 'Rehacer',
+    selectAll: 'Seleccionar Todo',
+    viewMenu: 'Ver',
+    togglePreview: 'Mostrar/Ocultar Preview',
+    toggleLineNumbers: 'Mostrar/Ocultar Números de Línea',
+    runButton: 'Ejecutar'
+  },
+  en: {
+    fileMenu: 'File',
+    newFile: 'New',
+    openFile: 'Open',
+    saveFile: 'Save',
+    editMenu: 'Edit',
+    undo: 'Undo',
+    redo: 'Redo',
+    selectAll: 'Select All',
+    viewMenu: 'View',
+    togglePreview: 'Toggle Preview',
+    toggleLineNumbers: 'Toggle Line Numbers',
+    runButton: 'Run'
+  }
+};
+
+let currentLanguage = 'es';
+
+function toggleLanguage() {
+  currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
+  document.getElementById('currentLang').textContent = currentLanguage.toUpperCase();
+  updateLanguage();
+}
+
+function updateLanguage() {
+  const lang = translations[currentLanguage];
+  for (const [key, value] of Object.entries(lang)) {
+    const element = document.getElementById(key);
+    if (element) {
+      element.textContent = value;
+    }
+  }
+  localStorage.setItem('editorLanguage', currentLanguage);
+}
+
+// Load saved language preference
+const savedLanguage = localStorage.getItem('editorLanguage');
+if (savedLanguage) {
+  currentLanguage = savedLanguage;
+  document.getElementById('currentLang').textContent = currentLanguage.toUpperCase();
+  updateLanguage();
+}
+</script>
+</body>
+</html>
