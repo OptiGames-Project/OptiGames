@@ -1,7 +1,7 @@
 <html><head><base href="/">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HTML Code Editor</title>
+<title>Editor de Código HTML</title>
 <style>
   * {
     margin: 0;
@@ -65,39 +65,19 @@
     background: white;
     border-left: 2px solid #333;
     padding: 20px;
-  }
-
-  .status-bar {
-    display: flex;
-    justify-content: space-between;
-    background: #007acc;
-    padding: 5px 10px;
-    font-size: 12px;
-  }
-
-  .error-marker {
-    background-color: rgba(255, 0, 0, 0.2);
-    border-bottom: 2px wavy red;
-  }
-
-  .error-message {
-    position: absolute;
-    background: #ff4444;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    z-index: 1000;
-  }
-
-  .error-status {
-    color: #ff4444;
+    overflow: auto;
   }
 
   .preview iframe {
     width: 100%;
     height: 100%;
     border: none;
+  }
+
+  .status-bar {
+    background: #007acc;
+    padding: 5px 10px;
+    font-size: 12px;
   }
 
   .dropdown {
@@ -130,30 +110,26 @@
     display: block;
   }
 
-  .language-selector {
+  /* Language switcher styles */
+  .language-switch {
+    display: flex;
+    align-items: center;
     margin-left: auto;
   }
 
-  .language-button {
+  .language-switch button {
+    padding: 4px 8px;
     background: #444;
     border: none;
     color: white;
-    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    font-size: 12px;
+    margin-left: 5px;
   }
 
-  .language-button:hover {
-    background: #555;
-  }
-
-  .language-icon {
-    width: 16px;
-    height: 16px;
+  .language-switch button.active {
+    background: #007acc;
   }
 </style>
 </head>
@@ -161,40 +137,36 @@
 <div class="container">
   <div class="menu-bar">
     <div class="dropdown">
-      <button class="button" id="fileMenu">Archivo</button>
+      <button class="button" id="fileMenuBtn">Archivo</button>
       <div class="dropdown-content">
-        <a href="#" onclick="newFile()" id="newFile">Nuevo</a>
-        <a href="#" onclick="openFile()" id="openFile">Abrir</a>
-        <a href="#" onclick="saveFile()" id="saveFile">Guardar</a>
+        <a href="javascript:void(0)" onclick="newFile()" id="newFileBtn">Nuevo</a>
+        <a href="javascript:void(0)" onclick="openFile()" id="openFileBtn">Abrir</a>
+        <a href="javascript:void(0)" onclick="saveFile()" id="saveFileBtn">Guardar</a>
       </div>
     </div>
     
     <div class="dropdown">
-      <button class="button" id="editMenu">Editar</button>
+      <button class="button" id="editMenuBtn">Editar</button>
       <div class="dropdown-content">
-        <a href="#" onclick="undo()" id="undo">Deshacer</a>
-        <a href="#" onclick="redo()" id="redo">Rehacer</a>
-        <a href="#" onclick="selectAll()" id="selectAll">Seleccionar Todo</a>
+        <a href="javascript:void(0)" onclick="undo()" id="undoBtn">Deshacer</a>
+        <a href="javascript:void(0)" onclick="redo()" id="redoBtn">Rehacer</a>
+        <a href="javascript:void(0)" onclick="selectAll()" id="selectAllBtn">Seleccionar Todo</a>
       </div>
     </div>
     
     <div class="dropdown">
-      <button class="button" id="viewMenu">Ver</button>
+      <button class="button" id="viewMenuBtn">Ver</button>
       <div class="dropdown-content">
-        <a href="#" onclick="togglePreview()" id="togglePreview">Mostrar/Ocultar Preview</a>
-        <a href="#" onclick="toggleLineNumbers()" id="toggleLineNumbers">Mostrar/Ocultar Números de Línea</a>
+        <a href="javascript:void(0)" onclick="togglePreview()" id="togglePreviewBtn">Mostrar/Ocultar Preview</a>
+        <a href="javascript:void(0)" onclick="toggleLineNumbers()" id="toggleLineNumbersBtn">Mostrar/Ocultar Números de Línea</a>
       </div>
     </div>
     
-    <button class="button" onclick="runCode()" id="runButton">Ejecutar</button>
+    <button class="button" onclick="runCode()" id="runBtn">Ejecutar</button>
 
-    <div class="language-selector">
-      <button class="language-button" onclick="toggleLanguage()">
-        <svg class="language-icon" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
-        </svg>
-        <span id="currentLang">ES</span>
-      </button>
+    <div class="language-switch">
+      <button onclick="changeLanguage('es')" id="esBtn" class="active">ES</button>
+      <button onclick="changeLanguage('en')" id="enBtn">EN</button>
     </div>
   </div>
 
@@ -208,7 +180,9 @@
   <h1>¡Hola Mundo!</h1>
 </body>
 </html></textarea>
-    <div id="preview" class="preview"></div>
+    <div id="preview" class="preview">
+      <iframe id="previewFrame"></iframe>
+    </div>
   </div>
 
   <div class="status-bar">
@@ -219,115 +193,47 @@
 <script>
 const codeEditor = document.getElementById('codeEditor');
 const preview = document.getElementById('preview');
+const previewFrame = document.getElementById('previewFrame');
 const lineCount = document.getElementById('lineCount');
 const colCount = document.getElementById('colCount');
 
 let history = [];
 let historyIndex = -1;
-let updateTimeout = null;
 
-// Función mejorada para actualizar la vista previa
+// Función para actualizar la vista previa
 function updatePreview() {
-  try {
-    // Crear un iframe temporal para la vista previa
-    const previewFrame = document.createElement('iframe');
-    preview.innerHTML = '';
-    preview.appendChild(previewFrame);
+  const iframe = document.getElementById('previewFrame');
+  const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+  
+  // Reset the iframe content
+  iframeDoc.open();
+  iframeDoc.write(codeEditor.value);
+  iframeDoc.close();
+  
+  // Handle any script execution
+  const scripts = iframeDoc.getElementsByTagName('script');
+  for(let i = 0; i < scripts.length; i++) {
+    const script = scripts[i];
+    const newScript = iframeDoc.createElement('script');
     
-    // Escribir el contenido en el iframe
-    const previewContent = previewFrame.contentDocument || previewFrame.contentWindow.document;
-    previewContent.open();
-    previewContent.write(codeEditor.value);
-    previewContent.close();
+    // Copy script attributes
+    Array.from(script.attributes).forEach(attr => {
+      newScript.setAttribute(attr.name, attr.value);
+    });
     
-    // Limpiar errores previos
-    document.querySelectorAll('.error-message').forEach(el => el.remove());
-    codeEditor.classList.remove('error-marker');
+    // Copy script content
+    newScript.textContent = script.textContent;
     
-    // Validar HTML
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(codeEditor.value, 'text/html');
-    const errors = doc.getElementsByTagName('parsererror');
-    
-    if (errors.length > 0) {
-      showError('Error de sintaxis HTML: ' + errors[0].textContent);
-    }
-    
-    // Validar estructura básica
-    validateHTMLStructure();
-    
-  } catch (error) {
-    showError('Error: ' + error.message);
+    // Replace old script with new one
+    script.parentNode.replaceChild(newScript, script);
   }
 }
 
-// Función para actualizar la vista previa con delay
-function delayedUpdatePreview() {
-  if (updateTimeout) {
-    clearTimeout(updateTimeout);
-  }
-  updateTimeout = setTimeout(updatePreview, 1000);
-}
-
-// Añadir evento keyup para actualizar preview con delay
-codeEditor.addEventListener('input', delayedUpdatePreview);
-
-// Función para validar la estructura HTML
-function validateHTMLStructure() {
-  const code = codeEditor.value.toLowerCase();
-  const errors = [];
-  
-  if (!code.includes('<!doctype html>') && !code.includes('<!DOCTYPE html>')) {
-    errors.push('Falta la declaración DOCTYPE');
-  }
-  if (!code.includes('<html')) {
-    errors.push('Falta la etiqueta <html>');
-  }
-  if (!code.includes('<head')) {
-    errors.push('Falta la etiqueta <head>');
-  }
-  if (!code.includes('<body')) {
-    errors.push('Falta la etiqueta <body>');
-  }
-  
-  // Validar cierre de etiquetas
-  const openTags = code.match(/<[^/][^>]*>/g) || [];
-  const closeTags = code.match(/<\/[^>]+>/g) || [];
-  if (openTags.length !== closeTags.length) {
-    errors.push('Hay etiquetas sin cerrar correctamente');
-  }
-  
-  if (errors.length > 0) {
-    showError(errors.join('. '));
-  }
-}
-
-function showError(message) {
-  const errorDiv = document.createElement('div');
-  errorDiv.className = 'error-message';
-  errorDiv.textContent = message;
-  
-  // Posicionar mensaje de error
-  const editorRect = codeEditor.getBoundingClientRect();
-  errorDiv.style.top = editorRect.top + 'px';
-  errorDiv.style.left = (editorRect.right + 10) + 'px';
-  
-  document.body.appendChild(errorDiv);
-  codeEditor.classList.add('error-marker');
-  
-  // Actualizar barra de estado
-  const statusBar = document.querySelector('.status-bar');
-  const errorStatus = document.createElement('span');
-  errorStatus.className = 'error-status';
-  errorStatus.textContent = message;
-  statusBar.appendChild(errorStatus);
-  
-  // Eliminar mensaje después de 5 segundos
-  setTimeout(() => {
-    errorDiv.remove();
-    errorStatus.remove();
-  }, 5000);
-}
+// Actualizar la vista previa cuando se escribe
+codeEditor.addEventListener('input', () => {
+  updatePreview();
+  saveToHistory();
+});
 
 // Funciones del menú Archivo
 function newFile() {
@@ -406,15 +312,11 @@ function toggleLineNumbers() {
   }
 }
 
-// Mejorar la función runCode
+// Función para ejecutar el código
 function runCode() {
-  try {
-    const newWindow = window.open('', '_blank', 'width=800,height=600');
-    newWindow.document.write(codeEditor.value);
-    newWindow.document.close();
-  } catch (error) {
-    showError('Error al ejecutar: ' + error.message);
-  }
+  const newWindow = window.open('', '_blank');
+  newWindow.document.write(codeEditor.value);
+  newWindow.document.close();
 }
 
 // Actualizar contador de línea y columna
@@ -437,82 +339,81 @@ codeEditor.addEventListener('keydown', (e) => {
     const end = codeEditor.selectionEnd;
     codeEditor.value = codeEditor.value.substring(0, start) + '  ' + codeEditor.value.substring(end);
     codeEditor.selectionStart = codeEditor.selectionEnd = start + 2;
+    updatePreview();
   }
 });
 
-// Auto-guardado
-setInterval(() => {
-  localStorage.setItem('editorContent', codeEditor.value);
-}, 30000);
+// Language translations
+const translations = {
+  en: {
+    fileMenu: "File",
+    newFile: "New",
+    openFile: "Open",
+    saveFile: "Save",
+    editMenu: "Edit",
+    undo: "Undo",
+    redo: "Redo",
+    selectAll: "Select All",
+    viewMenu: "View",
+    togglePreview: "Toggle Preview",
+    toggleLineNumbers: "Toggle Line Numbers",
+    run: "Run",
+    line: "Line",
+    column: "Column"
+  },
+  es: {
+    fileMenu: "Archivo",
+    newFile: "Nuevo",
+    openFile: "Abrir",
+    saveFile: "Guardar",
+    editMenu: "Editar",
+    undo: "Deshacer",
+    redo: "Rehacer",
+    selectAll: "Seleccionar Todo",
+    viewMenu: "Ver",
+    togglePreview: "Mostrar/Ocultar Preview",
+    toggleLineNumbers: "Mostrar/Ocultar Números de Línea",
+    run: "Ejecutar",
+    line: "Línea",
+    column: "Columna"
+  }
+};
 
-// Cargar contenido guardado
-const savedContent = localStorage.getItem('editorContent');
-if (savedContent) {
-  codeEditor.value = savedContent;
-  updatePreview();
+function changeLanguage(lang) {
+  // Update button states
+  document.getElementById('esBtn').classList.toggle('active', lang === 'es');
+  document.getElementById('enBtn').classList.toggle('active', lang === 'en');
+
+  // Update all text content
+  document.getElementById('fileMenuBtn').textContent = translations[lang].fileMenu;
+  document.getElementById('newFileBtn').textContent = translations[lang].newFile;
+  document.getElementById('openFileBtn').textContent = translations[lang].openFile;
+  document.getElementById('saveFileBtn').textContent = translations[lang].saveFile;
+  
+  document.getElementById('editMenuBtn').textContent = translations[lang].editMenu;
+  document.getElementById('undoBtn').textContent = translations[lang].undo;
+  document.getElementById('redoBtn').textContent = translations[lang].redo;
+  document.getElementById('selectAllBtn').textContent = translations[lang].selectAll;
+  
+  document.getElementById('viewMenuBtn').textContent = translations[lang].viewMenu;
+  document.getElementById('togglePreviewBtn').textContent = translations[lang].togglePreview;
+  document.getElementById('toggleLineNumbersBtn').textContent = translations[lang].toggleLineNumbers;
+  
+  document.getElementById('runBtn').textContent = translations[lang].run;
+
+  // Save language preference
+  localStorage.setItem('editorLanguage', lang);
 }
+
+// Load saved language preference on startup
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('editorLanguage') || 'es';
+  changeLanguage(savedLang);
+});
 
 // Inicialización
 updatePreview();
 saveToHistory();
-
-const translations = {
-  es: {
-    fileMenu: 'Archivo',
-    newFile: 'Nuevo',
-    openFile: 'Abrir',
-    saveFile: 'Guardar',
-    editMenu: 'Editar',
-    undo: 'Deshacer',
-    redo: 'Rehacer',
-    selectAll: 'Seleccionar Todo',
-    viewMenu: 'Ver',
-    togglePreview: 'Mostrar/Ocultar Preview',
-    toggleLineNumbers: 'Mostrar/Ocultar Números de Línea',
-    runButton: 'Ejecutar'
-  },
-  en: {
-    fileMenu: 'File',
-    newFile: 'New',
-    openFile: 'Open',
-    saveFile: 'Save',
-    editMenu: 'Edit',
-    undo: 'Undo',
-    redo: 'Redo',
-    selectAll: 'Select All',
-    viewMenu: 'View',
-    togglePreview: 'Toggle Preview',
-    toggleLineNumbers: 'Toggle Line Numbers',
-    runButton: 'Run'
-  }
-};
-
-let currentLanguage = 'es';
-
-function toggleLanguage() {
-  currentLanguage = currentLanguage === 'es' ? 'en' : 'es';
-  document.getElementById('currentLang').textContent = currentLanguage.toUpperCase();
-  updateLanguage();
-}
-
-function updateLanguage() {
-  const lang = translations[currentLanguage];
-  for (const [key, value] of Object.entries(lang)) {
-    const element = document.getElementById(key);
-    if (element) {
-      element.textContent = value;
-    }
-  }
-  localStorage.setItem('editorLanguage', currentLanguage);
-}
-
-// Load saved language preference
-const savedLanguage = localStorage.getItem('editorLanguage');
-if (savedLanguage) {
-  currentLanguage = savedLanguage;
-  document.getElementById('currentLang').textContent = currentLanguage.toUpperCase();
-  updateLanguage();
-}
 </script>
 </body>
 </html>
