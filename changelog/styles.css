@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+header.dark-mode {
+    background-color: #1e1e1e;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.added {
+    color: green;
+    font-weight: bold;
+}
+
+.removed {
+    color: red;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px; /* Este margen aumenta el espacio antes del pie de página */
+    text-align: center;
+}
+
+footer a {
+    color: blue;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
