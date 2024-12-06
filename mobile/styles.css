@@ -1,0 +1,380 @@
+<style>
+
+:root {
+--tabWidth: 180px;
+--tabRotate: -1deg;
+} 
+
+.ad {
+background-image: url('https://raw.githubusercontent.com/OptiJuegos/OptiJuegos.github.io/refs/heads/solo/ad.png'););
+background-color: rgba(20, 20, 20, 0.4);
+border-right: 2px solid rgba(0, 0, 0, 0.25);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.2);   
+position: fixed;
+top: 150px;
+right: 10px;
+width: 120px;
+height: 250px;
+}
+  
+body {
+background-color: rgba(0, 0, 0, 1);
+background-image: url(data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUEAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAA0gAAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAMAAAABsAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgSAAAAAAABNjb2xybmNseAABAA0ABoAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAA1BtZGF0EgAKCTgdr/WwgIaDSDK4BhGQAYYYYUC+AzVHlD2AWIKAILIzY+CgJdC6/D6kytJYNBIcGZrkLnjL7ll/p/Hn+ncBrIiUgjUmj8C/QT5IzJbmDDo73dUzakD5kTreTNEbfDH29Y9BrlGb+uxMZn93ZirhXbYfh41sN6EHgEYN1KH/hbCrDGnhkeQHqUX3CTo2lJFDTTIqlzphnjZZK0uKRLvp4OLUcnFxFmCley5Cm6wOX8zTMOCxZtjlIY7csHsqTwbcwjufdJLkas4xKtTSVvfQt6cNgVuuJfIA10lwOttBJezq6nZt46K+ouLmTHCADQ+Be+pbisG8myL8mIYPeAJnQ9LDupeoub9lEGoeTUfuccqROClGpEQc/f7SCbyjspqX/2l/+ARKE6ePYs71zbeVoeuEb3LpHFW3xCszMS9SHEffAMY8jwL2UilE30gTW1tjR5Qh58ZvHXvzU9RPqG4ZfJRBKO9ykdYxtc8TXEHPoN5l1qg1Vvii2Sv5RfGDEGQ1jXqOMQsRXbBxVZI65cuwmdpOSo3yTY5+Xqa6sMBE9S9jl8k4SUO9hTlvRepQpjdL21DRsR8qsrsQr+/mfvnyqj2e+LYPwfcgoV7EzDBCf+3rB6xp7MZj2V+H551OyinyieuQW9Onbs8mlXctrGnugLuQ/YdkefqdRI69rXmP1cWl+k89SDmqwCqACzjKxcz2jYW9Zz8lP9RbdEGrANlaTrYT9Qntm+/ygkszFPqPZg5/vG5DXUhqyWbBdHLAF5pPKz78wKk8qGvVgDlG9XVzw2F1TXq0nlLEsoBR7i+PMb+fdEY/K5L9XOTKq1KgpKKhIoj+XTjbdjxxRdYHAG7OXR7j/O/6SCmxLw0EUgHVdDUw0qyZx/nF0Ov/k2GTXr0KhEfjz6PP3a1qs8SCJQaiOmkjfZ6xPVdDNRz1huFBpBsSSZiUXcBltlOClGAw9kxaxnOrz2UOTgBBENIbO85QUEYY5Ak9w3p1BFE4Mf1aeYzUObzo71bP8jeWFDDuHmikOa5ZC/9ekRdBS97xYQHAtpkzGbWBzRLCRD8sNDi7xpkLP8/FEzuwSSEd141dcRj3s6EoWS5/bLcnDoEgw21QO3/YcVAg);
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+height: 100vh;
+margin: 0;
+font-family: Inter;
+font-weight: 500;
+line-height: normal;
+user-select: none;
+overflow: hidden;
+}
+
+
+
+/* ------------------------ Header ------------------------ */
+
+#header {
+background-color: rgba(20, 20, 20, 0.5);
+width: 296px;
+height: 100%;
+top: 0px;
+position: absolute;
+display: flex;
+border-bottom: none;
+border-right: 2px solid rgba(0, 0, 0, 0.25);
+box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+width: 270px;
+height: 45px;
+top: 14px;
+left: 13px;
+position: absolute;
+}
+
+#tabContainer {
+height: 32px;
+margin-top: 90px;
+position: absolute;
+left: 59px;
+transform: none;
+display: block;
+width: 110 + "px";
+margin-top: "96px"
+}
+
+.tabButton {
+background-color: rgba(0, 0, 0, 0);
+color: rgba(255, 255, 255, 1);
+width: 180px;
+top: 0px;
+height: 100%;
+margin: 0px 2.5px 8px 2.5px;
+border-radius: 4px;
+font-size: 18px;
+font-weight: 600;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+transition: background-color 0.08s ease-out, box-shadow 0.08s ease-out, transform 0.08s ease-out;
+}
+
+.tabButton:hover {
+box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.02);
+}
+
+#socialContainer {
+width: 168px;
+height: 32px;
+top: auto;
+right: auto;
+bottom: 20px;
+left: 64px;
+position: absolute;
+display: flex;
+}
+.socialButton {
+background-repeat: no-repeat;
+background-position: center;
+width: 50%;
+height: 100%;
+transition: 0.1s ease-out;
+}
+.socialButton:hover {
+filter: brightness(80%);
+transform: rotate(-7deg) translateY(0.5px);
+}
+.socialButton:active {
+filter: brightness(70%);
+}
+
+
+
+/* ------------------------ Main window ------------------------ */
+
+#mainContainer {
+width: 440px;
+height: 575px;
+top: 50%;
+left: calc(50% + 149px);
+position: absolute;
+transform: translateY(-50%) translateX(-50%);
+}
+
+.box {
+background-color: rgba(20, 20, 20, 0.5);
+width: 440px;
+position: absolute;
+border-radius: 8px;
+box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25);
+}
+.icon {
+padding-top: 16px;
+padding-left: 16px;
+}
+.boxLabel {
+color: rgba(255, 255, 255, 1);
+text-align: center;
+padding-top: 17.5px;
+padding-left: 10px;
+font-size: 17px;
+position: absolute;
+display: inline-block;
+}
+
+#mainBox {
+height: 451px;
+box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25), 0px 0px 16px 4px rgba(0, 0, 0, 0.25);
+}
+
+.listBox {
+width: 408px;
+height: 381px;
+margin: 16px;
+margin-top: 10px;
+}
+/* This is separated so that the styles don't get overrided by the transparent scrollbar */
+.entryContainer {
+width: 99%;
+height: calc(100% - 15px);
+margin-top: 2px;
+padding-top: 2px;
+padding-bottom: 9px;
+overflow-x: hidden;
+overflow-y: auto;
+scrollbar-width: thin;
+scrollbar-color: transparent transparent;
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+.entryContainer {
+scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+scrollbar-width: var(--scrollbar-width);
+}
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+.entryContainer::-webkit-scrollbar-thumb {
+background-color: rgba(136, 136, 136, 1);
+}
+.entryContainer::-webkit-scrollbar-thumb:hover {
+background-color: rgba(85, 85, 85, 1);
+}
+.entryContainer::-webkit-scrollbar {
+width: 7px;
+}
+}
+
+.textContainer {
+display: none;
+width: 95%;
+color: rgba(255, 255, 255, 1);
+padding-left: 12px;
+padding-top: 5px;
+user-select: text;
+padding-bottom: 6px;
+}
+a[link] {
+text-decoration: underline;
+color: rgba(0, 132, 125, 0.79);
+}
+a[link]:hover {
+color: rgba(0, 132, 126, 1);
+}
+
+
+.listEntry {
+background-color: rgba(0, 0, 0, 0);
+width: 379px;
+height: 24px;
+margin: 7px 0px 0px 11px;
+padding-top: 4px;
+padding-left: 7px;
+border-radius: 4px;
+color: rgba(255, 255, 255, 1);
+font-size: 16px;
+display: block;
+outline: 0px solid rgba(255, 255, 255, 0.17);
+}
+.listEntry:hover {
+background-color: rgba(69, 69, 69, 0.13);
+}
+.listEntry:active {
+animation: outlineAnimation 0.15s forwards;
+}
+@keyframes outlineAnimation {
+0% {
+outline: 0px solid rgba(255, 255, 255, 0.17);
+}
+75% {
+outline: 0px solid rgba(255, 255, 255, 0.17);
+}
+100% {
+outline: 2px solid rgba(255, 255, 255, 0.17);
+}
+}
+
+.downloadBox {
+height: 108px;
+bottom: 0px;
+box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25), 0px 0px 16px 4px #00000033;
+}
+
+.downloadButton {
+color: rgba(255, 255, 255, 1);
+bottom: 0px;
+width: 196px;
+height: 36px;
+margin: 16px;
+position: absolute;
+border-radius: 4px;
+cursor: pointer;
+font-family: Inter;
+font-weight: 500;
+font-size: 17px;
+text-decoration: none;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: width 0.1s ease, background-color 0.05s ease, opacity 0.2s ease, outline 0.05s ease;
+}
+
+.download1 {
+background-color: rgba(0, 132, 126, 1);
+right: 0px;
+outline: 0px solid rgba(0, 132, 126, 1);
+}
+.download1:hover {
+background-color: rgba(0, 132, 126, 0.56)
+}
+.download1:active {
+background-color: rgba(0, 132, 126, 0.31);
+outline: 3px solid rgba(0, 132, 126, 1);
+}
+
+.download2 {
+background-color: rgba(47, 67, 66, 1);
+left: 52px;
+outline: 0px solid rgba(47, 67, 66, 1);
+}
+.download2:hover {
+background-color: rgba(47, 67, 66, 0.56);
+}
+.download2:active {
+background-color: rgba(47, 67, 66, 0.31);
+outline: 3px solid rgba(47, 67, 66, 1);
+}
+
+.info {
+background-color: rgba(255, 255, 255, 0.10);
+background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzYiIGhlaWdodD0iMzYiIHZpZXdCb3g9IjAgMCAzNiAzNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkZyYW1lIj4KPHBhdGggaWQ9IlZlY3RvciIgZD0iTTEzLjYzNSAxMy41QzEzLjk4NzcgMTIuNDk3NSAxNC42ODM3IDExLjY1MjIgMTUuNTk5OSAxMS4xMTM3QzE2LjUxNjEgMTAuNTc1MiAxNy41OTM0IDEwLjM3ODQgMTguNjQwOCAxMC41NTgxQzE5LjY4ODIgMTAuNzM3NyAyMC42MzgyIDExLjI4MjMgMjEuMzIyNiAxMi4wOTUzQzIyLjAwNyAxMi45MDgzIDIyLjM4MTYgMTMuOTM3MyAyMi4zOCAxNUMyMi4zOCAxOCAxNy44OCAxOS41IDE3Ljg4IDE5LjUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMi4yNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTE4IDI1LjVIMTguMDE1IiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjIuMjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L2c+Cjwvc3ZnPgo=);
+background-repeat: no-repeat;
+background-position: center;
+width: 36px;
+left: 0px;
+outline: 0px solid rgba(255, 255, 255, 0.05);
+transition: 0.2s ease, outline 0.05s ease;
+}
+.info:hover {
+background-color: rgba(255, 255, 255, 0.07);
+}
+.info:active {
+background-color: rgba(255, 255, 255, 0.1);
+outline: 3px solid rgba(255, 255, 255, 0.05);
+}
+
+
+
+.loading {
+color: rgba(255, 255, 255, 1);
+width: auto;
+height: auto;
+padding: 17px;
+padding-top: 13px;
+padding-bottom: 11px;
+bottom: 16px;
+right: 16px;
+position: absolute;
+font-size: 17px;
+font-weight: 500;
+line-height: 1.75;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25), 0px 0px 16px 4px rgba(0, 0, 0, 0.2);
+transition: 1s ease;
+}
+
+#serverInfo {
+display: none;
+color: rgba(255, 255, 255, 1);
+position: absolute;
+user-select: text;
+bottom: 65px;
+left: 13px;
+overflow-x: hidden;
+overflow-y: auto;
+padding: 2px 16px;
+width: 240px;
+height: 140px;
+box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25), 0px 0px 16px 4px rgba(0, 0, 0, 0.2);
+justify-content: center;
+font-size: 16px;
+scrollbar-width: thin;
+}
+
+/* Modern browsers with `scrollbar-*` support */
+@supports (scrollbar-width: auto) {
+#serverInfo {
+scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+scrollbar-width: var(--scrollbar-width);
+}
+}
+
+/* Legacy browsers with `::-webkit-scrollbar-*` support */
+@supports selector(::-webkit-scrollbar) {
+#serverInfo::-webkit-scrollbar-thumb {
+background-color: rgba(136, 136, 136, 1);
+}
+#serverInfo::-webkit-scrollbar-thumb:hover {
+background-color: rgba(85, 85, 85, 1);
+}
+#serverInfo::-webkit-scrollbar {
+width: 7px;
+}
+}
+
+hr {
+margin: 6px 0px 0px;
+}
+</style>
