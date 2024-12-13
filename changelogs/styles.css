@@ -1,0 +1,199 @@
+/* Estilos generales del cuerpo en modo oscuro */
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos del título principal */
+h1 {
+    text-align: center;
+    color: #f39c12;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* Botón de ocultar/mostrar */
+button {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #121212;
+    background-color: #f39c12;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #e08e0b;
+}
+
+/* Lista de cambios */
+.changelog {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Elementos individuales de la lista de cambios */
+.changelog li {
+    background-color: #282828;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    border-left: 5px solid #f39c12;
+    transition: transform 0.3s;
+}
+
+.changelog li:hover {
+    transform: scale(1.02);
+}
+
+/* Títulos de cada versión */
+.changelog h2 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #f39c12;
+}
+
+/* Descripción de los cambios */
+.changelog p {
+    margin: 10px 0 0;
+    font-size: 1.1em;
+    color: #cccccc;
+}
+
+/* Ocultar versiones anteriores por defecto */
+.hidden {
+    display: none;
+}
+
+/* Estilos para las etiquetas */
+.tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 0.9em;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+/* Estilos generales y Media Queries se mantienen igual */
+
+/* Estilo mejorado para la etiqueta Corregido */
+.tag.fixed {
+    background: linear-gradient(to right, #28a745, #218838);
+    color: #fff;
+    border: 1px solid #1e7e34;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+/* Estilo mejorado para la etiqueta Añadido */
+.tag.added {
+    background: linear-gradient(to right, #17a2b8, #138496);
+    color: #fff;
+    border: 1px solid #117a8b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+/* Estilo mejorado para la etiqueta Eliminado */
+.tag.removed {
+    background: linear-gradient(to right, #dc3545, #c82333);
+    color: #fff;
+    border: 1px solid #bd2130;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+/* Estilo mejorado para la etiqueta Mejora */
+.tag.improved {
+    background: linear-gradient(to right, #f1c40f, #d4ac0d);
+    color: #121212;
+    border: 1px solid #b7950b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+
+
+/* Estilos generales aquí */
+
+/* Para dispositivos móviles */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
+        padding: 10px;
+    }
+    .container {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    button {
+        font-size: 0.9em;
+        padding: 8px 15px;
+    }
+    .changelog li {
+        padding: 15px;
+        margin: 10px 0;
+    }
+}
+
+/* Para tablets */
+@media (min-width: 768px) and (max-width: 1023px) {
+    body {
+        font-size: 16px;
+        padding: 15px;
+    }
+    .container {
+        padding: 15px;
+    }
+    h1 {
+        font-size: 2.2em;
+    }
+    button {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    .changelog li {
+        padding: 18px;
+        margin: 12px 0;
+    }
+}
+
+/* Para dispositivos de escritorio y superiores */
+@media (min-width: 1024px) {
+    body {
+        font-size: 18px;
+        padding: 20px;
+    }
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2.5em;
+    }
+    button {
+        font-size: 1.1em;
+        padding: 12px 25px;
+    }
+    .changelog li {
+        padding: 20px;
+        margin: 15px 0;
+    }
+}

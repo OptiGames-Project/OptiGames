@@ -7,8 +7,7 @@ OptiGames es una plataforma donde puedes instalar juegos optimizados, programas,
 Visita nuestra página web: [OptiGames](https://optigames-project.github.io/OptiGames/)
 
 ## Lista de Páginas
-1. El Especial de Diciembre: [OptiGames - Especial](https://optigames-project.github.io/OptiGames/events/diciembre.html)
-2. Para Movil: [OptiGames para Movil](https://optigames-project.github.io/OptiGames/mobile)
+1. OptiGames para Movil: [OptiGames para Movil](https://optigames-project.github.io/OptiGames/mobile)
 
 ## Contribuciones
 
