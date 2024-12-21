@@ -128,6 +128,14 @@ button:hover {
     border-radius: 4px;
 }
 
+/* Estilo mejorado para la etiqueta Mejora */
+.tag.important {
+    background: linear-gradient(to right, #123f4b, #123f4b);
+    color: #fff;
+    border: 1px solid #123f4b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
 
 
 /* Estilos generales aquí */
