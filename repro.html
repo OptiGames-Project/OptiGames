@@ -1,150 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>OptiGames</title>
-
-<style>
-body {
-background-image: url(data:image/avif;base64,AAAAHGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZgAAAOptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABwaWN0AAAAAAAAAAAAAAAAAAAAAA5waXRtAAAAAAABAAAAImlsb2MAAAAAREAAAQABAAAAAAEOAAEAAAAAAAABbAAAACNpaW5mAAAAAAABAAAAFWluZmUCAAAAAAEAAGF2MDEAAAAAamlwcnAAAABLaXBjbwAAABNjb2xybmNseAABAA0ABoAAAAAMYXYxQ4EADAAAAAAUaXNwZQAAAAAAAADAAAAAbAAAABBwaXhpAAAAAAMICAgAAAAXaXBtYQAAAAAAAAABAAEEAYIDBAAAAXRtZGF0EgAKCRgdr/WyQENBoTLcAhIAAgoogWHAsVVDFvAfN9em2xzpOTiejd7y+Ot7D+VIJawIynbdAfyhRfQupmL43c5PJYBAkUxb8XdxDhdRXOZUxaDfjsTO5eKyoid5YLpC+sr1nAVEZcviOmhy5NIbigpU7lldCxhjhLwYAu8TwPRzgo9YujV+0g2FQmuAA8WBYpPAgBnKsR6TEtoiFFSPvpClbmomSzujg2sWBzYKl07uldD9xarCyJZdhelT+b9Y+Ep61D6zVzERV5GHQt0nRTqsnTn+tlYw46J4oUmzXMga0o+8dy29COYh5IskMMLjGfugQWEf6nDfxQCTMgzPZJ0hxXCgXr9kjLytfo41KQMoJwicowjMSw+J2WEvXJnS6IpYrbp+fcNX4jtCh4QGlyBrmtS2MujOrIEhU5eCeui7KQdWkYu1T0YVKaMFNt5+nZ0vMAF/o/ehuvlWf8KWgXoL2kuYvy5aICJbIA);
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center;
-font-family: Arial, sans-serif;
-margin: 0;
-padding: 0;
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-overflow-x: hidden;
-overflow-y: auto;
-scrollbar-width: thin;
-scrollbar-color: transparent transparent;
-}
-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-color: white;
-width: 100%;
-padding: 10px 20px;
-border-bottom: 1px solid #ddd;
-background-color: rgba(0, 0, 0, 0.4);
-
-}
-.content {
-flex: 1;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 100%;
-margin-bottom: 30px;
-}
-.iframe-container {
-width: 832px;
-height: 469px;
-overflow: hidden;
-margin-top: 50px;
-border-radius: 8px;
-}
-iframe {
-width: 832px;
-height: 469px;
-border: none;
-border-radius: 8px;
-}
-.reload-button {
-font-family: 'Roboto', sans-serif;
-background-color: rgba(20, 20, 20, 0.5);
-color: white;
-border: none;
-padding: 10px 90px;
-text-align: center;
-cursor: pointer;
-margin: 25px 0;
-box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.25);
-border-radius: 8px;
-}
-footer {
-text-align: center;
-width: 100%; 
-font-size: 12px;
-color: white;
-padding: 5px 0;
-border-top: 2px solid white;
-background-color: rgba(0, 0, 0, 0.4);
-}
-.social-links {
-margin: 10px 0;
-}
-.social-links a {
-text-decoration: none;
-color: #4a6ea9;
-}
-
-.logo {
-width: 270px;
-height: 45px;
-top: 11px;
-left: 5px;
-position: absolute;
-}
-
-.logo2 {
-top: 6px;
-right: 13px;
-width: 50px;
-height: 50px;
-position: absolute;
-display: flex;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiGames ya está cerrado</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 3em;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-<h1></h1>
-<img class="logo2" draggable=false src="data:image/avif;base64,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">
-</header>
-<div class="content">
-<div class="iframe-container">
-<iframe id="embedded-iframe" src="" title=""></iframe>
-</div>
-<button class="reload-button" onclick="refreshPage()">Recargar Reproductor</button>
-</div>
-<footer>
-<div class="social-links">
-<h3><a href="https://optigames-project.github.io/OptiGames/">https://optigames-project.github.io/OptiGames/</a></h3>
-</div>
-<h3>La optimizacion es escencial para el progreso</h3>
-</footer>
-
-<script>
-function getParameterByName(name) {
-const url = window.location.href;
-name = name.replace(/[\[\]]/g, '\\$&');
-const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-results = regex.exec(url);
-if (!results) return null;
-if (!results[2]) return '';
-return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-var getURL = getParameterByName('get');
-if (getURL) {
-document.getElementById('embedded-iframe').src = `https://optigames-project.github.io/host/otro/player.html#${getURL}`;
-} else {
-document.getElementById('embedded-iframe').src = 'https://optigames-project.github.io/host/otro/player.html';
-}
-
-function refreshPage() {
-window.location.reload(); 
-}
-
-function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}ChatbroLoader({encodedChatId: '18y6a'});
-
-function ChatbroLoader(chats,async){async=!1!==async;var params={embedChatsParameters:chats instanceof Array?chats:[chats],lang:navigator.language||navigator.userLanguage,needLoadCode:'undefined'==typeof Chatbro,embedParamsVersion:localStorage.embedParamsVersion,chatbroScriptVersion:localStorage.chatbroScriptVersion},xhr=new XMLHttpRequest;xhr.withCredentials=!0,xhr.onload=function(){eval(xhr.responseText)},xhr.onerror=function(){console.error('Chatbro loading error')},xhr.open('GET','https://www.chatbro.com/embed.js?'+btoa(unescape(encodeURIComponent(JSON.stringify(params)))),async),xhr.send()}/* Chatbro Widget Embed Code End */ChatbroLoader({encodedChatId: '1914N'});
-
-</script>
+    <h1>Ya está cerrado</h1>
 </body>
 </html>

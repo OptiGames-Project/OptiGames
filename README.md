@@ -1,4 +1,6 @@
-# OptiGames
+# Ya está cerrado 
+
+# OptiGames antiguo
 
 OptiGames es una plataforma donde puedes instalar juegos optimizados, programas, sistemas operativos, series y minijuegos.
 
