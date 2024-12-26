@@ -19,14 +19,53 @@
             font-size: 3em;
             text-align: center;
         }
+		.timer {
+            margin-top: 15px;
+            font-size: 1.2em;
+            color: #ffffff;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ffffff;
+            background-color: #ff6347;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #ff4500;
+        }
         @media (max-width: 600px) {
             h1 {
                 font-size: 2em;
             }
         }
     </style>
+	<meta http-equiv="refresh" content="5;url=https://pixelforgestudios2.github.io/">
+    <script>
+        let timeLeft = 5;
+        function updateTimer() {
+            document.getElementById('countdown').innerText = timeLeft + " segundos";
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 1000);
+            }
+        }
+        window.onload = function() {
+            updateTimer();
+        };
+    </script>
 </head>
 <body>
     <h1>Ya está cerrado</h1>
+	<div class="timer">
+        <p>Redirigiendo en <span id="countdown">5 segundos</span></p>
+        <a href="https://pixelforgestudios2.github.io/" class="button">Ir ahora</a>
+        </div>
+    </div>
 </body>
 </html>
